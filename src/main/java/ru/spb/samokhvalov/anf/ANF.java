@@ -2,18 +2,26 @@ package ru.spb.samokhvalov.anf;
 
 import lombok.extern.log4j.Log4j;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by ivan on 09.05.14.
  */
 @Log4j
 public class ANF {
-    private Integer number;
+    private long number;
     private long degree;
-
+    private List<TableOfTrue> tableOfTrue;
     private int variables;
 
+    public ANF(long number, int variables) {
+        this.number = number;
+        this.variables = variables;
+    }
+
     public ANF() {
-        System.out.println("Success!");
+        log.info("Success!");
     }
 
     public ANF(Integer number){
@@ -23,7 +31,7 @@ public class ANF {
     }
 
     public void printHexNumber(){
-        log.info("HexViev of number: " + Integer.toHexString(number));
+        log.info("HexViev of number: " + Long.toHexString(number));
         log.info("degree: " + degree);
     }
 
@@ -32,7 +40,7 @@ public class ANF {
         log.info("degree: " + degree);
     }
 
-    public Integer getNumber() {
+    public long getNumber() {
         return number;
     }
 
@@ -40,5 +48,15 @@ public class ANF {
         return degree;
     }
 
+    public void fillTableOfTrue(){
+        Long max = Long.rotateLeft(1, variables) - 1;
+        tableOfTrue = new ArrayList<>();
+        for (long i = 0; i <= max; i++){
+            tableOfTrue.add(new TableOfTrue(i, (number & (Long.rotateLeft(1, new Long(i).intValue()))) != 0, variables));
+        }
+    }
 
+    public List<TableOfTrue> getTableOfTrue() {
+        return tableOfTrue;
+    }
 }
