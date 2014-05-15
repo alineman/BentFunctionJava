@@ -3,3 +3,8 @@ target/
 *.iml
 *.class
 *.jar
+*.aux
+*.dvi
+*.latex~
+*.log
+*.pdf
