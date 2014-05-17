@@ -3,6 +3,8 @@
 \usepackage [T2A] {fontenc}
 \usepackage{amsmath}
 \usepackage{amsfonts}
+\usepackage[dvips]{graphicx}
+\graphicspath{{pic/}}
 \frenchspacing
 \begin{document}
 \section*{План}
@@ -69,7 +71,7 @@ $$
 \end{enumerate}
 $f(x,y,z) = 1 \oplus y \oplus xz$
 
-Степерь монома(будева одночлена) $x^N = \prod\limits_{i\in N}x_i$, определяется, как $|N|$, число элементова подмножества $N$
+Степерь монома(булева одночлена) $x^N = \prod\limits_{i\in N}x_i$, определяется, как $|N|$, число элементова подмножества $N$
 
 Алгебраичесая степнь булевой функции f  --- степень АНФ, как многочлана от нескольких переменных
 
@@ -88,7 +90,32 @@ $$
 Для бент-функций все коэффициенты Уолша-Адамара равны $\pm 2^{n/2}$ 
 
 \subsection{Алгоритм быстрого преобразования Уолша}
+Простой рекурсивный алгоритм:
+\begin{enumerate}
+\item В качестве начального вектора берем вектор экспонент значений функции
+\item Делим этот вектор на две половины $H_1, H_2$
+\item Первую половину вектора получаем суммируя значения $H_1, H_2$
+\item Вторую половину вектора получаем, вычитая из $H_1, H_2$
+\item Далее, к каждой половине применеям рекурсивно этот же алгоритм до тех пор, пока у нас не останется вектор длиной 1.
+\end{enumerate}
+Например, для функции с вектором значений $(1,0,0,1,0,0,1,1)$ получится следующая последовательность шагов:
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+1&-1	-1	-2	2	0	0	0\\
+1&-1	1	0	0	0	0	0\\
+0&1	1	2	-2	-4	0	-4\\
+0&1	-1	0	0	0	-4	-4\\
+1&-1	-1	0	0	0	0	0\\
+0&	1	-1	-2	2	0	0	0\\
+0&	1	1	0	0	0	-4	-4\\
+1&	-1	1	2	-2	-4	0	4\\
 
+\hline
+\end{tabular}
+#\begin{figure}[h]
+#\includegraphics[width=1\linewidth]{walsh}
+#\caption{Иллюстрирование }
+#\end{figure}
 \section{Конструирование бент-функций}
 \subsection{Виды классификации бент-функций}
 \subsection{Оценка числа бент-функций}
@@ -98,5 +125,7 @@ $$
 \subsection{Класс Мэйорана—МакФарланда}
 \subsection{Partial Spreads}
 \subsection{Алгебраические конструкции}
-
+	\begin{thebibliography}{wiki}
+	\bibitem{rest}http://en.wikipedia.org/wiki/Fast\_Walsh-Hadamard\_transform
+	\end{thebibliography}
 \end{document}
