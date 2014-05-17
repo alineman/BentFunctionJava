@@ -15,6 +15,7 @@ public class ANF {
     private List<TableOfTrue> tableOfTrue;
     private int variables;
     private int[] walshW;
+    private boolean isBent = false;
 
     public ANF(long number, int variables) {
         this.number = number;
@@ -25,6 +26,7 @@ public class ANF {
         log.info("Success!");
     }
 
+    @Deprecated
     public ANF(Integer number) {
         this.number = number;
         double deg = Math.ceil(Math.log(number) / Math.log(4));
@@ -58,6 +60,8 @@ public class ANF {
     }
 
     public List<TableOfTrue> getTableOfTrue() {
+        if (tableOfTrue == null)
+            fillTableOfTrue();
         return tableOfTrue;
     }
 
@@ -100,4 +104,24 @@ public class ANF {
         return result;
     }
 
+    public boolean validateIsBent(){
+        if (walshW == null)
+            fillWalshW();
+        isBent = true;
+        int max = Math.abs(walshW[0]);
+        for (int i: walshW) {
+            if (max != Math.abs(i)) {
+                isBent = false;
+                break;
+            }
+        }
+
+        return isBent;
+    }
+
+    public boolean isBent() {
+        if (walshW == null)
+            return validateIsBent();
+        return isBent;
+    }
 }

@@ -110,6 +110,19 @@ public class ANFTest {
         }
     }
 
+    @Test
+    public void testValidateIsBent(){
+        assert !anfNumber1.isBent();
+        assert  anfNumber2.isBent();
+        ANF wrongAnf = new ANF(60811, 4);
+        assert wrongAnf.isBent();
+
+//        ANF simpleAnf = new ANF((60811l<<16)+30856l,8);
+        ANF simpleAnf = new ANF(235,4); // 1837826048
+        log.info(Integer.toBinaryString(60811));
+        log.info(Integer.toBinaryString(30856));
+        assert simpleAnf.isBent();
+    }
 
     private void sortArray(int[] input) {
         for (int i = input.length - 1; i >= 2; i--) {
