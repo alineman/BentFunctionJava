@@ -108,7 +108,7 @@ public class ANF {
         if (walshW == null)
             fillWalshW();
         isBent = true;
-        int max = Math.abs(walshW[0]);
+        int max = 1<<(variables >> 1);
         for (int i: walshW) {
             if (max != Math.abs(i)) {
                 isBent = false;
