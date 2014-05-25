@@ -3,7 +3,6 @@ package ru.spb.samokhvalov;
 
 import lombok.extern.log4j.Log4j;
 import ru.spb.samokhvalov.anf.ANF;
-import ru.spb.samokhvalov.anf.TableOfTrue;
 
 /**
  * Created by ivan on 09.05.14.
@@ -25,12 +24,13 @@ public class MainClass {
 //        variable.printHexNumber();
 //        variable.printDecNumber();
         int k = 0;
-        for (int i = 0; i < 16; i++) {
-            ANF temp = new ANF(i, 2);
+        for (int i = 0; i < 65536; i++) {
+            ANF temp = new ANF(i, 4);
             if (temp.isBent()) {
-                for (TableOfTrue j : temp.getTableOfTrue())
-                    log.info(j.getVariableString() + " | " + j.getValue());
-                log.info("\n");
+//                for (TableOfTrue j : temp.getTableOfTrue())
+//                    log.info(j.getVariableString() + " | " + j.getValue());
+//                log.info("\n");
+                temp.printHexNumber();
                 k++;
             }
         }

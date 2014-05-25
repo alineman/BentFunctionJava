@@ -10,11 +10,15 @@ import java.util.List;
  */
 @Log4j
 public class ANF {
+    private static final String oplus = "\u2295";
+    private static final String cdot = "\u22c5";
+
     private long number;
     private long degree;
     private List<TableOfTrue> tableOfTrue;
     private int variables;
     private int[] walshW;
+    private int[] anf;
     private boolean isBent = false;
 
     public ANF(long number, int variables) {
@@ -35,7 +39,7 @@ public class ANF {
 
     public void printHexNumber() {
         log.info("HexViev of number: " + Long.toHexString(number));
-        log.info("degree: " + degree);
+//        log.info("degree: " + degree);
     }
 
     public void printDecNumber() {
@@ -104,12 +108,12 @@ public class ANF {
         return result;
     }
 
-    public boolean validateIsBent(){
+    public boolean validateIsBent() {
         if (walshW == null)
             fillWalshW();
         isBent = true;
-        int max = 1<<(variables >> 1);
-        for (int i: walshW) {
+        int max = 1 << (variables >> 1);
+        for (int i : walshW) {
             if (max != Math.abs(i)) {
                 isBent = false;
                 break;
@@ -123,5 +127,17 @@ public class ANF {
         if (walshW == null)
             return validateIsBent();
         return isBent;
+    }
+
+    public int[] getAnf() {
+        if (anf.length == 0)
+            fillANFTable();
+        return anf;
+    }
+
+    public void fillANFTable() {
+        if (tableOfTrue == null)
+            fillTableOfTrue();
+
     }
 }
