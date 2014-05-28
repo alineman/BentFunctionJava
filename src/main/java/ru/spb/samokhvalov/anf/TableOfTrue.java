@@ -12,11 +12,18 @@ public class TableOfTrue {
     private boolean value;
     private int size=0;
 
+    public TableOfTrue(TableOfTrue tableOfTrue){
+        this.variable = tableOfTrue.getVariable();
+        this.value = tableOfTrue.getValue();
+        this.size = tableOfTrue.getSize();
+    }
+
     public TableOfTrue(long variables, boolean value, int n) {
         this.variable = variables;
         this.value = value;
         this.size = n;
     }
+    @Deprecated
     public TableOfTrue(long variables, boolean value) {
         this.variable = variables;
         this.value = value;
@@ -27,6 +34,10 @@ public class TableOfTrue {
 
     public String getVariableString(){
         return StringUtils.leftPad(Long.toBinaryString(variable), size, '0');
+    }
+
+    public int getSize() {
+        return size;
     }
 
     public boolean getValue() {

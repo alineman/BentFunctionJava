@@ -4,6 +4,10 @@ import lombok.extern.log4j.Log4j;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created by ivan on 10.05.14.
  */
@@ -22,7 +26,11 @@ public class ANFTest {
             2, -6, 2, 2,
             -6, 2, -6, 10
     };
-
+    private static final List<String> anfView1 = Arrays.asList(
+            "00001", "00010", "00101", "01001",
+            "01010", "01110", "01111", "10001",
+            "10010", "10011", "11001", "11010",
+            "11011", "11101", "11110", "11111");
     private ANF anfNumber2;
     private static final long number2 = 30856;
     private static final int variables2 = 4;
@@ -32,9 +40,11 @@ public class ANFTest {
             4, 4, 4, -4,
             -4, -4, -4, 4
     };
+    private static final List<String> anfView2 = Arrays.asList("0011", "1100");
 
     private static final String oplus = "\u2295";
     private static final String cdot = "\u22c5";
+
     @Before
     public void prepareVariables() {
         anfNumber2 = new ANF(number2, variables2);
@@ -113,18 +123,27 @@ public class ANFTest {
     }
 
     @Test
-    public void testValidateIsBent(){
+    public void testValidateIsBent() {
         assert !anfNumber1.isBent();
-        assert  anfNumber2.isBent();
+        assert anfNumber2.isBent();
         ANF wrongAnf = new ANF(60811, 4);
         assert wrongAnf.isBent();
 
 //        ANF simpleAnf = new ANF((60811l<<16)+30856l,8);
-        ANF simpleAnf = new ANF(235,4); // 1837826048
+        ANF simpleAnf = new ANF(235, 4); // 1837826048
         log.info(Integer.toBinaryString(60811));
         log.info(Integer.toBinaryString(30856));
 //        assert simpleAnf.isBent();
     }
+
+    @Test
+    public void testMakeANF() {
+
+        assert anfView2.containsAll(anfNumber2.getAnf());
+        assert anfView1.containsAll(anfNumber1.getAnf());
+        assert !anfView1.containsAll(anfNumber2.getAnf());
+    }
+
 
     private void sortArray(int[] input) {
         for (int i = input.length - 1; i >= 2; i--) {

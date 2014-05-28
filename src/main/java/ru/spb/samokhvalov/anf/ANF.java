@@ -18,7 +18,7 @@ public class ANF {
     private List<TableOfTrue> tableOfTrue;
     private int variables;
     private int[] walshW;
-    private int[] anf;
+    private List<String> anf;
     private boolean isBent = false;
 
     public ANF(long number, int variables) {
@@ -129,8 +129,8 @@ public class ANF {
         return isBent;
     }
 
-    public int[] getAnf() {
-        if (anf.length == 0)
+    public List<String> getAnf() {
+        if (anf == null || anf.size() == 0)
             fillANFTable();
         return anf;
     }
@@ -139,5 +139,44 @@ public class ANF {
         if (tableOfTrue == null)
             fillTableOfTrue();
 
+//        List<TableOfTrue> temp = new ArrayList<>();
+        boolean[] temp = new boolean[(int) Long.rotateLeft(1, variables)];
+        int i=0;
+        for (TableOfTrue ofTrue : getTableOfTrue()) {
+            temp[i++]=ofTrue.getValue();
+        }
+        boolean[] result = fillAnf(temp);
+        anf = new ArrayList<>();
+        for(i = 0; i < result.length; i++){
+            if (result[i])
+                anf.add(getTableOfTrue().get(i).getVariableString());
+        }
     }
+
+    private boolean[] fillAnf(boolean[] booleans){
+        int size = booleans.length;
+        int half = size >> 1;
+        if (size ==2)
+            return new boolean[]{booleans[0], (booleans[0] ^ booleans[1])};
+
+        boolean[] temp1 = new boolean[half];
+        boolean[] temp2 = new boolean[half];
+
+        for (int i = 0; i<half; i++){
+            temp1[i] = booleans[i];
+            temp2[i] = booleans[i] ^ booleans[i+half];
+        }
+        temp1 = fillAnf(temp1);
+        temp2 = fillAnf(temp2);
+
+        boolean[] result = new boolean[size];
+
+        for(int j = 0; j < half; j++){
+            result[j] = temp1[j];
+            result[j+half] = temp2[j];
+        }
+
+        return result;
+    }
+
 }
