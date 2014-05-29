@@ -20,7 +20,7 @@ public class ANF {
     private int[] walshW;
     private List<String> anf;
     private boolean isBent = false;
-
+    private final String symbols = "ABCDEFGHIKLMNOPQRSTVXYZ";
     public ANF(long number, int variables) {
         this.number = number;
         this.variables = variables;
@@ -129,6 +129,16 @@ public class ANF {
         return isBent;
     }
 
+    public List<String> getHumanAnf(){
+        if (anf == null || anf.size() == 0)
+            fillANFTable();
+        List<String> result = new ArrayList<>();
+        for (String s:anf){
+            result.add(humanView(s));
+        }
+        return result;
+    }
+
     public List<String> getAnf() {
         if (anf == null || anf.size() == 0)
             fillANFTable();
@@ -177,6 +187,15 @@ public class ANF {
         }
 
         return result;
+    }
+
+    public String humanView(String code){
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < code.length(); i++){
+            if (code.charAt(i)=='1')
+                stringBuilder.append(symbols.charAt(i));
+        }
+        return stringBuilder.toString();
     }
 
 }

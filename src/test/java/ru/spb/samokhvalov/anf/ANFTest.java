@@ -1,6 +1,7 @@
 package ru.spb.samokhvalov.anf;
 
 import lombok.extern.log4j.Log4j;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -160,5 +161,16 @@ public class ANFTest {
                 break;
             }
         }
+    }
+
+    @Test
+    public void testHumanView(){
+        Assert.assertEquals("BD", anfNumber1.humanView("01010"));
+    }
+
+    @Test
+    public void testGetHumanAnf(){
+       log.info(anfNumber1.getHumanAnf());
+       log.info(anfNumber2.getHumanAnf());
     }
 }
