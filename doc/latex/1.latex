@@ -4,7 +4,17 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{wrapfig}
-\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}\frenchspacing
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\renewcommand\appendixname{Приложение}
+\makeatletter
+\def\redeflsection{\def\l@section{\@dottedtocline{1}{1.5em}{7.8em}}}
+\renewcommand\appendix{\par
+\setcounter{section}{0}%
+\setcounter{subsection}{0}%
+\def\@chapapp{\appendixname}%
+\addtocontents{toc}{\protect\redeflsection}
+\def\thesection{\appendixname\hspace{0.2cm}\@arabic\c@section}}
+\makeatother
 \begin{document}
 \section*{План}
 \begin{enumerate}
@@ -203,6 +213,7 @@ $100 = 4!*4 + 3!*0 + 2!*2 + 1!*0 = 96 + 4$; положим $t_i$ — коэфф�
 {\bf Способ 1.} Пусть $f(x)$ --- бент функция развмерности $n$, $i\in{0,1,2,3}$ - перестановка из двух элементов.
 Тогда $F_f(y,x)=f(x)\oplus m_i(y)$ --- бент-функция, размерности $n+2$.
 Построим пример для $f(x)=0111(7_{16}), i=2:(10)$. Получили новую бент-функцию $f(y,x)=7877_{16}$\\
+\begin{center}
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
 $y$ & $x$ & $f(x)$ & $m_i(y)$ & $F_f(y,x)=f(x)\oplus m_i(y)$ & $W_f(y,x)$\\
@@ -227,18 +238,53 @@ $y$ & $x$ & $f(x)$ & $m_i(y)$ & $F_f(y,x)=f(x)\oplus m_i(y)$ & $W_f(y,x)$\\
 11 & 10 & 1 & 0 & 1 &  -4 \\
 11 & 11 & 0 & 0 & 0 &  4 \\
 \hline
-\end{tabular}\\
+\end{tabular}
+\end{center}
 {\bf Способ 2.} Пусть $f_0(x), f_1(x)$ --- бент-функции размерности $n$,такие что $f_0(x)\ne f_1(x)$. $i\in{0,1,2,3}$ - перестановка из двух элементов.
 Тогда 
 $$G_{f_0,f_1}(y,x) = (m_{i_0}(y)\oplus m_{i_1}(y)) \cdot f_0(x)\oplus m_{i_2}(y)\cdot f_1(x)\oplus m_{i_3}(y)\cdot(1\oplus f_1(x))$$
---- бент-функция, размерности $n+2$.
+--- бент-функция, размерности $n+2$. Построим пример, взяв в качесте $f_0(x)=0111_2$, и $f_1(x)=1101_2$. 
+В итоге получим бент-функцию $G_{f_0,f_1}(y,x) = 2c77_{16}$\\
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+$y,x$ &$f_0(x)$&$m_{i_0}(y)$&$m_{i_1}(y)$&$(m_{i_0}(y)\oplus m_{i_1}(y))\cdot f_0(x)$&$m_{i_2}(y)\cdot f_1(x)$&$m_{i_3}(y)\cdot(1\oplus f_1(x))$&$G_{f_0f_1}(y,x)$\\
+\hline
+00,00 & 1 & 1 & 0 & 1 & 0 & 0 & 1   \\
+00,01 & 1 & 1 & 0 & 1 & 0 & 0 & 1   \\
+00,10 & 1 & 1 & 0 & 1 & 0 & 0 & 1   \\
+00,11 & 0 & 1 & 0 & 0 & 0 & 0 & 0   \\
+\hline
+01,00 & 1 & 0 & 1 & 1 & 0 & 0 & 1   \\
+01,01 & 1 & 0 & 1 & 1 & 0 & 0 & 1   \\
+01,10 & 1 & 0 & 1 & 1 & 0 & 0 & 1   \\
+01,11 & 0 & 0 & 1 & 0 & 0 & 0 & 0   \\
+\hline
+10,00 & 1 & 0 & 0 & 0 & 1 & 0 & 1   \\
+10,01 & 1 & 0 & 0 & 0 & 0 & 0 & 0   \\
+10,11 & 0 & 0 & 0 & 0 & 1 & 0 & 1   \\
+10,10 & 1 & 0 & 0 & 0 & 1 & 0 & 1   \\
+\hline
+11,00 & 1 & 0 & 0 & 0 & 0 & 0 & 0   \\
+11,01 & 1 & 0 & 0 & 0 & 0 & 0 & 1   \\
+11,10 & 1 & 0 & 0 & 0 & 0 & 1 & 0   \\
+11,11 & 0 & 0 & 0 & 0 & 0 & 0 & 0   \\
+\hline
+\end{tabular}\\
+В\cite{Climent} доказывается, что если число бент-функций от $n$ переменных равно $v_n$, то такими приведенными способами, для $n+2$ 
+переменных мы можем получить следующее число новых бент-функций:
+$$
+4v_n+{{4!}\over{2!}}v_n{{v_n-2}\over2}
+$$
+
 \subsection{Класс Мэйорана—МакФарланда}
 \label{McFarland}
-Способ конструирования~\cite[стр. 28]{Tokareva} бент функций от $2n$ переменных: $f(u',u'')=\langle u',h(u'')\rangle\oplus g(u'')$, 
-где $g(u'')$ --- какая-то известная бент-функция(размерности $n/2$), 
+Способ конструирования~\cite[стр. 28]{Tokareva} бент функций для $2n$ переменных, на основании бент-функции от $n$ переменных:
+$f(u',u'')=\langle u',h(u'')\rangle\oplus g(u'')$, 
+где $g(u'')$ --- какая-то известная бент-функция, 
 $h(u'')$ --- перстановка вектора переменных $u''$, 
-$u',u''$ --- размерности $n/2$. Пример, как мы строим из функции $g(u'')=0111(7_{16})$ новую $f(u',u'')=1db7_{16}$:\\
-\begin{tabular}{|c|c|c|c|c|c|c|}
+$u',u''$ --- размерности $n$. Пример, как мы строим из функции $g(u'')=0111(7_{16})$ новую $f(u',u'')=1db7_{16}$:\\
+\begin{center}
+\begin{tabular}[center]{|c|c|c|c|c|c|c|}
 \hline
 $u'$ & $u''$ & $g(u'')$ & $h(u'')$ & $\langle u',h(u'')\rangle$ & $\langle u',h(u'')\rangle\oplus g(u'')$ & $W_f(u',u'')$\\
 \hline
@@ -263,6 +309,7 @@ $u'$ & $u''$ & $g(u'')$ & $h(u'')$ & $\langle u',h(u'')\rangle$ & $\langle u',h(
 11 & 11 & 0 & 11 & 0 & 0 & 4\\
 \hline
 \end{tabular}
+\end{center}
 \subsection{Partial Spreads}
 \subsection{Алгебраические конструкции}
 \begin{thebibliography}{99}
@@ -273,6 +320,10 @@ LAMBERT Academic Publishing (Saarbrucken, Germany), 2011. ISBN: 978-3-8433-0904-
 \bibitem{Agafonova}Агафонова, Криптографические свойства нелинейных булевых функций (Доклад на сайте dha.spb.ru, http://dha.spb.ru/PDF/cryptoBOOLEAN.pdf )
 \bibitem{wikiPi}http://ru.wikipedia.org/wiki/Система\_счисления
 \bibitem{Climent}Climent J.-J., Garcia F. J., Requena V. On the construction of bent
-functions of n +2 variables from bent functions of n variables. 
+functions of $n+2$ variables from bent functions of n variables. 
 \end{thebibliography}
+\clearpage
+\appendix
+\section{Список всех бент-функций от четырех переменных}
+356, 359, 365, 36a, 395, 39a, 3a6, 3a9, 536, 539, 563, 56c, 593, 59c, 5c6, 5c9, 635, 63a, 653, 65c, 6a3, 6ac, 6c5, 6ca, 935, 93a, 953, 95c, 9a3, 9ac, 9c5, 9ca, a36, a39, a63, a6c, a93, a9c, ac6, ac9, c56, c59, c65, c6a, c95, c9a, ca6, ca9, 111e, 112d, 114b, 1178, 1187, 11b4, 11d2, 11e1, 121d, 122e, 1247, 1274, 128b, 12b8, 12d1, 12e2, 141b, 1427, 144e, 1472, 148d, 14b1, 14d8, 14e4, 1718, 1724, 1742, 177e, 1781, 17bd, 17db, 17e7, 1817, 182b, 184d, 1871, 188e, 18b2, 18d4, 18e8, 1b14, 1b28, 1b41, 1b7d, 1b82, 1bbe, 1bd7, 1beb, 1d12, 1d21, 1d48, 1d7b, 1d84, 1db7, 1dde, 1ded, 1e11, 1e22, 1e44, 1e77, 1e88, 1ebb, 1edd, 1eee, 211d, 212e, 2147, 2174, 218b, 21b8, 21d1, 21e2, 221e, 222d, 224b, 2278, 2287, 22b4, 22d2, 22e1, 2417, 242b, 244d, 2471, 248e, 24b2, 24d4, 24e8, 2714, 2728, 2741, 277d, 2782, 27be, 27d7, 27eb, 281b, 2827, 284e, 2872, 288d, 28b1, 28d8, 28e4, 2b18, 2b24, 2b42, 2b7e, 2b81, 2bbd, 2bdb, 2be7, 2d11, 2d22, 2d44, 2d77, 2d88, 2dbb, 2ddd, 2dee, 2e12, 2e21, 2e48, 2e7b, 2e84, 2eb7, 2ede, 2eed, 3056, 3059, 3065, 306a, 3095, 309a, 30a6, 30a9, 3506, 3509, 3560, 356f, 3590, 359f, 35f6, 35f9, 3605, 360a, 3650, 365f, 36a0, 36af, 36f5, 36fa, 3905, 390a, 3950, 395f, 39a0, 39af, 39f5, 39fa, 3a06, 3a09, 3a60, 3a6f, 3a90, 3a9f, 3af6, 3af9, 3f56, 3f59, 3f65, 3f6a, 3f95, 3f9a, 3fa6, 3fa9, 411b, 4127, 414e, 4172, 418d, 41b1, 41d8, 41e4, 4217, 422b, 424d, 4271, 428e, 42b2, 42d4, 42e8, 441e, 442d, 444b, 4478, 4487, 44b4, 44d2, 44e1, 4712, 4721, 4748, 477b, 4784, 47b7, 47de, 47ed, 481d, 482e, 4847, 4874, 488b, 48b8, 48d1, 48e2, 4b11, 4b22, 4b44, 4b77, 4b88, 4bbb, 4bdd, 4bee, 4d18, 4d24, 4d42, 4d7e, 4d81, 4dbd, 4ddb, 4de7, 4e14, 4e28, 4e41, 4e7d, 4e82, 4ebe, 4ed7, 4eeb, 5036, 5039, 5063, 506c, 5093, 509c, 50c6, 50c9, 5306, 5309, 5360, 536f, 5390, 539f, 53f6, 53f9, 5603, 560c, 5630, 563f, 56c0, 56cf, 56f3, 56fc, 5903, 590c, 5930, 593f, 59c0, 59cf, 59f3, 59fc, 5c06, 5c09, 5c60, 5c6f, 5c90, 5c9f, 5cf6, 5cf9, 5f36, 5f39, 5f63, 5f6c, 5f93, 5f9c, 5fc6, 5fc9, 6035, 603a, 6053, 605c, 60a3, 60ac, 60c5, 60ca, 6305, 630a, 6350, 635f, 63a0, 63af, 63f5, 63fa, 6503, 650c, 6530, 653f, 65c0, 65cf, 65f3, 65fc, 6a03, 6a0c, 6a30, 6a3f, 6ac0, 6acf, 6af3, 6afc, 6c05, 6c0a, 6c50, 6c5f, 6ca0, 6caf, 6cf5, 6cfa, 6f35, 6f3a, 6f53, 6f5c, 6fa3, 6fac, 6fc5, 6fca, 7118, 7124, 7142, 717e, 7181, 71bd, 71db, 71e7, 7214, 7228, 7241, 727d, 7282, 72be, 72d7, 72eb, 7412, 7421, 7448, 747b, 7484, 74b7, 74de, 74ed, 771e, 772d, 774b, 7778, 7787, 77b4, 77d2, 77e1, 7811, 7822, 7844, 7877, 7888, 78bb, 78dd, 78ee, 7b1d, 7b2e, 7b47, 7b74, 7b8b, 7bb8, 7bd1, 7be2, 7d1b, 7d27, 7d4e, 7d72, 7d8d, 7db1, 7dd8, 7de4, 7e17, 7e2b, 7e4d, 7e71, 7e8e, 7eb2, 7ed4, 7ee8, 8117, 812b, 814d, 8171, 818e, 81b2, 81d4, 81e8, 821b, 8227, 824e, 8272, 828d, 82b1, 82d8, 82e4, 841d, 842e, 8447, 8474, 848b, 84b8, 84d1, 84e2, 8711, 8722, 8744, 8777, 8788, 87bb, 87dd, 87ee, 881e, 882d, 884b, 8878, 8887, 88b4, 88d2, 88e1, 8b12, 8b21, 8b48, 8b7b, 8b84, 8bb7, 8bde, 8bed, 8d14, 8d28, 8d41, 8d7d, 8d82, 8dbe, 8dd7, 8deb, 8e18, 8e24, 8e42, 8e7e, 8e81, 8ebd, 8edb, 8ee7, 9035, 903a, 9053, 905c, 90a3, 90ac, 90c5, 90ca, 9305, 930a, 9350, 935f, 93a0, 93af, 93f5, 93fa, 9503, 950c, 9530, 953f, 95c0, 95cf, 95f3, 95fc, 9a03, 9a0c, 9a30, 9a3f, 9ac0, 9acf, 9af3, 9afc, 9c05, 9c0a, 9c50, 9c5f, 9ca0, 9caf, 9cf5, 9cfa, 9f35, 9f3a, 9f53, 9f5c, 9fa3, 9fac, 9fc5, 9fca, a036, a039, a063, a06c, a093, a09c, a0c6, a0c9, a306, a309, a360, a36f, a390, a39f, a3f6, a3f9, a603, a60c, a630, a63f, a6c0, a6cf, a6f3, a6fc, a903, a90c, a930, a93f, a9c0, a9cf, a9f3, a9fc, ac06, ac09, ac60, ac6f, ac90, ac9f, acf6, acf9, af36, af39, af63, af6c, af93, af9c, afc6, afc9, b114, b128, b141, b17d, b182, b1be, b1d7, b1eb, b218, b224, b242, b27e, b281, b2bd, b2db, b2e7, b411, b422, b444, b477, b488, b4bb, b4dd, b4ee, b71d, b72e, b747, b774, b78b, b7b8, b7d1, b7e2, b812, b821, b848, b87b, b884, b8b7, b8de, b8ed, bb1e, bb2d, bb4b, bb78, bb87, bbb4, bbd2, bbe1, bd17, bd2b, bd4d, bd71, bd8e, bdb2, bdd4, bde8, be1b, be27, be4e, be72, be8d, beb1, bed8, bee4, c056, c059, c065, c06a, c095, c09a, c0a6, c0a9, c506, c509, c560, c56f, c590, c59f, c5f6, c5f9, c605, c60a, c650, c65f, c6a0, c6af, c6f5, c6fa, c905, c90a, c950, c95f, c9a0, c9af, c9f5, c9fa, ca06, ca09, ca60, ca6f, ca90, ca9f, caf6, caf9, cf56, cf59, cf65, cf6a, cf95, cf9a, cfa6, cfa9, d112, d121, d148, d17b, d184, d1b7, d1de, d1ed, d211, d222, d244, d277, d288, d2bb, d2dd, d2ee, d418, d424, d442, d47e, d481, d4bd, d4db, d4e7, d71b, d727, d74e, d772, d78d, d7b1, d7d8, d7e4, d814, d828, d841, d87d, d882, d8be, d8d7, d8eb, db17, db2b, db4d, db71, db8e, dbb2, dbd4, dbe8, dd1e, dd2d, dd4b, dd78, dd87, ddb4, ddd2, dde1, de1d, de2e, de47, de74, de8b, deb8, ded1, dee2, e111, e122, e144, e177, e188, e1bb, e1dd, e1ee, e212, e221, e248, e27b, e284, e2b7, e2de, e2ed, e414, e428, e441, e47d, e482, e4be, e4d7, e4eb, e717, e72b, e74d, e771, e78e, e7b2, e7d4, e7e8, e818, e824, e842, e87e, e881, e8bd, e8db, e8e7, eb1b, eb27, eb4e, eb72, eb8d, ebb1, ebd8, ebe4, ed1d, ed2e, ed47, ed74, ed8b, edb8, edd1, ede2, ee1e, ee2d, ee4b, ee78, ee87, eeb4, eed2, eee1, f356, f359, f365, f36a, f395, f39a, f3a6, f3a9, f536, f539, f563, f56c, f593, f59c, f5c6, f5c9, f635, f63a, f653, f65c, f6a3, f6ac, f6c5, f6ca, f935, f93a, f953, f95c, f9a3, f9ac, f9c5, f9ca, fa36, fa39, fa63, fa6c, fa93, fa9c, fac6, fac9, fc56, fc59, fc65, fc6a, fc95, fc9a, fca6, fca9
 \end{document}
