@@ -21,6 +21,7 @@ public class ANF {
     private List<String> anf;
     private boolean isBent = false;
     private final String symbols = "ABCDEFGHIKLMNOPQRSTVXYZ";
+
     public ANF(long number, int variables) {
         this.number = number;
         this.variables = variables;
