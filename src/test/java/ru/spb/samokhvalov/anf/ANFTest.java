@@ -173,4 +173,9 @@ public class ANFTest {
        log.info(anfNumber1.getHumanAnf());
        log.info(anfNumber2.getHumanAnf());
     }
+
+    @Test
+    public void testGetNonlinear(){
+        Assert.assertEquals(6, anfNumber2.getNonlinear());
+    }
 }

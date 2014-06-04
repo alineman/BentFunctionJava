@@ -199,4 +199,16 @@ public class ANF {
         return stringBuilder.toString();
     }
 
+    public int getNonlinear(){
+        if (walshW == null)
+            fillWalshW();
+        int max = 1 << (variables >> 1);
+        for (int i : walshW) {
+            if (max < Math.abs(i)) {
+                max = Math.abs(i);
+            }
+        }
+        return (int) Math.pow(2, variables-1)-(max/2);
+    }
+
 }
