@@ -8,3 +8,4 @@ target/
 *.latex~
 *.log
 *.pdf
+*.Rhistory
