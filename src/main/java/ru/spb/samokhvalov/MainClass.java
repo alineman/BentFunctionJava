@@ -5,6 +5,10 @@ import lombok.extern.log4j.Log4j;
 import ru.spb.samokhvalov.anf.ANF;
 import ru.spb.samokhvalov.anf.TableOfTrue;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,11 +33,16 @@ public class MainClass {
 //        variable.printHexNumber();
 //        variable.printDecNumber();
         int k = 0;
-        int l = 0;
+//        int l = 0;
+        int degree = 4;
         List<String> k1 = new ArrayList<>();
-        for (int i = 0; i < 65536; i++) {
-            ANF temp = new ANF(i, 4);
-            if (temp.isBent()) {
+
+        try {
+            PrintWriter pWriter = new PrintWriter("data.csv", "UTF-8");
+
+        for (int i = 0; i < Math.pow(2,Math.pow(2,degree)); i++) {
+            ANF temp = new ANF(i, degree);
+//            if (temp.isBent()) {
 //                for (TableOfTrue j : temp.getTableOfTrue())
 //                    log.info(j.getVariableString() + " | " + j.getValue());
 //                log.info("\n");
@@ -41,26 +50,38 @@ public class MainClass {
 //                    int value = (t.getValue()) ? 1 : 0;
 //                    log.info(t.getVariableString() + " | " + value);
 //                    resultNumber += value << i;
-                l++;
                 k1.add(converter(temp.getNumber()));
+                int [] wals = temp.getWalshW();
+                for (int l = 0; l < wals.length; l++){
+//                    System.out.printf("%4d", wals[l]);
+                    pWriter.print(wals[l] + ";");
+                }
+                pWriter.println("");
+
 //                System.out.print(Long.toHexString(temp.getNumber()) + ", ");
 //                for (String s : temp.getAnf()) {
 //                    log.info(s);
 //                }
 //                log.info("\n");
                 k++;
-            }
+//            }
         }
 
 //        String[] str = new String()[];
 //        k1.toArray();
 //        Arrays.sort(str);
-        java.util.Collections.sort(k1);
+//        java.util.Collections.sort(k1)  
 
+            pWriter.close();
         log.info("Total found bent-functions: " + k);
 
         for (String sss: k1){
-            System.out.print(sss + ", ");
+//            System.out.print(sss + ", ");
+        }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
     }
 
