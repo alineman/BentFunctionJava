@@ -3,14 +3,11 @@ package ru.spb.samokhvalov;
 
 import lombok.extern.log4j.Log4j;
 import ru.spb.samokhvalov.anf.ANF;
-import ru.spb.samokhvalov.anf.TableOfTrue;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -18,7 +15,7 @@ import java.util.List;
  */
 @Log4j
 public class MainClass {
-
+        final static int degree = 2;
     public static void main(String... args) {
 //        Integer bentFunction = 0;
 //
@@ -34,7 +31,7 @@ public class MainClass {
 //        variable.printDecNumber();
         int k = 0;
 //        int l = 0;
-        int degree = 4;
+
         List<String> k1 = new ArrayList<>();
 
         try {
@@ -42,7 +39,7 @@ public class MainClass {
 
         for (int i = 0; i < Math.pow(2,Math.pow(2,degree)); i++) {
             ANF temp = new ANF(i, degree);
-//            if (temp.isBent()) {
+            if (temp.isBent()) {
 //                for (TableOfTrue j : temp.getTableOfTrue())
 //                    log.info(j.getVariableString() + " | " + j.getValue());
 //                log.info("\n");
@@ -52,11 +49,15 @@ public class MainClass {
 //                    resultNumber += value << i;
                 k1.add(converter(temp.getNumber()));
                 int [] wals = temp.getWalshW();
+//            Arrays.sort(wals);
+                pWriter.print(i + ";");
                 for (int l = 0; l < wals.length; l++){
-//                    System.out.printf("%4d", wals[l]);
+                    System.out.print(i + "\t");
+                    System.out.printf("%4d", wals[l]);
                     pWriter.print(wals[l] + ";");
                 }
                 pWriter.println("");
+                System.out.print("\n");
 
 //                System.out.print(Long.toHexString(temp.getNumber()) + ", ");
 //                for (String s : temp.getAnf()) {
@@ -64,7 +65,7 @@ public class MainClass {
 //                }
 //                log.info("\n");
                 k++;
-//            }
+            }
         }
 
 //        String[] str = new String()[];
@@ -88,9 +89,10 @@ public class MainClass {
     private static String converter(long l){
 //        System.out.println(l);
         long t =0;
-        for (int i = 0; i<16; i++){
+        double pow = Math.pow(2, degree);
+        for (int i = 0; i< pow; i++){
             if (((l>>i) & 1) == 1){
-                t+=Math.pow(2,15-i);
+                t+=Math.pow(2,pow-i);
             }
         }
         return Long.toHexString(t);

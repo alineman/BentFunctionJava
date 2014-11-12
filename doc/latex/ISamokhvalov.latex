@@ -1,0 +1,25 @@
+
+\documentclass[a4paper, 12pt]{article}
+\usepackage [utf8x] {inputenc}
+\usepackage [T2A] {fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[all]{xy}
+\renewcommand\appendixname{Приложение}
+\makeatletter
+\def\redeflsection{\def\l@section{\@dottedtocline{1}{1.5em}{7.8em}}}
+\renewcommand\appendix{\par
+\setcounter{section}{0}%
+\setcounter{subsection}{0}%
+\def\@chapapp{\appendixname}%
+\addtocontents{toc}{\protect\redeflsection}
+\def\thesection{\appendixname\hspace{0.2cm}\@arabic\c@section}}
+\makeatother
+\title{\bf Бент-функции, их представления и конструирование}
+\date{\vspace{-5ex}}
+\begin{document}
+
+Пусть $f_0(x), f_1(x)$ --- две бент-функции размерности $n$,такие что $f_0(x)\ne f_1(x)$. $i\in\{0,1,2,3\}$ - перестановка из двух элементов.
+\end{document}
