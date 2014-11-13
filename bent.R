@@ -20,3 +20,14 @@ print(i)
 	}
 	return(F)
 }
+saveImageToFile = function(matrix, filename){
+	library(grid)
+	matrixPic = as.matrix(matrix)
+	width = length(matrixPic[1,])*4
+	height = length(matrixPic[,1])*4
+	png(filename = filename, width = width, height = height, pointsize=1)
+	par(mar = rep(0, 4))
+	grid.raster(matrixPic, interpolate=F)
+	dev.off()
+
+}

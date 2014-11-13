@@ -191,6 +191,8 @@ public class ANF {
     }
 
     public String humanView(String code){
+        if (!code.contains("1"))
+            return "1";
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < code.length(); i++){
             if (code.charAt(i)=='1')
