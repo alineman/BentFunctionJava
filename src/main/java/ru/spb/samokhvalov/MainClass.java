@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Log4j
 public class MainClass {
-        final static int degree = 4;
+        final static int degree = 3;
         static final long pow = (long) Math.pow(2, degree);
 //        static final BigInteger pow = new BigInteger("2").pow(degree);
 
@@ -47,7 +47,7 @@ public class MainClass {
 //        do {
             ANF temp = new ANF(i, degree);
             boolean isBent = temp.isBent();
-            if (isBent) {
+//            if (isBent) {
 //                for (TableOfTrue j : temp.getTableOfTrue())
 //                    log.info(j.getVariableString() + " | " + j.getValue());
 //                log.info("\n");
@@ -57,27 +57,33 @@ public class MainClass {
 //                    resultNumber += value << i;
                 k1.add(converter(temp.getNumber()));
 
-            int nonlinear = temp.getNonlinear();
+//            int nonlinear = temp.getNonlinear();
 //            if (nonlinear == 2)
-            if(isBent)  {
+//            if(isBent)  {
 //            if ( wt(i) == 10 ||  wt(i) == 6 ) {
-                f++;
+//                f++;
 //                if (!isBent)
-                System.out.println(StringUtils.leftPad(Long.toBinaryString(i), 16, "0"));
 //                    System.out.printf("%16s\n", Long.toBinaryString(i));
 //                System.out.println(nonlinear + " " + Long.toBinaryString(i) + " " + wt(i) + " " +temp.getHumanAnf());
 //                System.out.println(nonlinear + " " + " " +temp.getHumanAnf());
 //                System.out.println(i, (long) Long.MAX_VALUE * Math.pow(2,pow));
-            }
-                int [] wals = temp.getWalshW();
+//            }
+//                int [] wals = temp.getWalshW();
 //            Arrays.sort(wals);
 //                pWriter.print(i + ";");
-            String[] split = StringUtils.leftPad(Long.toBinaryString(i), 16, "0").split("");
-                for (int l = 1; l < split.length; l++){
+//                String binaryView = StringUtils.leftPad(Long.toBinaryString(i), (int) pow, "0");
+                boolean normal = temp.isNormal();
+                if (!normal) {
+                    pWriter.println(i);
+                    f++;
+                }
+//                System.out.println("i: " + i + " " + binaryView + " " + normal);
+//                String[] split = binaryView.split("");
+//                for (int l = 1; l < split.length; l++){
 //                    System.out.printf("%20d", pow);
 //                    System.out.printf("%10d\n", i);
-                    pWriter.print(split[l] + ";");
-                }
+//                    pWriter.print(split[l] + ";");
+//                }
 //                pWriter.println(i);
 //                System.out.print("\n");
 
@@ -87,7 +93,8 @@ public class MainClass {
 //                }
 //                log.info("\n");
                 k++;
-            }
+//            }
+//            System.out.println(StringUtils.leftPad(Long.toBinaryString(i), (int) pow, "0"));
         }
 //            i = i.add(BigInteger.ONE);
 //        } while(i.longValue() < Long.MAX_VALUE);
@@ -114,10 +121,10 @@ public class MainClass {
     private static String converter(long l){
 //        System.out.println(l);
         long t =0;
-        double pow = MainClass.pow;
+        long pow = (long) MainClass.pow;
         for (int i = 0; i< pow; i++){
             if (((l>>i) & 1) == 1){
-                t+=Math.pow(2,pow-i);
+                t+=(long) Math.pow(2,pow-i);
             }
         }
         return Long.toHexString(t);

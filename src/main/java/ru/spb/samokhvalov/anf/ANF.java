@@ -3,6 +3,7 @@ package ru.spb.samokhvalov.anf;
 import lombok.extern.log4j.Log4j;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -213,4 +214,43 @@ public class ANF {
         return (int) Math.pow(2, variables-1)-(max/2);
     }
 
+    public boolean isNormal() {
+        if (variables < 3 && variables > 4)
+            return false;
+        if (tableOfTrue == null)
+            fillTableOfTrue();
+        boolean[] vector = new boolean[tableOfTrue.size()];
+        int i = 0;
+        for (TableOfTrue in : tableOfTrue) {
+            vector[i] = in.getValue();
+            i++;
+        }
+        for (i = 1; i <= 3; i++) {
+            for (int j = i+1; j <= 4; j++){
+                boolean[] tempVector = Arrays.copyOf(vector, tableOfTrue.size());
+                if (flushValue(new int[]{i,j}, tempVector))
+                return true;
+
+            }
+        }
+
+
+        return false;
+    }
+
+    private boolean flushValue(int[] variables, boolean[] array) {
+        boolean example = array[0];
+        for (int i = 0; i < variables.length; i++) {
+            int i1 = variables.length - i;
+            for (int j = 0; j < (array.length - (1 << i1)); j++) {
+//                System.out.println("i: " + i + " j:" + j + " (1 << i1): " + (1 << i1));
+                array[j + (1 << i1)] = array[j];
+            }
+        }
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] ^ example)
+                return false;
+        }
+        return true;
+    }
 }
