@@ -215,7 +215,7 @@ public class ANF {
     }
 
     public boolean isNormal() {
-        if (variables < 3 && variables > 4)
+        if (variables != 4)
             return false;
         if (tableOfTrue == null)
             fillTableOfTrue();
@@ -225,6 +225,7 @@ public class ANF {
             vector[i] = in.getValue();
             i++;
         }
+
         for (i = 1; i <= 3; i++) {
             for (int j = i+1; j <= 4; j++){
                 boolean[] tempVector = Arrays.copyOf(vector, tableOfTrue.size());
@@ -240,6 +241,7 @@ public class ANF {
 
     private boolean flushValue(int[] variables, boolean[] array) {
         boolean example = array[0];
+//        System.out.println(printArray(array));
         for (int i = 0; i < variables.length; i++) {
             int i1 = variables.length - i;
             for (int j = 0; j < (array.length - (1 << i1)); j++) {
@@ -247,10 +249,27 @@ public class ANF {
                 array[j + (1 << i1)] = array[j];
             }
         }
+//        System.out.println(printArray(array) + ":" + printArray(variables));
         for (int i = 0; i < array.length; i++) {
             if (array[i] ^ example)
                 return false;
         }
         return true;
+    }
+
+    public static String printArray(boolean[] arrays){
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < arrays.length; i++){
+            stringBuilder.append(arrays[i]? "1" : "0");
+        }
+        return stringBuilder.toString();
+    }
+
+    public static String printArray(int[] arrays){
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < arrays.length; i++){
+            stringBuilder.append(arrays[i]);
+        }
+        return stringBuilder.toString();
     }
 }

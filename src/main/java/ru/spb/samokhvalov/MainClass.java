@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Log4j
 public class MainClass {
-        final static int degree = 3;
+        final static int degree = 4;
         static final long pow = (long) Math.pow(2, degree);
 //        static final BigInteger pow = new BigInteger("2").pow(degree);
 
@@ -47,7 +47,7 @@ public class MainClass {
 //        do {
             ANF temp = new ANF(i, degree);
             boolean isBent = temp.isBent();
-//            if (isBent) {
+            if (isBent) {
 //                for (TableOfTrue j : temp.getTableOfTrue())
 //                    log.info(j.getVariableString() + " | " + j.getValue());
 //                log.info("\n");
@@ -72,6 +72,8 @@ public class MainClass {
 //            Arrays.sort(wals);
 //                pWriter.print(i + ";");
 //                String binaryView = StringUtils.leftPad(Long.toBinaryString(i), (int) pow, "0");
+
+             System.out.println(i);
                 boolean normal = temp.isNormal();
                 if (!normal) {
                     pWriter.println(i);
@@ -93,7 +95,7 @@ public class MainClass {
 //                }
 //                log.info("\n");
                 k++;
-//            }
+            }
 //            System.out.println(StringUtils.leftPad(Long.toBinaryString(i), (int) pow, "0"));
         }
 //            i = i.add(BigInteger.ONE);
