@@ -2,13 +2,11 @@ package ru.spb.samokhvalov;
 
 
 import lombok.extern.log4j.Log4j;
-import org.apache.commons.lang3.StringUtils;
 import ru.spb.samokhvalov.anf.ANF;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,6 +72,12 @@ public class MainClass {
 //                String binaryView = StringUtils.leftPad(Long.toBinaryString(i), (int) pow, "0");
 
              System.out.println(i);
+//                int x = 854;
+//                for(int i = 0; i<16;i++){
+//                    int temp = 1<<i;
+//                    System.out.println((x&temp)>0 ? 1 : 0);
+//                }
+
                 boolean normal = temp.isNormal();
                 if (!normal) {
                     pWriter.println(i);
@@ -108,7 +112,7 @@ public class MainClass {
 
             pWriter.close();
         log.info("Total found bent-functions: " + k);
-        log.info("Total found \"bent\"-functis: " + f);
+        log.info("Total found normal \"bent\"-functis: " + f);
 
 //        for (String sss: k1){
 //            System.out.print(sss + ", ");
@@ -136,4 +140,26 @@ public class MainClass {
         String binaryString = Long.toBinaryString(l);
         return binaryString.replace("0","").length();
     }
+
+//    int dim = 3;
+//    int x = 30856;
+//    final int mask = (1<<(dim+1))-1;
+//    System.out.println("mask: " + Integer.toBinaryString(mask));
+//    Integer.toBinaryString(mask);
+////for(int i = 0; i<16;i++){
+////    int temp = 1<<i;
+////    System.out.println((x&temp)>0 ? 1 : 0);
+////}
+//    for (int i =1; i<dim; i++){
+//        for (int j =i+1; j <=dim; j++){
+////        System.out.println("i: "+ i + " j " + j);
+//            int tempmask = (1<<(dim-i)) + (1<<(dim-j));
+//            int
+//            System.out.println(Integer.toBinaryString(tempmask^mask));
+//
+//        }
+//    }
+////System.out.println(0b1010^0b1111);
+
+
 }
