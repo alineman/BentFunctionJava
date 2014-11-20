@@ -34,7 +34,7 @@ saveImageToFile = function(matrix, filename){
 
 showImage = function(matrixes){
 	library(grid)
-	matrixPic = as.matrix(matrix)
+	matrixPic = as.matrix(matrixes)
 	par(mar = rep(0, 4))
 	grid.raster(matrixes, interpolate=F)
 }
@@ -47,5 +47,5 @@ calculateFast = function(dimensions){
 		fillingArray[i] = 1
 	}
 	dim(fillingArray) = c(dimensions, dimensions)
-	showImage(fillingArray)
+	showImage(t(fillingArray))
 }

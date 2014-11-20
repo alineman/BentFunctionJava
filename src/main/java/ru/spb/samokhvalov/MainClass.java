@@ -3,6 +3,7 @@ package ru.spb.samokhvalov;
 
 import lombok.extern.log4j.Log4j;
 import ru.spb.samokhvalov.anf.ANF;
+import ru.spb.samokhvalov.anf.LinearSubDimension;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -36,6 +37,7 @@ public class MainClass {
 //        int l = 0;
         long f = 0;
         List<String> k1 = new ArrayList<>();
+        LinearSubDimension linearSubDimension = new LinearSubDimension(1, 2);
 
         try {
             PrintWriter pWriter = new PrintWriter("data.csv", "UTF-8");
@@ -71,18 +73,19 @@ public class MainClass {
 //                pWriter.print(i + ";");
 //                String binaryView = StringUtils.leftPad(Long.toBinaryString(i), (int) pow, "0");
 
-             System.out.println(i);
+//             System.out.println(i);
 //                int x = 854;
 //                for(int i = 0; i<16;i++){
 //                    int temp = 1<<i;
 //                    System.out.println((x&temp)>0 ? 1 : 0);
 //                }
 
-                boolean normal = temp.isNormal();
-                if (!normal) {
+//                int normal = linearSubDimension.validateNormality((int)i);
+//                if (normal>0) {
+//                    pWriter.println(i + ";" + normal);
                     pWriter.println(i);
                     f++;
-                }
+//                }
 //                System.out.println("i: " + i + " " + binaryView + " " + normal);
 //                String[] split = binaryView.split("");
 //                for (int l = 1; l < split.length; l++){
