@@ -8,9 +8,7 @@ import ru.spb.samokhvalov.anf.LinearSubDimension;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by ivan on 09.05.14.
@@ -49,8 +47,21 @@ public class MainClass {
 //        int l = 0;
         long f = 0;
         List<String> k1 = new ArrayList<>();
-//        LinearSubDimension linearSubDimension = new LinearSubDimension(1, 2);
-
+        int subDimension = ((degree % 2) == 0) ? (degree / 2) : ((degree / 2) + 1);
+        LinearSubDimension linearSubDimension = new LinearSubDimension(subDimension, degree);
+        log.info(linearSubDimension.getAllValues());
+        Set keys = linearSubDimension.getNewValues().keySet();
+        Iterator itr2 = keys.iterator();
+        while (itr2.hasNext()){
+            Integer next = (Integer)itr2.next();
+//            List<Integer> valuesNormalA = linearSubDimension.getAllValues().get(next);
+//            int sum = 0;
+            int sum = linearSubDimension.getNewValues().get(next);;
+//            for (int ff:valuesNormalA)
+//            sum+=ff;
+            ANF del = new ANF( sum, degree);
+            log.info(next + " " + sum + " " +del.getHumanAnf());
+        }
         try {
             PrintWriter pWriter = new PrintWriter("data.csv", "UTF-8");
 
@@ -69,15 +80,16 @@ public class MainClass {
 //                    resultNumber += value << i;
                 k1.add(converter(temp.getNumber()));
 //
-                int[] vvaluues = new int[32];
-                for (int j =0 ; j<affine4.length; j++){
-                    vvaluues[j] = Long.bitCount(affine4[j] ^ i);
-                }
-                Arrays.sort(vvaluues);
-                if (vvaluues[0] == 6 ){
-                    f++;
-                    pWriter.println(i);
-                log.info(vvaluues[0] +": "+ i);}
+//                int[] vvaluues = new int[32];
+//                for (int j =0 ; j<affine4.length; j++){
+//                    vvaluues[j] = Long.bitCount(affine4[j] ^ i);
+//                }
+//                Arrays.sort(vvaluues);
+//                if (temp.getPow() <= 1 ){
+//                    f++;
+//                    pWriter.println(i);
+//                log.info("$" + i + "_{10}$ & $" + StringUtils.leftPad(Long.toBinaryString(i), 16, "0") + "$ & $" + temp.getHumanAnf() + "$&" + Long.bitCount(i) +"\\\\");
+//}
 //       log.info(temp.getHumanAnf() + " " + temp.getPow());
 //                if (temp.getPow() <= 1) {
 //                    log.info(i);
@@ -108,12 +120,13 @@ public class MainClass {
 //                    System.out.println((x&temp)>0 ? 1 : 0);
 //                }
 
-//                int normal = linearSubDimension.validateNormality((int)i);
-//                if (normal>0) {
+                int normal = linearSubDimension.validateNormality1((int) i);
+                if (normal>0) {
+//                    log.info(i);
 //                    pWriter.println(i + ";" + normal);
-//                    pWriter.println(i);
-//                    f++;
-//                }
+                    pWriter.println(i);
+                    f++;
+                }
 //                System.out.println("i: " + i + " " + binaryView + " " + normal);
 //                String[] split = binaryView.split("");
 //                for (int l = 1; l < split.length; l++){
@@ -130,9 +143,9 @@ public class MainClass {
 //                }
 //                log.info("\n");
                 k++;
-            }
+//            }
 //            System.out.println(StringUtils.leftPad(Long.toBinaryString(i), (int) pow, "0"));
-//        }
+        }
 //            i = i.add(BigInteger.ONE);
 //        } while(i.longValue() < Long.MAX_VALUE);
 
@@ -140,7 +153,21 @@ public class MainClass {
 //        k1.toArray();
 //        Arrays.sort(str);
 //        java.util.Collections.sort(k1)  
-
+//            Set<Integer> normal256 = new HashSet<>();
+//            for (int m = 0; m < 256; m++) {
+//                if (
+//                        (Integer.bitCount(m & 60) == 4) ||
+//                                (Integer.bitCount(m & 90) == 4) ||
+//                                (Integer.bitCount(m & 102) == 4) //||
+////                                (Integer.bitCount(m & 195) == 4) ||
+////                                (Integer.bitCount(m & 165) == 4) ||
+////                                (Integer.bitCount(m & 153) == 4)
+//                        )
+//                    normal256.add(m);
+//            }
+//            Iterator<Integer> itr = normal256.iterator();
+//            while(itr.hasNext())    {
+//                pWriter.write(itr.next() + "\n"); }
             pWriter.close();
             log.info("Total found bent-functions: " + k);
             log.info("Total found normal \"bent\"-functis: " + f);

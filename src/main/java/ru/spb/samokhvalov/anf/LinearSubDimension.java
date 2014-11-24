@@ -15,12 +15,16 @@ public class LinearSubDimension {
 
     private Map<Integer, List<Integer>> values;
     private Integer countSubDimensions;
+    private Map<Integer, Integer> newValues;
+
+    private Integer dimension;
 
     public LinearSubDimension(final Integer subDimensions, final Integer dimension) {
         log.debug("subDimension: " + subDimensions + " dimension: " + dimension);
         if (subDimensions > dimension)
             throw new RuntimeException("SubDimension must be greater then dimension");
 
+        setDimension(dimension);
         CombinationGenerator generator = new CombinationGenerator(dimension, subDimensions);
         countSubDimensions = generator.getTotal().intValue();
         log.info("countSubDimensions: " + countSubDimensions);
@@ -32,12 +36,33 @@ public class LinearSubDimension {
             for (int i = 0; i < var.length; i++) {
                 key = key | (1 << (dimension - var[i] - 1));
             }
-            log.debug(StringUtils.leftPad(Integer.toBinaryString(key), dimension, "0"));
-            for (int i = 0; i < ((1 << dimension) - 1); i++) {
-                valuesSet.add(i & key);
-                log.info(StringUtils.leftPad(Integer.toBinaryString(i & key), dimension, "0"));
+            log.debug("\nkey: " + StringUtils.leftPad(Integer.toBinaryString(key), dimension, "0"));
+
+            for (int i = 0; i < (1 << dimension); i++) {
+//                int added = -1;
+//                int[] valueOfOne = new int[var.length];
+
+//                for (int j=0; j< var.length; j++){
+//
+//                    int i1 = 1 << (dimension - var[j] - 1);
+////                    valueOfOne[i1] =
+//                    log.info(Integer.toBinaryString(i & i1));
+//                    log.debug("degrees: " + i1);
+//                }
+                int iKey = i & key;
+                if (((Integer.bitCount(iKey) % 2) != 0) && ((Integer.bitCount(iKey) > 0)))
+                    valuesSet.add(1 << i);
+                log.debug("i:" + i + " " + StringUtils.leftPad(Integer.toBinaryString(iKey), dimension, "0"));
             }
             values.put(key, new ArrayList<>(valuesSet));
+
+//            int newKey = ((1<<dimension)-1) ^ key;
+//            for (int i = 0; i < ((1 << dimension) - 1); i++) {
+//                valuesSet.add(i ^ newKey);
+//                log.debug(StringUtils.leftPad(Integer.toBinaryString(i ^ newKey), dimension, "0"));
+//            }
+//            values.put(newKey, new ArrayList<>(valuesSet));
+
 //            List<Integer> valuesList = new ArrayList<>(valuesSet.size());
 //            Iterator iterator = valuesSet.iterator();
 //            while (iterator.hasNext()){
@@ -45,6 +70,7 @@ public class LinearSubDimension {
 //            }
 
         }
+        generateNewValues();
 
 //        final int mask = (1 << (dimension)) - 1;
 //        int[][] tempArray = new int[dimension + 1][dimension + 1];
@@ -69,16 +95,16 @@ public class LinearSubDimension {
         Iterator iterator = keySet.iterator();
         boolean find = false;
         Integer result = 0;
-        log.info("function: " + function);
+        log.debug("function: " + function);
         while (iterator.hasNext() && !find) {
             find = true;
             Integer next = (Integer) iterator.next();
-            log.info("var of null " + Integer.toBinaryString(next));
+            log.debug("var of null " + Integer.toBinaryString(next));
             List<Integer> probe = values.get(next);
             int first = probe.get(0);
             for (Integer val : probe) {
                 int intValue = function.intValue();
-                log.info("first: " + first + " val: " + val + " intvalue: " + (intValue & val));
+                log.debug("first: " + first + " val: " + val + " intvalue: " + (intValue & val));
                 if (first != (intValue & val))
                     find = false;
             }
@@ -86,6 +112,57 @@ public class LinearSubDimension {
                 result = next;
         }
         return result;
+    }
+
+    public Integer validateNormality1(Integer function) {
+        Set<Integer> keySet = newValues.keySet();
+        Iterator iterator = keySet.iterator();
+        boolean find = false;
+        Integer result = 0;
+        log.debug("function: " + function + " " + Integer.toBinaryString(function));
+        while (iterator.hasNext() && !find) {
+            find = false;
+            Integer next = (Integer) iterator.next();
+            log.debug("var of null " + Integer.toBinaryString(next));
+            Integer probe = newValues.get(next);
+            int probeFunction = probe & function;
+//            log.info(Integer.bitCount(probeFunction));
+//            if ((probeFunction == 0) || (Integer.bitCount(probeFunction) == Integer.bitCount(probe))) {
+            if ((probeFunction == probe) || (probeFunction == 0)) {
+//            if (Integer.bitCount(probeFunction) == 0)
+                find = true;
+                log.info("probe: " + probe + " "+Integer.toBinaryString(probeFunction));
+            }
+//            int first = probe.get(0);
+//            for (Integer val : probe) {
+//                int intValue = function.intValue();
+//                log.debug("first: " + first + " val: " + val + " intvalue: " + (intValue & val));
+//                if (first != (intValue & val))
+//                    find = false;
+//            }
+            if (find)
+                result = next;
+        }
+        return result;
+    }
+
+    private void generateNewValues() {
+        if (newValues == null)
+            newValues = new HashMap<>();
+        Set<Integer> keySet = values.keySet();
+        Iterator<Integer> iterator = keySet.iterator();
+        while (iterator.hasNext()) {
+            Integer next = iterator.next();
+            List<Integer> value = values.get(next);
+            int add = 0;
+            for (Integer i : value)
+                add += i;
+            newValues.put(next, add);
+            newValues.put(-next, ((1 << (1 << dimension)) - 1) ^ add);
+
+        }
+
+
     }
 
     public Integer getCountSubDimensions() {
@@ -96,8 +173,16 @@ public class LinearSubDimension {
         return values;
     }
 
+    public Map<Integer, Integer> getNewValues() {
+        return newValues;
+    }
+
     public List<Integer> getValue(Integer variable) {
         return values.get(variable);
+    }
+
+    public void setDimension(Integer dimension) {
+        this.dimension = dimension;
     }
 
 }
