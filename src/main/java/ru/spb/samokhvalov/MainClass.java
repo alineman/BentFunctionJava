@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -16,8 +17,19 @@ import java.util.List;
  */
 @Log4j
 public class MainClass {
-        final static int degree = 4;
-        static final long pow = (long) Math.pow(2, degree);
+    final static int degree = 4;
+    static final long pow = (long) Math.pow(2, degree);
+    final static int[] affine4 = {
+            0, 255,
+            3855, 4080, 13107, 13260,
+            15420, 15555, 21845, 21930,
+            23130, 23205, 26214, 26265,
+            26985, 27030, 38505, 38550,
+            39270, 39321, 42330, 42405,
+            43605, 43690, 49980, 50115,
+            52275, 52428, 61455, 61680,
+            65280, 65535};
+
 //        static final BigInteger pow = new BigInteger("2").pow(degree);
 
     public static void main(String... args) {
@@ -37,17 +49,17 @@ public class MainClass {
 //        int l = 0;
         long f = 0;
         List<String> k1 = new ArrayList<>();
-        LinearSubDimension linearSubDimension = new LinearSubDimension(1, 2);
+//        LinearSubDimension linearSubDimension = new LinearSubDimension(1, 2);
 
         try {
             PrintWriter pWriter = new PrintWriter("data.csv", "UTF-8");
 
-        for (long i = 0; i < Math.pow(2, pow); i++) {
+            for (long i = 0; i < Math.pow(2, pow); i++) {
 //            BigInteger i = new BigInteger("0");
 //        do {
-            ANF temp = new ANF(i, degree);
+                ANF temp = new ANF(i, degree);
             boolean isBent = temp.isBent();
-            if (isBent) {
+//            if (isBent) {
 //                for (TableOfTrue j : temp.getTableOfTrue())
 //                    log.info(j.getVariableString() + " | " + j.getValue());
 //                log.info("\n");
@@ -56,7 +68,23 @@ public class MainClass {
 //                    log.info(t.getVariableString() + " | " + value);
 //                    resultNumber += value << i;
                 k1.add(converter(temp.getNumber()));
-
+//
+                int[] vvaluues = new int[32];
+                for (int j =0 ; j<affine4.length; j++){
+                    vvaluues[j] = Long.bitCount(affine4[j] ^ i);
+                }
+                Arrays.sort(vvaluues);
+                if (vvaluues[0] == 6 ){
+                    f++;
+                    pWriter.println(i);
+                log.info(vvaluues[0] +": "+ i);}
+//       log.info(temp.getHumanAnf() + " " + temp.getPow());
+//                if (temp.getPow() <= 1) {
+//                    log.info(i);
+//                    pWriter.println(i);
+////                log.info(temp.getHumanAnf() + " " + temp.getPow());
+//                    f++;
+//                }
 //            int nonlinear = temp.getNonlinear();
 //            if (nonlinear == 2)
 //            if(isBent)  {
@@ -83,8 +111,8 @@ public class MainClass {
 //                int normal = linearSubDimension.validateNormality((int)i);
 //                if (normal>0) {
 //                    pWriter.println(i + ";" + normal);
-                    pWriter.println(i);
-                    f++;
+//                    pWriter.println(i);
+//                    f++;
 //                }
 //                System.out.println("i: " + i + " " + binaryView + " " + normal);
 //                String[] split = binaryView.split("");
@@ -104,7 +132,7 @@ public class MainClass {
                 k++;
             }
 //            System.out.println(StringUtils.leftPad(Long.toBinaryString(i), (int) pow, "0"));
-        }
+//        }
 //            i = i.add(BigInteger.ONE);
 //        } while(i.longValue() < Long.MAX_VALUE);
 
@@ -114,8 +142,8 @@ public class MainClass {
 //        java.util.Collections.sort(k1)  
 
             pWriter.close();
-        log.info("Total found bent-functions: " + k);
-        log.info("Total found normal \"bent\"-functis: " + f);
+            log.info("Total found bent-functions: " + k);
+            log.info("Total found normal \"bent\"-functis: " + f);
 
 //        for (String sss: k1){
 //            System.out.print(sss + ", ");
@@ -127,21 +155,21 @@ public class MainClass {
         }
     }
 
-    private static String converter(long l){
+    private static String converter(long l) {
 //        System.out.println(l);
-        long t =0;
+        long t = 0;
         long pow = (long) MainClass.pow;
-        for (int i = 0; i< pow; i++){
-            if (((l>>i) & 1) == 1){
-                t+=(long) Math.pow(2,pow-i);
+        for (int i = 0; i < pow; i++) {
+            if (((l >> i) & 1) == 1) {
+                t += (long) Math.pow(2, pow - i);
             }
         }
         return Long.toHexString(t);
     }
 
-    private static int wt(long l){
+    private static int wt(long l) {
         String binaryString = Long.toBinaryString(l);
-        return binaryString.replace("0","").length();
+        return binaryString.replace("0", "").length();
     }
 
 //    int dim = 3;

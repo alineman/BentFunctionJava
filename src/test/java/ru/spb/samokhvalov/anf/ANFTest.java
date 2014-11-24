@@ -178,4 +178,10 @@ public class ANFTest {
     public void testGetNonlinear(){
         Assert.assertEquals(6, anfNumber2.getNonlinear());
     }
+
+    @Test
+    public void testPow() throws Exception {
+        Assert.assertEquals(5, anfNumber1.getPow());
+        Assert.assertEquals(2, anfNumber2.getPow());
+    }
 }

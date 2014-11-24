@@ -32,6 +32,25 @@ saveImageToFile = function(matrix, filename){
 
 }
 
+quickSaveImageToFile = function(dimensions, filename){
+	library(grid)
+	data = read.csv("data.csv", head=F)
+	# mdata = t(as.matrix(data))
+	fillingArray = rep(0,dimensions^2)
+	for (i in data){
+		fillingArray[i+1] = 1
+	}
+	dim(fillingArray) = c(dimensions, dimensions)
+	matrixPic = as.matrix(fillingArray)
+
+	width = dimensions*4
+	height = dimensions*4
+	png(filename = filename, width = width, height = height, pointsize=1)
+	showImage(matrixPic)
+	dev.off()
+
+}
+
 showImage = function(matrixes){
 	library(grid)
 	matrixPic = as.matrix(matrixes)
@@ -44,8 +63,22 @@ calculateFast = function(dimensions){
 	# mdata = t(as.matrix(data))
 	fillingArray = rep(0,dimensions^2)
 	for (i in data){
-		fillingArray[i] = 1
+		fillingArray[i+1] = 1
 	}
 	dim(fillingArray) = c(dimensions, dimensions)
 	showImage(t(fillingArray))
+}
+
+makeLines = function(matrixes){
+	newMatrix = matrixes
+	for (i in 1:256){
+		for (j in 1:256){
+			if (matrixes[i,j] > 1){
+				# newMatrix[i,] = matrixes[i,]+0.5
+				# newMatrix[,j] = matrixes[,j]+0.5
+				newMatrix[i,j] = 1
+			}
+		}
+	}
+	return(newMatrix)
 }

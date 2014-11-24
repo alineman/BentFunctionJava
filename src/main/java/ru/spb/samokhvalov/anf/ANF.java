@@ -22,6 +22,7 @@ public class ANF {
     private List<String> anf;
     private boolean isBent = false;
     private final String symbols = "ABCDEFGHIKLMNOPQRSTVXYZ";
+    private long pow = -1;
 
     public ANF(long number, int variables) {
         this.number = number;
@@ -131,11 +132,11 @@ public class ANF {
         return isBent;
     }
 
-    public List<String> getHumanAnf(){
+    public List<String> getHumanAnf() {
         if (anf == null || anf.size() == 0)
             fillANFTable();
         List<String> result = new ArrayList<>();
-        for (String s:anf){
+        for (String s : anf) {
             result.add(humanView(s));
         }
         return result;
@@ -153,56 +154,56 @@ public class ANF {
 
 //        List<TableOfTrue> temp = new ArrayList<>();
         boolean[] temp = new boolean[(int) Long.rotateLeft(1, variables)];
-        int i=0;
+        int i = 0;
         for (TableOfTrue ofTrue : getTableOfTrue()) {
-            temp[i++]=ofTrue.getValue();
+            temp[i++] = ofTrue.getValue();
         }
         boolean[] result = fillAnf(temp);
         anf = new ArrayList<>();
-        for(i = 0; i < result.length; i++){
+        for (i = 0; i < result.length; i++) {
             if (result[i])
                 anf.add(getTableOfTrue().get(i).getVariableString());
         }
     }
 
-    private boolean[] fillAnf(boolean[] booleans){
+    private boolean[] fillAnf(boolean[] booleans) {
         int size = booleans.length;
         int half = size >> 1;
-        if (size ==2)
+        if (size == 2)
             return new boolean[]{booleans[0], (booleans[0] ^ booleans[1])};
 
         boolean[] temp1 = new boolean[half];
         boolean[] temp2 = new boolean[half];
 
-        for (int i = 0; i<half; i++){
+        for (int i = 0; i < half; i++) {
             temp1[i] = booleans[i];
-            temp2[i] = booleans[i] ^ booleans[i+half];
+            temp2[i] = booleans[i] ^ booleans[i + half];
         }
         temp1 = fillAnf(temp1);
         temp2 = fillAnf(temp2);
 
         boolean[] result = new boolean[size];
 
-        for(int j = 0; j < half; j++){
+        for (int j = 0; j < half; j++) {
             result[j] = temp1[j];
-            result[j+half] = temp2[j];
+            result[j + half] = temp2[j];
         }
 
         return result;
     }
 
-    public String humanView(String code){
+    public String humanView(String code) {
         if (!code.contains("1"))
             return "1";
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < code.length(); i++){
-            if (code.charAt(i)=='1')
+        for (int i = 0; i < code.length(); i++) {
+            if (code.charAt(i) == '1')
                 stringBuilder.append(symbols.charAt(i));
         }
         return stringBuilder.toString();
     }
 
-    public int getNonlinear(){
+    public int getNonlinear() {
         if (walshW == null)
             fillWalshW();
         int max = 1 << (variables >> 1);
@@ -211,7 +212,7 @@ public class ANF {
                 max = Math.abs(i);
             }
         }
-        return (int) Math.pow(2, variables-1)-(max/2);
+        return (int) Math.pow(2, variables - 1) - (max / 2);
     }
 
     public boolean isNormal() {
@@ -227,10 +228,10 @@ public class ANF {
         }
 
         for (i = 1; i <= 3; i++) {
-            for (int j = i+1; j <= 4; j++){
+            for (int j = i + 1; j <= 4; j++) {
                 boolean[] tempVector = Arrays.copyOf(vector, tableOfTrue.size());
-                if (flushValue(new int[]{i,j}, tempVector))
-                return true;
+                if (flushValue(new int[]{i, j}, tempVector))
+                    return true;
 
             }
         }
@@ -257,19 +258,31 @@ public class ANF {
         return true;
     }
 
-    public static String printArray(boolean[] arrays){
+    public static String printArray(boolean[] arrays) {
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < arrays.length; i++){
-            stringBuilder.append(arrays[i]? "1" : "0");
+        for (int i = 0; i < arrays.length; i++) {
+            stringBuilder.append(arrays[i] ? "1" : "0");
         }
         return stringBuilder.toString();
     }
 
-    public static String printArray(int[] arrays){
+    public static String printArray(int[] arrays) {
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < arrays.length; i++){
+        for (int i = 0; i < arrays.length; i++) {
             stringBuilder.append(arrays[i]);
         }
         return stringBuilder.toString();
     }
+
+    public long getPow() {
+        if (pow != -1)
+            return pow;
+        List<String> anf = getHumanAnf();
+        int result = 0;
+        for (String element : anf)
+            if (element.length() > result)
+                result = element.length();
+        return result;
+    }
+
 }
