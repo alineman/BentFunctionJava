@@ -63,20 +63,44 @@ calculateFast = function(dimensions){
 	# mdata = t(as.matrix(data))
 	fillingArray = rep(0,dimensions^2)
 	for (i in data){
-		fillingArray[i+1] = 1
+		fillingArray[i+1] = rgb(0,0,0,1)
 	}
 	dim(fillingArray) = c(dimensions, dimensions)
 	showImage(t(fillingArray))
+}
+
+makeBentAndNormal = function(){
+	bent = read.csv("bent.csv", head=F)
+    linear = read.csv("linear.csv", head=F)
+    mtr = rep(rgb(0.9,0.9,0.9,0.8),65536)
+for (i in bent){
+	mtr[i+1] = rgb(0,0,0,0.8)
+}
+for (i in linear){
+	# if (mtr[i] != "1") {
+		mtr[i+1] = rgb(1,0,0,0.8)
+	# }
+	# else {
+		# mtr[i] = rgb(0,1,0,0.8)
+	# }
+}
+dim(mtr) = c(256,256)
+
+# showImage(mtr)
+saveImageToFile(t(mtr),"bentLinear.png")
+saveImageToFile(makeLines(t(mtr)),"bentLines.png")
+print(length(which(mtr==rgb(0,0,0,0.8))))
 }
 
 makeLines = function(matrixes){
 	newMatrix = matrixes
 	for (i in 1:256){
 		for (j in 1:256){
-			if (matrixes[i,j] > 1){
-				# newMatrix[i,] = matrixes[i,]+0.5
-				# newMatrix[,j] = matrixes[,j]+0.5
-				newMatrix[i,j] = 1
+			if (matrixes[i,j] == rgb(1,0,0,0.8)){
+				linesColor=rgb(0.6,0.6,0.6,0.5)
+				newMatrix[i,] = linesColor
+				newMatrix[,j] = linesColor
+				# newMatrix[i,j] = 1
 			}
 		}
 	}
