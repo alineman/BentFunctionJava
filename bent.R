@@ -70,25 +70,25 @@ calculateFast = function(dimensions){
 }
 
 makeBentAndNormal = function(){
-	bent = read.csv("bent.csv", head=F)
-    linear = read.csv("linear.csv", head=F)
+	bent = read.csv("data.csv", head=F)
+    # linear = read.csv("linear.csv", head=F)
     mtr = rep(rgb(0.9,0.9,0.9,0.8),65536)
 for (i in bent){
 	mtr[i+1] = rgb(0,0,0,0.8)
 }
-for (i in linear){
+# for (i in linear){
 	# if (mtr[i] != "1") {
-		mtr[i+1] = rgb(1,0,0,0.8)
+		# mtr[i+1] = rgb(1,0,0,0.8)
 	# }
 	# else {
 		# mtr[i] = rgb(0,1,0,0.8)
 	# }
-}
+# }
 dim(mtr) = c(256,256)
 
 # showImage(mtr)
 saveImageToFile(t(mtr),"bentLinear.png")
-saveImageToFile(makeLines(t(mtr)),"bentLines.png")
+# saveImageToFile(makeLines(t(mtr)),"bentLines.png")
 print(length(which(mtr==rgb(0,0,0,0.8))))
 }
 
