@@ -23,6 +23,7 @@ public class ANF {
     private boolean isBent = false;
     private final String symbols = "ABCDEFGHIKLMNOPQRSTVXYZ";
     private long pow = -1;
+    private long anfNumber=-1;
 
     public ANF(long number, int variables) {
         this.number = number;
@@ -285,4 +286,18 @@ public class ANF {
         return result;
     }
 
+    public long getAnfAsNumber(){
+        if (anfNumber == -1)
+            fillAnfAsNumber();
+
+        return anfNumber;
+    }
+    private void  fillAnfAsNumber(){
+        if (anfNumber == -1)
+            fillANFTable();
+        anfNumber = 0;
+        for (String code:anf){
+            anfNumber+= 1<< Long.parseLong(code,2);
+        }
+    }
 }

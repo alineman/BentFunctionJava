@@ -49,7 +49,7 @@ public class MainClass {
         List<String> k1 = new ArrayList<>();
         int subDimension = ((degree % 2) == 0) ? (degree / 2) : ((degree / 2) + 1);
         LinearSubDimension linearSubDimension = new LinearSubDimension(subDimension, degree);
-        log.info(linearSubDimension.getAllValues());
+//        log.info(linearSubDimension.getAllValues());
         Set keys = linearSubDimension.getNewValues().keySet();
         Iterator itr2 = keys.iterator();
         while (itr2.hasNext()){
@@ -60,7 +60,7 @@ public class MainClass {
 //            for (int ff:valuesNormalA)
 //            sum+=ff;
             ANF del = new ANF( sum, degree);
-            log.info(next + " " + sum + " " +del.getHumanAnf());
+            log.info(next + " " + sum + " " +del.getHumanAnf() + " " + del.getAnfAsNumber());
         }
         try {
             PrintWriter pWriter = new PrintWriter("data.csv", "UTF-8");
@@ -71,6 +71,10 @@ public class MainClass {
                 ANF temp = new ANF(i, degree);
             boolean isBent = temp.isBent();
 //            if (isBent) {
+//                pWriter.println(temp.getAnfAsNumber());
+//                pWriter.println(i);
+//                log.info(i+ " " + temp.getHumanAnf() + " " + temp.getAnfAsNumber());
+//            }
 //                for (TableOfTrue j : temp.getTableOfTrue())
 //                    log.info(j.getVariableString() + " | " + j.getValue());
 //                log.info("\n");
@@ -80,16 +84,20 @@ public class MainClass {
 //                    resultNumber += value << i;
                 k1.add(converter(temp.getNumber()));
 //
-//                int[] vvaluues = new int[32];
-//                for (int j =0 ; j<affine4.length; j++){
-//                    vvaluues[j] = Long.bitCount(affine4[j] ^ i);
-//                }
-//                Arrays.sort(vvaluues);
-//                if (temp.getPow() <= 1 ){
-//                    f++;
-//                    pWriter.println(i);
+                int[] vvaluues = new int[32];
+                for (int j =0 ; j<affine4.length; j++){
+                    vvaluues[j] = Long.bitCount(affine4[j] ^ i);
+                }
+                Arrays.sort(vvaluues);
+                int vvaluue = vvaluues[0];
+//                if (temp.getPow() <=1 ){
+                if ((vvaluue == 6 )){
+//                    log.info(vvaluue + " " + i);
+                    f++;
+                    pWriter.println(temp.getAnfAsNumber());
+}
 //                log.info("$" + i + "_{10}$ & $" + StringUtils.leftPad(Long.toBinaryString(i), 16, "0") + "$ & $" + temp.getHumanAnf() + "$&" + Long.bitCount(i) +"\\\\");
-//}
+
 //       log.info(temp.getHumanAnf() + " " + temp.getPow());
 //                if (temp.getPow() <= 1) {
 //                    log.info(i);
@@ -120,13 +128,13 @@ public class MainClass {
 //                    System.out.println((x&temp)>0 ? 1 : 0);
 //                }
 
-                int normal = linearSubDimension.validateNormality1((int) i);
-                if (normal>0) {
+//                int normal = linearSubDimension.validateNormality1((int) i);
+//                if (normal>0) {
 //                    log.info(i);
 //                    pWriter.println(i + ";" + normal);
-                    pWriter.println(i);
-                    f++;
-                }
+//                    pWriter.println(i);
+//                    f++;
+//                }
 //                System.out.println("i: " + i + " " + binaryView + " " + normal);
 //                String[] split = binaryView.split("");
 //                for (int l = 1; l < split.length; l++){
@@ -143,9 +151,9 @@ public class MainClass {
 //                }
 //                log.info("\n");
                 k++;
-//            }
+            }
 //            System.out.println(StringUtils.leftPad(Long.toBinaryString(i), (int) pow, "0"));
-        }
+//        }
 //            i = i.add(BigInteger.ONE);
 //        } while(i.longValue() < Long.MAX_VALUE);
 
