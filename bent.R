@@ -33,21 +33,26 @@ saveImageToFile = function(matrix, filename){
 }
 
 quickSaveImageToFile = function(dimensions, filename){
-	library(grid)
-	data = read.csv("data.csv", head=F)
-	# mdata = t(as.matrix(data))
-	fillingArray = rep(0,dimensions^2)
-	for (i in data){
-		fillingArray[i+1] = 1
-	}
-	dim(fillingArray) = c(dimensions, dimensions)
-	matrixPic = as.matrix(fillingArray)
-
 	width = dimensions*4
 	height = dimensions*4
 	png(filename = filename, width = width, height = height, pointsize=1)
-	showImage(matrixPic)
+	calculateFast(256)
 	dev.off()
+	# library(grid)
+	# data = read.csv("data.csv", head=F)
+	# # mdata = t(as.matrix(data))
+	# fillingArray = rep(0,dimensions^2)
+	# for (i in data){
+	# 	fillingArray[i+1] = 1
+	# }
+	# dim(fillingArray) = c(dimensions, dimensions)
+	# matrixPic = as.matrix(fillingArray)
+
+	# width = dimensions*4
+	# height = dimensions*4
+	# png(filename = filename, width = width, height = height, pointsize=1)
+	# showImage(matrixPic)
+	# dev.off()
 
 }
 

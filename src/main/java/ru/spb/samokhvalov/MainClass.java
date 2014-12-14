@@ -70,7 +70,7 @@ public class MainClass {
 //        do {
                 ANF temp = new ANF(i, degree);
             boolean isBent = temp.isBent();
-//            if (isBent) {
+            if (isBent) {
 //                pWriter.println(temp.getAnfAsNumber());
 //                pWriter.println(i);
 //                log.info(i+ " " + temp.getHumanAnf() + " " + temp.getAnfAsNumber());
@@ -91,11 +91,11 @@ public class MainClass {
                 Arrays.sort(vvaluues);
                 int vvaluue = vvaluues[0];
 //                if (temp.getPow() <=1 ){
-                if ((vvaluue == 6 )){
+//                if ((vvaluue == 6 )){
 //                    log.info(vvaluue + " " + i);
-                    f++;
+//                    f++;
                     pWriter.println(temp.getAnfAsNumber());
-}
+//}
 //                log.info("$" + i + "_{10}$ & $" + StringUtils.leftPad(Long.toBinaryString(i), 16, "0") + "$ & $" + temp.getHumanAnf() + "$&" + Long.bitCount(i) +"\\\\");
 
 //       log.info(temp.getHumanAnf() + " " + temp.getPow());
@@ -153,7 +153,7 @@ public class MainClass {
                 k++;
             }
 //            System.out.println(StringUtils.leftPad(Long.toBinaryString(i), (int) pow, "0"));
-//        }
+        }
 //            i = i.add(BigInteger.ONE);
 //        } while(i.longValue() < Long.MAX_VALUE);
 
