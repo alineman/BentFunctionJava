@@ -1,0 +1,63 @@
+\begin{titlepage} 
+\begin{center}
+% Upper part of the page
+{\large САНКТ-ПЕТЕРБУРГСКИЙ ГОСУДАРСТВЕННЫЙ УНИВЕРСИТЕТ} \\ [0.2cm]
+{\large Математико-механический факультет} \\[0.2cm]
+{\large Кафедра исследования операций}\\[1cm]
+
+{\large Самохвалов Иван Александрович} 
+
+\bigskip
+ 
+\begin{flushright}
+\rule{0.5\textwidth}{0.5}
+\rightline{(подпись)}\\
+\end{flushright}
+\bigskip
+
+% Title
+\textbf{\LARGE Нормальные булевы функции высокой нелинейности}\\[1.0cm]
+{\Large Дипломная работа} \\[0.2cm]
+\bigskip
+\bigskip
+\bigskip
+%supervisor
+\hfill\parbox{0.5\textwidth}{
+
+\begin{flushleft}
+Допущена к защите.\\
+Зав кафедрой:\\
+д.ф.-м.н.,\\
+профессор Романовский И.В.
+\end{flushleft}
+\bigskip
+\hrule
+\rightline{(подпись)}
+
+\begin{flushleft}
+Научный руководитель:\\
+к.ф.-м.н.,\\
+доцент Агафонова И.В.
+\end{flushleft}
+\bigskip
+\hrule
+\rightline{(подпись)}
+
+\begin{flushleft}
+Рецензент:\\
+к.ф.-м.н.,\\
+доцент Бухвалова В.В.
+\end{flushleft}
+\bigskip
+\hrule
+\rightline{(подпись)}
+}
+
+\vfill 
+\hfill 
+% Bottom of the page
+
+{\large {Санкт-Петербург}} \par
+{\large {2015 г.}}
+\end{center} 
+\end{titlepage}
