@@ -71,6 +71,7 @@ public class MainClass {
                 ANF temp = new ANF(i, degree);
             boolean isBent = temp.isBent();
             if (isBent) {
+//                log.info(i);
 //                pWriter.println(temp.getAnfAsNumber());
 //                pWriter.println(i);
 //                log.info(i+ " " + temp.getHumanAnf() + " " + temp.getAnfAsNumber());
@@ -82,19 +83,20 @@ public class MainClass {
 //                    int value = (t.getValue()) ? 1 : 0;
 //                    log.info(t.getVariableString() + " | " + value);
 //                    resultNumber += value << i;
-                k1.add(converter(temp.getNumber()));
-//
-                int[] vvaluues = new int[32];
-                for (int j =0 ; j<affine4.length; j++){
-                    vvaluues[j] = Long.bitCount(affine4[j] ^ i);
-                }
-                Arrays.sort(vvaluues);
-                int vvaluue = vvaluues[0];
+//                k1.add(converter(temp.getNumber()));
+////
+//                int[] vvaluues = new int[32];
+//                for (int j =0 ; j<affine4.length; j++){
+//                    vvaluues[j] = Long.bitCount(affine4[j] ^ i);
+//                }
+//                Arrays.sort(vvaluues);
+//                int vvaluue = vvaluues[0];
 //                if (temp.getPow() <=1 ){
 //                if ((vvaluue == 6 )){
 //                    log.info(vvaluue + " " + i);
 //                    f++;
-                    pWriter.println(temp.getAnfAsNumber());
+//                    pWriter.println(temp.getAnfAsNumber());
+                    pWriter.println(temp.getInvertNumber());
 //}
 //                log.info("$" + i + "_{10}$ & $" + StringUtils.leftPad(Long.toBinaryString(i), 16, "0") + "$ & $" + temp.getHumanAnf() + "$&" + Long.bitCount(i) +"\\\\");
 

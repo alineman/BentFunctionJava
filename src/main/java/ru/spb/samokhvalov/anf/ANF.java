@@ -143,6 +143,17 @@ public class ANF {
         return result;
     }
 
+    public long getInvertNumber() {
+        if (anf == null || anf.size() == 0)
+            fillANFTable();
+        long result = 0;
+        for (String s : anf) {
+//            result = result ^ invertView(s);
+            result += Math.pow(2, invertView(s));
+        }
+        return result;
+    }
+
     public List<String> getAnf() {
         if (anf == null || anf.size() == 0)
             fillANFTable();
@@ -202,6 +213,15 @@ public class ANF {
                 stringBuilder.append(symbols.charAt(i));
         }
         return stringBuilder.toString();
+    }
+
+    public long invertView(String code){
+        long result = 0;
+        for (int i = 0; i < code.length(); i++) {
+            if (code.charAt(i) == '1')
+                result += Math.pow(2,i);
+        }
+        return result;
     }
 
     public int getNonlinear() {

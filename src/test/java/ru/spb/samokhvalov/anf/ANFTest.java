@@ -183,4 +183,11 @@ public class ANFTest {
         Assert.assertEquals(5, anfNumber1.getPow());
         Assert.assertEquals(2, anfNumber2.getPow());
     }
+
+    @Test
+    public void testInvertView(){
+        Assert.assertEquals(8, anfNumber1.invertView("0001"));
+        Assert.assertEquals(9, anfNumber1.invertView("1001"));
+        Assert.assertEquals(15, anfNumber1.invertView("1111"));
+    }
 }
