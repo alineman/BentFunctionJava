@@ -13,7 +13,7 @@
 \renewcommand \appendixname{Приложение}
 \makeatletter
 \def\redeflsection{\def\l@section{\@dottedtocline{1}{1.5em}{7.8em}}}
-\setcounter{page}{11}
+% \setcounter{page}{11}
 
 \renewcommand\appendix{\par
 \setcounter{section}{0}%
@@ -28,8 +28,9 @@
 
 % \input{titlepage.latex}
 % \input{common.latex}
+ % \input{section1.latex}
+ \input{Chaplin.latex}
 % \input{bibitem.latex}
- \input{section1.latex}
 
 
 \end{document}

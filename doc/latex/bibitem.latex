@@ -13,4 +13,14 @@ functions // Discrete Appl. Math. 2006. V. 154, N 2. P. 202–218.
 LAMBERT Academic Publishing (Saarbrucken, Germany), 2011. ISBN: 978-3-8433-0904-2.
 \bibitem{TokarevaPhD} {\it Токарева Н.И.} Диссертация на соискание ученой степени
 кандидата физико-математических наук
+\bibitem{Dobbertin} H. Dobbertin, Construction of bent functions and balanced Boolean functions with high
+nonlinearity, in: Fast Software Encryption, Lecture Notes in Computer Science, Vol. 1008, Springer,
+Berlin, 1994, pp. 61–74.
+\bibitem{Cantenaut6}A. Canteaut, M. Daum, G. Leander, H. Dobbertin, Normal and non normal bent functions, in:
+Proceedings of the 2003 International Workshop on Coding and Cryptography (WCC 2003),
+Versailles, France, March 2003, pp. 91–100.
+\bibitem{Daum} M. Daum, G. Leander, H. Dobbertin, An algorithm for checking normality of Boolean functions, in:
+Proceedings of the 2003 International Workshop on Coding and Cryptography (WCC 2003), March
+2003, pp. 133–142.
+
 \end{thebibliography}
