@@ -3,7 +3,7 @@
 \bibitem{CharpinComplexity} {\it P. Charpin} Journal of Complexity 200 (2004) 245-265
 \bibitem{Canteaut} {\it Canteaut A., Daum M., Dobbertin H., Leander G.} Finding nonnormal bent
 functions // Discrete Appl. Math. 2006. V. 154, N 2. P. 202–218.
-\bibitem{RothausFirst} {\it Rothaus O.} On bent functions // IDA CRD W.P. No. 169. 1966.
+\bibitem{RothausFirst} {\it Rothaus O.} On bent functions // IDA CRD W.P. No. 169. 1976.
 \bibitem{RothausSecond}  {\it O. S. Rothaus} (May 1976). «On "Bent" Functions». Journal of Combinatorial Theory, Series A 20 (3): 300–305. DOI:10.1016/0097-3165(76)90024-8. ISSN 0097-3165
 \bibitem{Colomeec} {\it Коломеец Н. А., Павлов А. В.} Свойства бент-функций, находящихся
 на минимальном расстоянии друг от друга // Прикладная Дискретная
@@ -22,5 +22,14 @@ Versailles, France, March 2003, pp. 91–100.
 \bibitem{Daum} M. Daum, G. Leander, H. Dobbertin, An algorithm for checking normality of Boolean functions, in:
 Proceedings of the 2003 International Workshop on Coding and Cryptography (WCC 2003), March
 2003, pp. 133–142.
+\bibitem{ColomeecPhD} {\it Коломеец Н. А} БЕНТ-ФУНКЦИИ, АФФИННЫЕ НА ПОДПРОСТРАНСТВАХ, И ИХ
+МЕТРИЧЕСКИЕ СВОЙСТВА. Диссертация на соискание учёной степени
+кандидата физико-математических наук
+\bibitem{CantenautDum} Canteaut A., Daum M., Dobbertin H., Leander G. Finding nonnormal bent
+functions // Discrete Applied Mathematics. — 2006. — V. 154, N 2. — P. 202–
+218.
+
+
+
 
 \end{thebibliography}

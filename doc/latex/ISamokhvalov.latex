@@ -28,9 +28,9 @@
 
 % \input{titlepage.latex}
 % \input{common.latex}
- % \input{section1.latex}
- \input{Chaplin.latex}
-% \input{bibitem.latex}
+ \input{section1.latex}
+ % \input{Chaplin.latex}
+\input{bibitem.latex}
 
 
 \end{document}
