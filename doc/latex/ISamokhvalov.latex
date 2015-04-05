@@ -30,7 +30,7 @@
 % \input{common.latex}
  \input{section1.latex}
  % \input{Chaplin.latex}
-\input{bibitem.latex}
+\include{bibitem}
 
 
 \end{document}
