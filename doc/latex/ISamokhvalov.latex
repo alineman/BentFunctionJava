@@ -10,6 +10,7 @@
 \usepackage[pdftex]{graphicx}
 \usepackage[english,russian]{babel}
 \usepackage[utf8]{inputenc}
+\usepackage{datetime}
 \renewcommand \appendixname{Приложение}
 \makeatletter
 \def\redeflsection{\def\l@section{\@dottedtocline{1}{1.5em}{7.8em}}}
