@@ -150,7 +150,31 @@ $f \in \mathcal{B}_n$ называется $k${\slshape-нормальной,} $
 \hspace*{1cm} чтобы получить эти пространства размерности $m$, на которых $f$ аффинная\\
 \hspace*{0.5cm}{\bf Результат: } все пространства размерности $m$
 \subsection*{Алгоритм 2~\cite{Canteaut}}
-Он слишком сложный пока что.
+Он слишком сложный пока что.\\
+{\bf Входные данные: } Булева функция $f : V_n \to F_2$, начальная размерность $t_0$\\
+{\bf Результат: } Список всех плоскостей, на которых $f$ линейна\\
+{\bf Для всех: } $GJ$-базисов $u_1,\dots,u_{t_0}$\\
+\hspace*{0.5cm}{\bf У которых} $| \{ j > \nu_{t_o}\max_{i=1}^{t_0}(u_i)_j = 1 \} |\leqslant m - \nu_{t_0} +1 + t_0  $ {\bf делать}\\
+\hspace*{1cm} {\bf Для всех} $a \in \overline{\langle  u_1,\dots,u_{t_0} \rangle}$\\
+\hspace*{1cm} {\bf Если} $f (a + \sum \lambda_i\cdot u_i) = c \,\, \forall \lambda \in (F_2)^{t_0}$\\
+\hspace*{1.5cm} {\bf Тогда } добавить $a$ к $\mathscr{C}_c^{u_1,\dots, u_{t_0}}$\\
+\hspace*{1.5cm} {\bf Комбинировать Combine} $(\mathscr{C}_0^{u_1,\dots, u_{t_0}}, \mathscr{C}_1^{u_1,\dots,u_{t_0}},(u_1,\dots,u_{t_0}), t_0)$\\
+используя рекурсивную процедуру:\\
+{\bf Combine}($\mathscr{C}_0, \mathscr{C}_1,(u_1,\dots,u_{t_0}),k) $\\
+{\bf Если } $(k < m - 1)$\\
+\hspace*{0.5cm} {\bf Тогда}\\
+\hspace*{1cm} {\bf Если} $(|\mathscr{C}_0| < 2^{m - k - 1}\, OR\, (|\mathscr{C}_0| < 2^{ m - k}\, AND\, |\mathscr{C}_1| < 2^{m - k - 1}))$ {\bf Тогда} $\mathscr{C}_0 := \emptyset$\\
+\hspace*{1cm} {\bf Если} $(|\mathscr{C}_1| < 2^{m - k - 1}\, OR\, (|\mathscr{C}_1| < 2^{ m - k}\, AND\, |\mathscr{C}_0| < 2^{m - k - 1}))$ {\bf Тогда} $\mathscr{C}_1 := \emptyset$\\
+\hspace*{1cm} {\bf Если} $(\mathscr{C}_0 = \emptyset\, OR\, \mathscr{C}_1 = \emptyset)$ {\bf Тогда} выход из подпрограммы\\
+\hspace*{1cm} $\hat{u} := \vee_{i=1}^k u_i$\\
+\hspace*{1cm} {\bf Для всех} $c\in \{0,1\},\quad a,b \in \mathscr{C}_c: a < b$ {\bf Делать:}\\
+\hspace*{1.5cm} {\bf Если} $ (\hat{u}_{v(a + b)} = 0\, AND \, a + b < u_k)$ {\bf Тогда} добавить $a$ к $\mathscr{C}_c^{u_1,\dots,u_k,a+b}$\\
+\hspace*{1cm} {\bf Для всех} $u_{k + 1} \in V_n : u_{k + 1} < u_k$ {\bf Делать:}\\
+\hspace*{1.5cm} {\bf Combine}$(\mathscr{C}_0^{u_1,\dots,u_{k + 1}}, \mathscr{C}_1^{u_1,\dots,u_{k + 1}}, (u_1,\dots,u_{k + 1}), k + 1)$\\
+{\bf Иначе}\\
+\hspace*{0.5cm} {\bf Для всех} $a, b \in \mathscr{C}_0 \cup \mathscr{C}_1 : a < b$ {\bf Делать:}\\
+\hspace*{1cm}{\bf Вывести } "$f$ линейна на $a + \langle u_1,\dots,u_k, a + b\rangle$"\\
+
 \subsection*{Алгоритм 3~\cite{Charpin}}
 
 \subsection*{Алгоритм 4}

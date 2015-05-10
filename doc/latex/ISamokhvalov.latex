@@ -5,6 +5,7 @@
 \usepackage{amssymb}
 \usepackage{amsfonts}
 \usepackage{wrapfig}
+\usepackage{mathrsfs}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
 \usepackage[all]{xy}
 \usepackage[pdftex]{graphicx}
