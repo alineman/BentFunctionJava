@@ -5,10 +5,10 @@ import lombok.extern.log4j.Log4j;
 import ru.spb.samokhvalov.anf.ANF;
 import ru.spb.samokhvalov.anf.LinearSubDimension;
 
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by ivan on 09.05.14.
@@ -60,136 +60,141 @@ public class MainClass {
 //            for (int ff:valuesNormalA)
 //            sum+=ff;
             ANF del = new ANF( sum, degree);
-            log.info(next + " " + sum + " " +del.getHumanAnf() + " " + del.getAnfAsNumber());
+//            log.info(next + " " + sum + " " +del.getHumanAnf() + " " + del.getAnfAsNumber());
         }
-        try {
-            PrintWriter pWriter = new PrintWriter("data.csv", "UTF-8");
 
-            for (long i = 0; i < Math.pow(2, pow); i++) {
-//            BigInteger i = new BigInteger("0");
-//        do {
-                ANF temp = new ANF(i, degree);
-            boolean isBent = temp.isBent();
-            if (isBent) {
-//                log.info(i);
-//                pWriter.println(temp.getAnfAsNumber());
-//                pWriter.println(i);
-//                log.info(i+ " " + temp.getHumanAnf() + " " + temp.getAnfAsNumber());
+        ANF example = new ANF(1, 6);
+        log.info(example.getAnf());
+        log.info(example.getHumanAnf());
+//        try {
+//            PrintWriter pWriter = new PrintWriter("data.csv", "UTF-8");
+//
+//            for (long i = 0; i < Math.pow(2, pow); i++) {
+////            BigInteger i = new BigInteger("0");
+////        do {
+//                ANF temp = new ANF(i, degree);
+//            boolean isBent = temp.isBent();
+//            if (isBent) {
+////                log.info(i);
+//                log.info(temp.getAnf());
+////                pWriter.println(temp.getAnfAsNumber());
+////                pWriter.println(i);
+////                log.info(i+ " " + temp.getHumanAnf() + " " + temp.getAnfAsNumber());
+////            }
+////                for (TableOfTrue j : temp.getTableOfTrue())
+////                    log.info(j.getVariableString() + " | " + j.getValue());
+////                log.info("\n");
+////                for (TableOfTrue t : temp.getTableOfTrue()) {
+////                    int value = (t.getValue()) ? 1 : 0;
+////                    log.info(t.getVariableString() + " | " + value);
+////                    resultNumber += value << i;
+////                k1.add(converter(temp.getNumber()));
+//////
+////                int[] vvaluues = new int[32];
+////                for (int j =0 ; j<affine4.length; j++){
+////                    vvaluues[j] = Long.bitCount(affine4[j] ^ i);
+////                }
+////                Arrays.sort(vvaluues);
+////                int vvaluue = vvaluues[0];
+////                if (temp.getPow() <=1 ){
+////                if ((vvaluue == 6 )){
+////                    log.info(vvaluue + " " + i);
+////                    f++;
+////                    pWriter.println(temp.getAnfAsNumber());
+//                    pWriter.println(temp.getInvertNumber());
+////}
+////                log.info("$" + i + "_{10}$ & $" + StringUtils.leftPad(Long.toBinaryString(i), 16, "0") + "$ & $" + temp.getHumanAnf() + "$&" + Long.bitCount(i) +"\\\\");
+//
+////       log.info(temp.getHumanAnf() + " " + temp.getPow());
+////                if (temp.getPow() <= 1) {
+////                    log.info(i);
+////                    pWriter.println(i);
+//////                log.info(temp.getHumanAnf() + " " + temp.getPow());
+////                    f++;
+////                }
+////            int nonlinear = temp.getNonlinear();
+////            if (nonlinear == 2)
+////            if(isBent)  {
+////            if ( wt(i) == 10 ||  wt(i) == 6 ) {
+////                f++;
+////                if (!isBent)
+////                    System.out.printf("%16s\n", Long.toBinaryString(i));
+////                System.out.println(nonlinear + " " + Long.toBinaryString(i) + " " + wt(i) + " " +temp.getHumanAnf());
+////                System.out.println(nonlinear + " " + " " +temp.getHumanAnf());
+////                System.out.println(i, (long) Long.MAX_VALUE * Math.pow(2,pow));
+////            }
+////                int [] wals = temp.getWalshW();
+////            Arrays.sort(wals);
+////                pWriter.print(i + ";");
+////                String binaryView = StringUtils.leftPad(Long.toBinaryString(i), (int) pow, "0");
+//
+////             System.out.println(i);
+////                int x = 854;
+////                for(int i = 0; i<16;i++){
+////                    int temp = 1<<i;
+////                    System.out.println((x&temp)>0 ? 1 : 0);
+////                }
+//
+////                int normal = linearSubDimension.validateNormality1((int) i);
+////                if (normal>0) {
+////                    log.info(i);
+////                    pWriter.println(i + ";" + normal);
+////                    pWriter.println(i);
+////                    f++;
+////                }
+////                System.out.println("i: " + i + " " + binaryView + " " + normal);
+////                String[] split = binaryView.split("");
+////                for (int l = 1; l < split.length; l++){
+////                    System.out.printf("%20d", pow);
+////                    System.out.printf("%10d\n", i);
+////                    pWriter.print(split[l] + ";");
+////                }
+////                pWriter.println(i);
+////                System.out.print("\n");
+//
+////                System.out.print(Long.toHexString(temp.getNumber()) + ", ");
+////                for (String s : temp.getAnf()) {
+////                    log.info(s);
+////                }
+////                log.info("\n");
+//                k++;
 //            }
-//                for (TableOfTrue j : temp.getTableOfTrue())
-//                    log.info(j.getVariableString() + " | " + j.getValue());
-//                log.info("\n");
-//                for (TableOfTrue t : temp.getTableOfTrue()) {
-//                    int value = (t.getValue()) ? 1 : 0;
-//                    log.info(t.getVariableString() + " | " + value);
-//                    resultNumber += value << i;
-//                k1.add(converter(temp.getNumber()));
-////
-//                int[] vvaluues = new int[32];
-//                for (int j =0 ; j<affine4.length; j++){
-//                    vvaluues[j] = Long.bitCount(affine4[j] ^ i);
-//                }
-//                Arrays.sort(vvaluues);
-//                int vvaluue = vvaluues[0];
-//                if (temp.getPow() <=1 ){
-//                if ((vvaluue == 6 )){
-//                    log.info(vvaluue + " " + i);
-//                    f++;
-//                    pWriter.println(temp.getAnfAsNumber());
-                    pWriter.println(temp.getInvertNumber());
-//}
-//                log.info("$" + i + "_{10}$ & $" + StringUtils.leftPad(Long.toBinaryString(i), 16, "0") + "$ & $" + temp.getHumanAnf() + "$&" + Long.bitCount(i) +"\\\\");
-
-//       log.info(temp.getHumanAnf() + " " + temp.getPow());
-//                if (temp.getPow() <= 1) {
-//                    log.info(i);
-//                    pWriter.println(i);
-////                log.info(temp.getHumanAnf() + " " + temp.getPow());
-//                    f++;
-//                }
-//            int nonlinear = temp.getNonlinear();
-//            if (nonlinear == 2)
-//            if(isBent)  {
-//            if ( wt(i) == 10 ||  wt(i) == 6 ) {
-//                f++;
-//                if (!isBent)
-//                    System.out.printf("%16s\n", Long.toBinaryString(i));
-//                System.out.println(nonlinear + " " + Long.toBinaryString(i) + " " + wt(i) + " " +temp.getHumanAnf());
-//                System.out.println(nonlinear + " " + " " +temp.getHumanAnf());
-//                System.out.println(i, (long) Long.MAX_VALUE * Math.pow(2,pow));
-//            }
-//                int [] wals = temp.getWalshW();
-//            Arrays.sort(wals);
-//                pWriter.print(i + ";");
-//                String binaryView = StringUtils.leftPad(Long.toBinaryString(i), (int) pow, "0");
-
-//             System.out.println(i);
-//                int x = 854;
-//                for(int i = 0; i<16;i++){
-//                    int temp = 1<<i;
-//                    System.out.println((x&temp)>0 ? 1 : 0);
-//                }
-
-//                int normal = linearSubDimension.validateNormality1((int) i);
-//                if (normal>0) {
-//                    log.info(i);
-//                    pWriter.println(i + ";" + normal);
-//                    pWriter.println(i);
-//                    f++;
-//                }
-//                System.out.println("i: " + i + " " + binaryView + " " + normal);
-//                String[] split = binaryView.split("");
-//                for (int l = 1; l < split.length; l++){
-//                    System.out.printf("%20d", pow);
-//                    System.out.printf("%10d\n", i);
-//                    pWriter.print(split[l] + ";");
-//                }
-//                pWriter.println(i);
-//                System.out.print("\n");
-
-//                System.out.print(Long.toHexString(temp.getNumber()) + ", ");
-//                for (String s : temp.getAnf()) {
-//                    log.info(s);
-//                }
-//                log.info("\n");
-                k++;
-            }
-//            System.out.println(StringUtils.leftPad(Long.toBinaryString(i), (int) pow, "0"));
-        }
-//            i = i.add(BigInteger.ONE);
-//        } while(i.longValue() < Long.MAX_VALUE);
-
-//        String[] str = new String()[];
-//        k1.toArray();
-//        Arrays.sort(str);
-//        java.util.Collections.sort(k1)  
-//            Set<Integer> normal256 = new HashSet<>();
-//            for (int m = 0; m < 256; m++) {
-//                if (
-//                        (Integer.bitCount(m & 60) == 4) ||
-//                                (Integer.bitCount(m & 90) == 4) ||
-//                                (Integer.bitCount(m & 102) == 4) //||
-////                                (Integer.bitCount(m & 195) == 4) ||
-////                                (Integer.bitCount(m & 165) == 4) ||
-////                                (Integer.bitCount(m & 153) == 4)
-//                        )
-//                    normal256.add(m);
-//            }
-//            Iterator<Integer> itr = normal256.iterator();
-//            while(itr.hasNext())    {
-//                pWriter.write(itr.next() + "\n"); }
-            pWriter.close();
-            log.info("Total found bent-functions: " + k);
-            log.info("Total found normal \"bent\"-functis: " + f);
-
-//        for (String sss: k1){
-//            System.out.print(sss + ", ");
+////            System.out.println(StringUtils.leftPad(Long.toBinaryString(i), (int) pow, "0"));
 //        }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+////            i = i.add(BigInteger.ONE);
+////        } while(i.longValue() < Long.MAX_VALUE);
+//
+////        String[] str = new String()[];
+////        k1.toArray();
+////        Arrays.sort(str);
+////        java.util.Collections.sort(k1)
+////            Set<Integer> normal256 = new HashSet<>();
+////            for (int m = 0; m < 256; m++) {
+////                if (
+////                        (Integer.bitCount(m & 60) == 4) ||
+////                                (Integer.bitCount(m & 90) == 4) ||
+////                                (Integer.bitCount(m & 102) == 4) //||
+//////                                (Integer.bitCount(m & 195) == 4) ||
+//////                                (Integer.bitCount(m & 165) == 4) ||
+//////                                (Integer.bitCount(m & 153) == 4)
+////                        )
+////                    normal256.add(m);
+////            }
+////            Iterator<Integer> itr = normal256.iterator();
+////            while(itr.hasNext())    {
+////                pWriter.write(itr.next() + "\n"); }
+//            pWriter.close();
+//            log.info("Total found bent-functions: " + k);
+//            log.info("Total found normal \"bent\"-functis: " + f);
+//
+////        for (String sss: k1){
+////            System.out.print(sss + ", ");
+////        }
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private static String converter(long l) {
@@ -229,5 +234,11 @@ public class MainClass {
 //    }
 ////System.out.println(0b1010^0b1111);
 
-
+    public static int getNumber() {
+        try {
+            return 7;
+        } finally {
+            return 43;
+        }
+    }
 }
