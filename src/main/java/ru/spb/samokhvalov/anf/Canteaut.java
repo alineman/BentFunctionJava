@@ -35,4 +35,16 @@ public class Canteaut {
 
         return true;
     }
+
+    public static long mappingVectorValue(List<Long> basis, long number){
+        long result = 0;
+        int size = basis.size();
+        for (int i =0; i < size; i++){
+            if (((1<<i) & number) != 0){
+                result = result | (1 << (basis.get(i) - 1));
+            }
+//            result = result | ((1 << basis.get(i)) & (1 << i));
+        }
+        return result;
+    }
 }
