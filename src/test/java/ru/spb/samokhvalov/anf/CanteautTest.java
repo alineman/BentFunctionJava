@@ -13,8 +13,8 @@ import java.util.List;
  * Time: 19:36
  */
 @Log4j
-
 public class CanteautTest {
+
     @Test
     public void testNu() {
         Assert.assertEquals(3, Canteaut.nu(4, 5));
@@ -51,11 +51,23 @@ public class CanteautTest {
     @Test
     public void testMappingVectors() {
         List<Long> example = Arrays.asList(4l, 5l, 6l);
-        Assert.assertEquals(56,Canteaut.mappingVectorValue(example, 7));
-        Assert.assertEquals(16,Canteaut.mappingVectorValue(example, 2));
-        example = Arrays.asList(3l,1l);
-        Assert.assertEquals(5,Canteaut.mappingVectorValue(example, 3));
-        example = Arrays.asList(5l,1l);
-        Assert.assertEquals(17,Canteaut.mappingVectorValue(example, 3));
+        Assert.assertEquals(56, Canteaut.mappingVectorValue(example, 7));
+        Assert.assertEquals(16, Canteaut.mappingVectorValue(example, 2));
+        example = Arrays.asList(3l, 1l);
+        Assert.assertEquals(5, Canteaut.mappingVectorValue(example, 3));
+        example = Arrays.asList(5l, 1l);
+        Assert.assertEquals(17, Canteaut.mappingVectorValue(example, 3));
+    }
+
+    @Test
+    public void testMakeOBasis() {
+        List<Long> example = Arrays.asList(4l, 5l, 6l);
+        Assert.assertArrayEquals(Arrays.asList(1l, 2l, 3l).toArray(), Canteaut.makeOBasis(example, 6).toArray());
+        Assert.assertArrayEquals(Arrays.asList(1l, 2l, 3l, 7l).toArray(), Canteaut.makeOBasis(example, 7).toArray());
+        Assert.assertArrayEquals(Arrays.asList(1l, 2l, 3l).toArray(), Canteaut.makeOBasis(example, 5).toArray());
+        example = Arrays.asList(1l, 3l, 5l);
+        Assert.assertArrayEquals(Arrays.asList(2l, 4l).toArray(), Canteaut.makeOBasis(example, 5).toArray());
+        Assert.assertArrayEquals(Arrays.asList(2l, 4l).toArray(), Canteaut.makeOBasis(example, 4).toArray());
+        Assert.assertArrayEquals(Arrays.asList(2l, 4l, 6l).toArray(), Canteaut.makeOBasis(example, 6).toArray());
     }
 }

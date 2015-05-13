@@ -63,7 +63,7 @@ public class MainClass {
 //            log.info(next + " " + sum + " " +del.getHumanAnf() + " " + del.getAnfAsNumber());
         }
 
-        ANF example = new ANF(1, 6);
+        ANF example = new ANF(12336, 4);
         log.info(example.getAnf());
         log.info(example.getHumanAnf());
 //        try {

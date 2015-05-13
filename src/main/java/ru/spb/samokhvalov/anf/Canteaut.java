@@ -2,6 +2,7 @@ package ru.spb.samokhvalov.anf;
 
 import lombok.extern.log4j.Log4j;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,14 +37,22 @@ public class Canteaut {
         return true;
     }
 
-    public static long mappingVectorValue(List<Long> basis, long number){
+    public static long mappingVectorValue(final List<Long> basis, long number){
         long result = 0;
         int size = basis.size();
         for (int i =0; i < size; i++){
             if (((1<<i) & number) != 0){
                 result = result | (1 << (basis.get(i) - 1));
             }
-//            result = result | ((1 << basis.get(i)) & (1 << i));
+        }
+        return result;
+    }
+
+    public static List<Long> makeOBasis(final List<Long> basis, long dimensions){
+        List<Long> result = new ArrayList<Long>((int) (dimensions - basis.size()));
+        for(long i = 1; i <= dimensions; i++){
+            if (!basis.contains(i))
+                result.add(i);
         }
         return result;
     }
