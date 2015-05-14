@@ -63,20 +63,20 @@ public class MainClass {
 //            log.info(next + " " + sum + " " +del.getHumanAnf() + " " + del.getAnfAsNumber());
         }
 
-        ANF example = new ANF(12336, 4);
+        ANF example = new ANF(27030, 4);
         log.info(example.getAnf());
         log.info(example.getHumanAnf());
 //        try {
 //            PrintWriter pWriter = new PrintWriter("data.csv", "UTF-8");
 //
-//            for (long i = 0; i < Math.pow(2, pow); i++) {
+            for (long i = 0; i < Math.pow(2, pow); i++) {
 ////            BigInteger i = new BigInteger("0");
 ////        do {
-//                ANF temp = new ANF(i, degree);
-//            boolean isBent = temp.isBent();
-//            if (isBent) {
+                ANF temp = new ANF(i, degree);
+            boolean isBent = temp.isBent();
+            if (temp.isBent() && (temp.getHumanAnf().size() > 8)) {
 ////                log.info(i);
-//                log.info(temp.getAnf());
+                log.info("pow: " + temp.getPow() + " " + temp.getHumanAnf());  }}
 ////                pWriter.println(temp.getAnfAsNumber());
 ////                pWriter.println(i);
 ////                log.info(i+ " " + temp.getHumanAnf() + " " + temp.getAnfAsNumber());

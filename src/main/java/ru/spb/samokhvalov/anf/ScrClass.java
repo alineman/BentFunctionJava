@@ -72,15 +72,15 @@ public class ScrClass {
             boolean add = true;
             for (long u : basisVariable) {
                 final long position = (a ^ u) + 1;
-                log.info(" a: " + a + " u: " + u + " a ^ u: " + position);
+                log.debug(" a: " + a + " u: " + u + " a ^ u: " + position);
                 if (function.getValue(position) != c) {
                     add = false;
-                    log.info("break");
+                    log.debug("break");
                     break;
                 }
             }
             if (add) {
-                log.info("Add a: " + a);
+                log.debug("Add a: " + a);
                 body.add(a);
             }
         }
