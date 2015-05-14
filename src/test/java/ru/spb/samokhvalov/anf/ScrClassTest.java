@@ -84,18 +84,42 @@ public class ScrClassTest {
 //        List<Long> uBasis = Arrays.asList(10l, 7l);
 //        ScrClass scrClass = new ScrClass(uBasis, "6996", 0, 4);
 //        log.info(scrClass.getBody());
-        for (long i = 15; i > 0; i--)
+        StringANF anf = new StringANF("6996");
+
+        int k = 0;
+        for (long i = 15; i > 1; i--)
             for (long j = i; j > 0; j--) {
                 final List<Long> vectors = Arrays.asList(i, j);
                 if (Canteaut.validateGJB(vectors, 4)) {
-                    log.info(vectors);
-                    ScrClass scrClass = new ScrClass(vectors, "6996", 0, 4);
-                    if (!scrClass.isEmpty())
-                        log.info("c: 0"+ scrClass.getBody());
-                    scrClass = new ScrClass(vectors, "6996", 1, 4);
-                    if (!scrClass.isEmpty())
-                        log.info("c: 1"+ scrClass.getBody());
+                    List<Long> uVectors = Canteaut.fillU(vectors);
+//                    log.info(Canteaut.getBinary(uVectors, 4) + " " + Canteaut.getBinary(vectors, 4));
+                    log.info(uVectors + " " + Canteaut.getBinary(vectors, 4));
+                    boolean constant = true;
+                    long ex = anf.getValue(uVectors.get(0));
+                    for (long l : uVectors)
+                        if (ex != anf.getValue(l))
+                            constant = false;
+                    if (constant) {
+                        log.info("c: " + ex + " " +Canteaut.getBinary(uVectors, 4) + " " + Canteaut.getBinary(vectors, 4));
+
+                        k++;
+                    }
+//                    ScrClass scrClass = new ScrClass(vectors, "6996", 0, 4);
+//                    if (!scrClass.isEmpty())
+//                        log.info("c: 0"+ scrClass.getBody());
+//                    scrClass = new ScrClass(vectors, "6996", 1, 4);
+//                    if (!scrClass.isEmpty())
+//                        log.info("c: 1"+ scrClass.getBody());
                 }
             }
+        log.info("Total GJB is " + k);
+    }
+
+    @Test
+    public void validateScrClass() {
+        List<Long> uBasis = Arrays.asList(6l, 1l);
+        ScrClass scrClass = new ScrClass(uBasis, "6996", 0, 4);
+        log.info(scrClass.getBody());
+
     }
 }

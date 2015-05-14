@@ -58,8 +58,8 @@ public class ScrClass {
         for (long i : basisGJ)
             basis.add(Canteaut.nu(i, dimension));
 
-        for (long i = 0; i < (1 << basis.size()); i++)
-            basisVariable.add(Canteaut.mappingVectorValue(basis, i));
+//        for (long i = 0; i < (1 << basis.size()); i++)
+            basisVariable.addAll(Canteaut.fillU(basisGJ));
 
         oBasis = Canteaut.makeOBasis(basis, dimension);
 

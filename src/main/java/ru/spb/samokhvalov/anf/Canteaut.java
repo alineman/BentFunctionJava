@@ -1,6 +1,7 @@
 package ru.spb.samokhvalov.anf;
 
 import lombok.extern.log4j.Log4j;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,23 +38,47 @@ public class Canteaut {
         return true;
     }
 
-    public static long mappingVectorValue(final List<Long> basis, long number){
+    public static long mappingVectorValue(final List<Long> basis, long number) {
         long result = 0;
         int size = basis.size();
-        for (int i =0; i < size; i++){
-            if (((1<<i) & number) != 0){
+        for (int i = 0; i < size; i++) {
+            if (((1 << i) & number) != 0) {
                 result = result | (1 << (basis.get(i) - 1));
             }
         }
         return result;
     }
 
-    public static List<Long> makeOBasis(final List<Long> basis, long dimensions){
+    public static List<Long> makeOBasis(final List<Long> basis, long dimensions) {
         List<Long> result = new ArrayList<Long>((int) (dimensions - basis.size()));
-        for(long i = 1; i <= dimensions; i++){
+        for (long i = 1; i <= dimensions; i++) {
             if (!basis.contains(i))
                 result.add(i);
         }
+        return result;
+    }
+
+    public static List<String> getBinary(List<Long> vectors, int n) {
+        List<String> result = new ArrayList<>();
+        for (long i : vectors)
+            result.add(StringUtils.leftPad(Long.toBinaryString(i), n, '0'));
+        return result;
+    }
+
+    public static List<Long> fillU(final List<Long> basis) {
+        List<Long> result = new ArrayList<>();
+        long dimension = 1 << basis.size();
+        for (long i = 0; i < dimension; i++) {
+            result.add(summaryVectors(basis, i, basis.size()));
+        }
+        return result;
+    }
+
+    public static long summaryVectors(final List<Long> vectors, final long index, long n) {
+        long result = 0;
+        for (int i = 0; i < n; i++)
+            if (((1 << i) & index) != 0)
+                result = result ^ vectors.get(i);
         return result;
     }
 }
