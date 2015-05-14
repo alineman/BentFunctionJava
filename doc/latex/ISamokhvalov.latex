@@ -14,6 +14,8 @@
 \usepackage{datetime}
 \renewcommand \appendixname{Приложение}
 \makeatletter
+% \usepackage{amsthm}
+% \theoremstyle{plain}
 \def\redeflsection{\def\l@section{\@dottedtocline{1}{1.5em}{7.8em}}}
 % \setcounter{page}{11}
 
