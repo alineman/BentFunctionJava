@@ -42,7 +42,7 @@ public class ScrClass {
 //        this.basisGJ = old.getBasisGJ();
         this.basisGJ = new ArrayList<>(old.getBasisGJ());
         this.basisGJ.add(added);
-
+        log.info(basisGJ);
         this.function = old.getFunction();
         this.c = old.getC();
         this.dimension = old.getDimension();
@@ -60,11 +60,17 @@ public class ScrClass {
 
 //        for (long i = 0; i < (1 << basis.size()); i++)
             basisVariable.addAll(Canteaut.fillU(basisGJ));
-
         oBasis = Canteaut.makeOBasis(basis, dimension);
-
-        for (long i = 0; i < (1 << oBasis.size()); i++)
-            oBasisVariable.add(Canteaut.mappingVectorValue(oBasis, i));
+        List<Long> simpleOBasis1 = new ArrayList<>();
+        for (int i = 0; i < oBasis.size(); i++)
+            simpleOBasis1.add((long) (1 << (dimension - oBasis.get(i))));
+//        obasises;
+        oBasisVariable = Canteaut.fillU(simpleOBasis1);
+        log.debug("");
+//        oBasis = Canteaut.makeOBasis(basis, dimension);
+//
+//        for (long i = 0; i < (1 << oBasis.size()); i++)
+//            oBasisVariable.add(Canteaut.mappingVectorValue(oBasis, i, dimension));
     }
 
     private void fillBody() {

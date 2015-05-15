@@ -29,7 +29,7 @@ public class Canteaut {
         }
         for (long i : vectors) {
             for (long j : vectors) {
-                if (i != j && (j & (1 << (dimension - nu(i, dimension)))) != 0) {
+                if ((i != j && (j & (1 << (dimension - nu(i, dimension)))) != 0) || (j == 0)) {
                     return false;
                 }
             }
@@ -38,12 +38,36 @@ public class Canteaut {
         return true;
     }
 
-    public static long mappingVectorValue(final List<Long> basis, long number) {
+    public static List<List<Long>> generateGJB(int n, int t0) {
+        List<List<Long>> result = new ArrayList<>();
+        CombinationGenerator generator = new CombinationGenerator(1 << n, t0);
+        List<Long> testGjb;
+        while (generator.hasMore()) {
+            int[] var = generator.getNext();
+            testGjb = new ArrayList<>();
+            for (int i : var) {
+//                System.out.print(" " + i);
+//                testGjb.add((long) (1 << n) - 1 - i);
+                testGjb.add((long) ((1 << n) - 1) ^ i);
+            }
+//            log.info("\n" + testGjb);
+            if (Canteaut.validateGJB(testGjb, n))
+                result.add(testGjb);
+
+        }
+        if (result.size() != Canteaut.countGJB(n, t0))
+            throw new RuntimeException("Canteaut.countGJB bad");
+        return result;
+    }
+
+
+    @Deprecated
+    public static long mappingVectorValue(final List<Long> basis, long number, long dimension) {
         long result = 0;
         int size = basis.size();
         for (int i = 0; i < size; i++) {
             if (((1 << i) & number) != 0) {
-                result = result | (1 << (basis.get(i) - 1));
+                result = result | (1 << (dimension - (basis.get(i) - 1)));
             }
         }
         return result;
@@ -81,4 +105,26 @@ public class Canteaut {
                 result = result ^ vectors.get(i);
         return result;
     }
+
+    public static long countGJB(long n, long t0) {
+        long upper = 1;
+        long down = 1;
+        for (long i = 0; i < t0; i++) {
+            upper = upper * ((1 << (n - i)) - 1);
+            down = down * ((1 << (t0 - i)) - 1);
+        }
+        return upper / down;
+    }
+
+
+    public static long getRight(long number, long dimension) {
+        long result = 0;
+        for (long j = 1; j <= dimension; j++) {
+            int temp = 1 << (dimension - j);
+            if (((temp & number) != 0) && (j >result))
+                result = j;
+        }
+        return result;
+    }
+
 }
