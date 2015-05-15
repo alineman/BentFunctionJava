@@ -5,6 +5,7 @@ import ru.spb.samokhvalov.anf.Canteaut;
 import ru.spb.samokhvalov.anf.ScrClass;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -14,13 +15,13 @@ import java.util.List;
  */
 @Log4j
 public class CantenautAlgoritm {
-    //    final static String function = "0001";
+        final static String function = "6996";
 //    final static String function = "030356ca";
-    final static String function = "030356ca030356ca";
+//    final static String function = "03035fca030356ca";
 
     public static void main(String... args) {
-        final int n = 6;
-        final int m = 3;
+        final int n = 4;
+        final int m = 2;
         final int t0 = 1;
 //    final String function = "6996";
 //        final String function = "030356c9";
@@ -88,8 +89,8 @@ public class CantenautAlgoritm {
 //                tempBasis.addAll(one.getBody());
                 long u_k = basis.get(basis.size() - 1);
 //                combineSameField(u_k, n, u, tempBasis, zero);
-                combineSameField(u_k, n, u, zero.getBasisGJ(), zero);
-                combineSameField(u_k, n, u, one.getBasisGJ(), one);
+                combineSameField(u_k, n, u, zero.getBody(), zero);
+                combineSameField(u_k, n, u, one.getBody(), one);
 //                combineSameField(u_k, n, u, tempBasis, one);
                 for (long u_k1 = u_k - 1; u_k1 >= 0; u_k1--) {
                     List<Long> updateBasis = new ArrayList<>(basis);
@@ -110,33 +111,50 @@ public class CantenautAlgoritm {
                 for (long b : unionBody)
                     if (a < b) {
 //                        log.info("f is affine on " + Canteaut.getBinary(Arrays.asList((long) a), (int) n) + " + " + Canteaut.getBinary(basis, (int) n) + ", " + Canteaut.getBinary(Arrays.asList((long) (a ^ b)), (int) n));
-                        log.info("f is affine on " + a + " + " + basis + ", " + (a ^ b));
-                        log.info("a: " + a + " b: " + b);
+//                        log.info("f is affine on " + a + " + " + basis + ", " + (a ^ b));
+//                        log.info("a: " + a + " b: " + b);
                         List<Long> example = new ArrayList<>(basis);
                         example.add((long) (a ^ b));
-
                         final List<Long> vectors = Canteaut.fillU(example);
-//                        log.info("f is affine on " + Canteaut.getBinary(Arrays.asList((long) a), (int) n) + " + " + Canteaut.getBinary(vectors, (int) n));
+//                        long[] sorted = new long[vectors.size()];
+//                        for (int i =0; i < vectors.size(); i++)
+//                            sorted[i] = vectors.get(i);
+//                        Arrays.sort(sorted);
+//                        List<Long> testsss = new ArrayList<>();
+//                        for (int i =0; i < vectors.size(); i++)
+//                            testsss.add(sorted[i]);
+                        log.info("f is affine on " + Canteaut.getBinary(Arrays.asList((long) a), (int) n) + " + " + Canteaut.getBinary(example, (int) n));
 //                        StringANF func =  new StringANF(function);
 //                        for (long i : vectors){
 //                            System.out.print(func.getValue(i ^ a));
 //                        }
-//                        log.info("Found");
+//                        log.info("");
                     }
         }
     }
 
     private static void combineSameField(long u_k, long n, long u, List<Long> tempBasis, ScrClass scrClass) {
+        List<Long> basicGJ = new ArrayList<>();
+        List<Long> body = new ArrayList<>();
         for (long a : tempBasis)
             for (long b : tempBasis)
                 if (a < b) {
+//                    log.info((n - Canteaut.nu(a ^ b, n) + 1));
                     if (
-                            (u & (1 << (n - Canteaut.nu(a ^ b, n) + 1))) == 0 &&
+                            (u & (1 << (n - Canteaut.nu(a ^ b, n)))) == 0 &&
                                     ((a ^ b) < u_k)
                             ) {
-                        scrClass = new ScrClass(scrClass, (a ^ b));
+                        List<Long> validate = new ArrayList<>(scrClass.getBasisGJ());
+                        validate.add((a ^ b));
+                        if (Canteaut.validateGJB(validate, n)){
+                            basicGJ.add(a ^ b);
+                            body.add(a);
+                        }
+//                            scrClass = new ScrClass(scrClass, (a ^ b));
                     }
                 }
+        scrClass.getBasisGJ().addAll(basicGJ);
+        scrClass.getBody().addAll(body);
     }
 
     public static ScrClass CByIndex(int index, ScrClass zero, ScrClass one) {

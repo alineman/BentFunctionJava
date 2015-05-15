@@ -42,7 +42,8 @@ public class ScrClass {
 //        this.basisGJ = old.getBasisGJ();
         this.basisGJ = new ArrayList<>(old.getBasisGJ());
         this.basisGJ.add(added);
-        log.info(basisGJ);
+//        log.info(basisGJ);
+        log.info("update!!");
         this.function = old.getFunction();
         this.c = old.getC();
         this.dimension = old.getDimension();

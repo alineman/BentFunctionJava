@@ -49,10 +49,7 @@ f is affine on [10100] + [00000, 01001, 00011, 01010, 00001, 01000, 00010, 01011
 11111 1
 
 
-/home/isamokhvalov/tools/jdk1.7.0_40/bin/java -agentlib:jdwp=transport=dt_socket,address=127.0.0.1:51971,suspend=y,server=n -Dfile.encoding=UTF-8 -classpath /home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/endorsed/jaxb-api.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/endorsed/jaxws-api.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/resources.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/management-agent.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/jfr.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/base-opt.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/javaws.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/plugin.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/deploy.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/jfxrt.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/jsse.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/charsets.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/jce.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/rt.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/base-core.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/ext/forms_rt.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/ext/sunec.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/ext/XMLDSigRI.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/ext/xalan-2.7.1.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/ext/JCP.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/ext/zipfs.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/ext/JCPRevTools.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/ext/serializer-2.7.1.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/ext/Oscar.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/ext/sunjce_provider.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/ext/JCPxml.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/ext/JCryptoP.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/ext/base-opt.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/ext/ASN1P.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/ext/JCPRevCheck.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/ext/sunpkcs11.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/ext/asn1rt.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/ext/dnsns.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/ext/JCPRequest.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/ext/xmlsec-1.5.1.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/ext/commons-logging-1.1.1.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/ext/JCPinst.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/ext/OCF.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/ext/base-core.jar:/home/isamokhvalov/tools/jdk1.7.0_40/jre/lib/ext/localedata.jar:/home/isamokhvalov/projects/other/KIO/BentFunctionJava/target/classes:/home/isamokhvalov/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/isamokhvalov/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/home/isamokhvalov/.m2/repository/log4j/log4j/1.2.17/log4j-1.2.17.jar:/home/isamokhvalov/.m2/repository/org/apache/commons/commons-lang3/3.3.2/commons-lang3-3.3.2.jar:/home/isamokhvalov/tools/idea-IU-135.909/lib/idea_rt.jar ru.spb.samokhvalov.CantenautAlgoritm
-Connected to the target VM, address: '127.0.0.1:51971', transport: 'socket'
 15
-call combine
 f is affine on [0100] + [0000, 1111, 0011, 1100]
 0001
 f is affine on [0100] + [0000, 1111, 0010, 1101]
@@ -109,9 +106,6 @@ f is affine on [0011] + [0000, 1111, 0101, 1010]
 1101
 f is affine on [0011] + [0000, 1111, 0110, 1001]
 1110
-call combine
-call combine
-call combine
 f is affine on [0100] + [0000, 1100, 0011, 1111]
 0100
 f is affine on [0100] + [0000, 1100, 0010, 1110]
@@ -168,8 +162,6 @@ f is affine on [0011] + [0000, 1100, 0101, 1001]
 1100
 f is affine on [0011] + [0000, 1100, 0110, 1010]
 1111
-call combine
-call combine
 f is affine on [0100] + [0000, 1010, 0011, 1001]
 0100
 f is affine on [0100] + [0000, 1010, 0010, 1000]
@@ -226,7 +218,6 @@ f is affine on [0011] + [0000, 1010, 0101, 1111]
 1101
 f is affine on [0011] + [0000, 1010, 0110, 1100]
 1111
-call combine
 f is affine on [0100] + [0000, 1001, 0011, 1010]
 0001
 f is affine on [0100] + [0000, 1001, 0010, 1011]
@@ -283,8 +274,6 @@ f is affine on [0011] + [0000, 1001, 0101, 1100]
 1001
 f is affine on [0011] + [0000, 1001, 0110, 1111]
 1011
-call combine
-call combine
 f is affine on [1000] + [0000, 0110, 0011, 0101]
 1100
 f is affine on [1000] + [0000, 0110, 0010, 0100]
@@ -341,7 +330,6 @@ f is affine on [0011] + [0000, 0110, 1001, 1111]
 1101
 f is affine on [0011] + [0000, 0110, 1010, 1100]
 1111
-call combine
 f is affine on [1000] + [0000, 0101, 0011, 0110]
 1001
 f is affine on [1000] + [0000, 0101, 0010, 0111]
@@ -398,7 +386,6 @@ f is affine on [0011] + [0000, 0101, 1001, 1100]
 1001
 f is affine on [0011] + [0000, 0101, 1010, 1111]
 1011
-call combine
 f is affine on [1000] + [0000, 0011, 0101, 0110]
 1001
 f is affine on [1000] + [0000, 0011, 0100, 0111]
@@ -455,6 +442,3 @@ f is affine on [0101] + [0000, 0011, 1001, 1010]
 1011
 f is affine on [0101] + [0000, 0011, 1100, 1111]
 1010
-Disconnected from the target VM, address: '127.0.0.1:51971', transport: 'socket'
-
-Process finished with exit code 0
