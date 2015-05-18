@@ -1,0 +1,216 @@
+\documentclass{beamer}
+\usepackage[english,russian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+% \usepackage [T2A] {fontenc}
+% Стиль презентации
+\usetheme{Warsaw}
+\begin{document}
+\title{Нормальные булевы функции высокой нелинейности}  
+\author{Иван Самохвалов}
+\institute{Санкт-Петербургский Государственный Университет}
+\date{Санкт-Петерубрг, 2015} 
+
+\begin{frame}
+\maketitle
+научный руководитель: Агафонова Ирина Витальевна.
+рецензент: Дмитриева Оксана Михайловна.
+\end{frame}
+
+\begin{frame}
+\begin{flushleft}
+ \frametitle{Введение}
+ \begin{itemize}
+\item $F_2$ --- конечное поле из двух элементов $(0,1)$
+\item $V_n$ --- $n$-мерное векторное пространство над полем $F_2$: $V_n=(F_2)^n$
+\item $\mathcal{B}_n$ --- множество булевых функций от $n$ переменных, отображение $V_n \to F_2$
+\end{itemize}
+Нормальность была введена Доббертином в 1994г. Он ввел это понятие для булевых функций от чётного числа переменных.
+П. Шарпин в 2004 г. обобщила определение нормальности на случай произвольного числа переменных и ввела понятие $k$-нормальности.
+В работе~\cite{Mihaljevc} было продемонстрировано, что нормальность булевой функции облегчает алгебраическую атаку на шифр, использующий эту функцию.
+
+ \end{flushleft}
+\end{frame}
+
+\begin{frame}
+ \begin{flushleft}
+  % Криптографические критерии препятствуют взлому секретных ключей шифра.\\
+  С точки зрения криптографического анализа существуют разные критерии, препятствующие взлому секретного ключа.
+  Появляются новые способы взлома шифров, которые выявляют слабые места у используемых алгоритмов шифровании.
+  % Соответственно, появляются  новые требования к булевым функциям.
+  В ответ на это возникают новые критерии криптографической стойкости и новые алгоритмы шифрования.
+ \end{flushleft}
+\end{frame}
+
+\begin{frame}
+\frametitle{Криптографические критерии}
+ \begin{flushleft}
+ % \section*{Криптографические критерии}
+ Некоторые криптографически важные характеристики булевых функций:
+\begin{itemize}
+\item нелинейность
+\item алгебраическая степень
+\item алгебраическая толщина
+\item алгебраическая иммунность
+\item нормальность 
+\item сбалансированность
+\end{itemize}
+Часто  критерии взаимосвязаны, иногда носят взаимоисключающий характер и приходится искать компромис между ними.
+% дописать по другому. компромс
+ \end{flushleft}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Определения и обозначения}
+% \section*{Определения и обозначения}
+ \begin{itemize}
+\item $\oplus$ сложение по модулю $2$
+% \item {\slshape Линейным подпространством $V_n$} называется непустое множество $L \subseteq V_n$, если для любых $a, b\in L$ верно, что $a\oplus b \in L$
+\item $s\oplus D,$ где $ s \in V_n, D \subseteq V_n$ --- {\slshape сдвиг} множества $D$, а именно $s\oplus D = \{s\oplus x| x\in D \}$
+% \item {\slshape Плоскостью(flat) $a+L$ } (или просто {\slshape подпространством}) называется сдвиг линейного подпространства $L$ пространства $V_n$. Линейное пространство также является аффинным подпространством
+\item {\slshape Плоскость(flat) $a+L$ } --- любой сдвиг линейного подпространства $L \subseteq V_n$ на вектор $a$, то есть аффинное подпространство пространства $V_n$;
+\item $L^\bot = \{u\in V_n | \quad\langle u,x\rangle = 0\quad \forall x\in L \}$ --- {\slshape ортогональное (сопряженное)} подпространство к подпространству $L$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Определения и обозначения}
+ \begin{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Понятие нормальности}
+% \subsection*{Понятие нормальности}
+ \begin{flushleft}
+  Булева функция $f$ от $n$ переменных называется {\slshape нормальной (слабо нормальной)}, если существует $\lceil n/2\rceil$-мерная плоскость  в пространстве $V_n$, такая что $f$ на нем является константой (аффинной функцией)~\footnote{\medium Известно, что $\forall f \in \mathcal{B}_n$ представима в виде многочлена от $n$ переменных. Если это многочлен первой степени, то функция аффинная.}. В противном случае функция называется {\slshape анормальной (слабо анормальной)}.
+
+Функция $f \in \mathcal{B}_n$ называется $k${\slshape-нормальной,} $k\leqslant n$, если существует {\slshape $k$-мерная} плоскость, на которой $f$ --- константа.
+{\slshape Слабо $k$-нормальная} --- если $f$ имеет степень 1.
+\newtheorem{proposition}{}
+\begin{proposition}
+При  $n \leqslant 7$ любая булева функция от $n$ переменных является $\lfloor n/2 \rfloor$-нормальной
+\end{proposition}
+
+\begin{proposition}
+Любая булева функция от $n$ переменных при $n \geqslant 4$ является $2$-нормальной, а при $n \geqslant 6$ является $3$-нормальной.
+\end{proposition}
+
+ \end{flushleft}
+\end{frame}
+\frame{
+	Криптографически важно, чтобы булева функция не была нормальной.
+	Анализ произвольной функции на анормальность (слабую анормальность) сложен из-за того, что необходимо перебрать все плоскости размерности $k$, которых достаточно много: примерно $2^{(n-k)(k+1) +1}$.
+	Однако существуют алгоритмы, которые позволяют уменьшить количество перебираемых плоскостей.\\
+	Помимо алгоритмов, которые производят анализ произвольной функции на анормальность, существуют способы конструирования новых функций из уже известных анормальных.\\
+}
+
+\begin{frame}
+\frametitle{Алгоритм проверки булевых функций на нормальность}
+% \subsection*{Алгоритм проверки булевых функций на нормальность}
+ \begin{flushleft}
+{\bf Входные данные: } Булева функция $f : V_n \to F_2$, начальная размерность $t_0$\\
+{\bf Результат: } Список всех плоскостей, на которых $f$ линейна\\
+{\bf Для всех: } $GJ$-базисов $u_1,\dots,u_{t_0}$\\
+\hspace*{0.5cm}{\bf У которых} $| \{ j > \nu_{t_o}\,:\,\max_{i=1}^{t_0}(u_i)_j = 1 \} |\leqslant m - \nu_{t_0} +1 + t_0  $ {\bf делать}\\
+\hspace*{1cm} {\bf Для всех} $a \in \overline{\langle  u_1,\dots,u_{t_0} \rangle}$\\
+\hspace*{1cm} {\bf Если} $f (a + \sum \lambda_i\cdot u_i) = c \,\, \forall \lambda \in (F_2)^{t_0}$\\
+\hspace*{1.5cm} {\bf Тогда } добавить $a$ к $\mathscr{C}_c^{u_1,\dots, u_{t_0}}$\\
+\hspace*{1.5cm} {\bf Комбинировать Combine} $(\mathscr{C}_0^{u_1,\dots, u_{t_0}}, \mathscr{C}_1^{u_1,\dots,u_{t_0}},(u_1,\dots,u_{t_0}), t_0)$
+ \end{flushleft}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Рекурсивная процедура}
+ \begin{flushleft}
+{\bf Combine}($\mathscr{C}_0, \mathscr{C}_1,(u_1,\dots,u_{t_0}),k) $\\
+{\bf Если } $(k < m - 1)$
+\hspace*{0.5cm} {\bf Тогда}\\
+\hspace*{1cm} {\bf Если} $(|\mathscr{C}_0| < 2^{m - k - 1}\, OR\, (|\mathscr{C}_0| < 2^{ m - k}\, AND\, |\mathscr{C}_1| < 2^{m - k - 1}))$ {\bf Тогда} $\mathscr{C}_0 := \emptyset$\\
+\hspace*{1cm} {\bf Если} $(|\mathscr{C}_1| < 2^{m - k - 1}\, OR\, (|\mathscr{C}_1| < 2^{ m - k}\, AND\, |\mathscr{C}_0| < 2^{m - k - 1}))$ {\bf Тогда} $\mathscr{C}_1 := \emptyset$\\
+\hspace*{1cm} {\bf Если} $(\mathscr{C}_0 = \emptyset\, OR\, \mathscr{C}_1 = \emptyset)$ {\bf Тогда} выход из подпрограммы\\
+\hspace*{1cm} $\hat{u} := \vee_{i=1}^k u_i$\\
+\hspace*{1cm} {\bf Для всех} $c\in \{0,1\},\quad a,b \in \mathscr{C}_c: a < b$ {\bf Делать:}\\
+\hspace*{1.5cm} {\bf Если} $ (\hat{u}_{v(a + b)} = 0\, AND \, a + b < u_k)$ {\bf Тогда} добавить $a$ к $\mathscr{C}_c^{u_1,\dots,u_k,a+b}$\\
+\hspace*{1cm} {\bf Для всех} $u_{k + 1} \in V_n : u_{k + 1} < u_k$ {\bf Делать:}\\
+\hspace*{1.5cm} {\bf Combine}$(\mathscr{C}_0^{u_1,\dots,u_{k + 1}}, \mathscr{C}_1^{u_1,\dots,u_{k + 1}}, (u_1,\dots,u_{k + 1}), k + 1)$\\
+{\bf Иначе}\\
+\hspace*{0.5cm} {\bf Для всех} $a, b \in \mathscr{C}_0 \cup \mathscr{C}_1 : a < b$ {\bf Делать:}\\
+\hspace*{1cm}{\bf Вывести } "$f$ is affine on $a + \langle u_1,\dots,u_k, a + b\rangle$"\\
+ \end{flushleft}
+\end{frame}
+
+\begin{frame}
+\frametitle{Упрощенный алгоритм проверки бент-функций на нормальность}
+ \begin{flushleft}
+ % $\mathfrak{S}$ --- набор всех подпространств размерности $\lceil n/2 \rceil$, определяется $\mathfrak{S} = \{L | L \in V_n,\, dim(L) = \lceil n/2 \rceil \}$.\\
+В работе~\cite{Zhang} был представлен упрощенный алгоритм для проверки на нормальность бент-функций. Используется следующее утверждение:
+\begin{proposition}
+Пусть $f: V_n \to F_2$ --- бент функция, $L \subset V_n, dim(L) = n/2$. Если $f$ не является сбалансированной ни на одном сдвиге $L$, значит $f$ не является константой на любом сдвиге $L$.
+\end{proposition}
+{\bf Входные данные: } бент-функция $f: V_n \to F_2$\\
+{\bf Результат: } 1, если $f$ является нормальной\\
+{\bf Для всех } $L \in \mathfrak{S}\, ${\bf делать}\\
+\hspace*{0.5cm} {\bf Для всех } $b \in L'$ {\bf делать}\\
+\hspace*{1cm} {\bf Если} $W_f(b) = \pm 2^{n/2}$ {\bf тогда return 1}\\
+\hspace*{1cm} {\bf Иначе если} $W_f(b) \neq 0$ {\bf тогда} конец внутреннего цикла\\
+{\bf return 0}\\
+ \end{flushleft}
+\end{frame}
+
+\frame{
+	\frametitle{Конструирование анормальных функций}
+В своей работе {\it Normal and non normal bent functions} Canteaut~\cite{Cantenaut6} вывел следующую формулу, позволяющую получать анормальную (слабо анормальную) функцию из имеющейся анормальной (слабо анормальной)
+$$
+g(x,y,z) = f(x)\oplus yz.
+$$
+В работе {\it On construction of non-normal Boolean functions}~\cite{Gangopadhyay} была представлена формула, с помощью которой, имея 2 слабо $k$-анормальных булевых функции от $n$ переменных, можно сконструировать слабо $k + 1$-анормальную булеву функцию от $(n + 2)$ переменных:
+$$
+g(x,y,z) = f_1(x)\oplus yz\oplus (y\oplus z)(f_1(x) \oplus f_2(x)).
+$$
+}
+\frame{
+	\frametitle{Программная реализация алгоритмов}
+	В процессе написания дипломной работы:
+	\begin{itemize}
+	\item написана программа, реализующая Алгоритм 2(Канто) Canteaut с такой-то страницы слайдов;
+	\item предполагается написать программу, реализующую алгоритм китайцев
+	\item ввиду большой вычислительной сложности предполагается проверка на $k$-анормальность при небольших значениях $k$ и $n$.
+
+	\end{itemize}
+}
+\begin{frame}
+\frametitle{Основная используемая литература}
+\begin{flushleft}
+ \begin{thebibliography}{10}
+\beamertemplatebookbibitems
+\bibitem{Gangopadhyay} Sugata Gangopadhyay, Deepmala Sharma. On construction of non-normal Boolean functions
+\bibitem{Canteaut} {\it Canteaut A., Daum M., Dobbertin H., Leander G.} Finding nonnormal bent
+functions // Discrete Appl. Math. 2006. V. 154, N 2. P. 202–218.
+\bibitem{Cantenaut6}A. Canteaut, M. Daum, G. Leander, H. Dobbertin, Normal and non normal bent functions, in:
+Proceedings of the 2003 International Workshop on Coding and Cryptography (WCC 2003),
+Versailles, France, March 2003, pp. 91–100.
+\bibitem{CarletError} C. Carlet. Boolean Functions for Cryptography and Error Correcting Codes. Cambridge University Press, 2010
+\bibitem{Mihaljevc} Mihaljevic M. , Sugata Gangopadhyay , Goutam P. and Hideki I. GENERIC CRYPTOGRAPHIC WEAKNESS OF k-NORMAL BOOLEAN FUNCTIONS IN CERTAIN STREAM CIPHERS AND CRYPTANALYSIS OF GRAIN-128 // Periodica Mathematica Hungarica Vol. 65 (2 ), 2012, pp. 205–227
+\bibitem{Zhang} Weiguo Zhang and Guozhen Xiao. Checking normality of bent functions
+
+
+ \end{thebibliography}
+ \end{flushleft}
+\end{frame}
+\frame{
+	Спасибо за внимание!
+}
+
+
+% Автоматическая генерация содержания
+\frame{\frametitle{Содержание}
+ \tableofcontents[currentsection]} 
+ % \tableofcontents} 
+\end{document}
