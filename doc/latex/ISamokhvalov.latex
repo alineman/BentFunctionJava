@@ -11,7 +11,7 @@
 \usepackage[pdftex]{graphicx}
 \usepackage[english,russian]{babel}
 \usepackage[utf8]{inputenc}
-\usepackage{datetime}
+% \usepackage{datetime}
 \renewcommand \appendixname{Приложение}
 \makeatletter
 % \usepackage{amsthm}
@@ -32,7 +32,8 @@
 
 \input{titlepage.latex}
 % \input{common.latex}
- \input{section1.latex}
+ \input{sectionClear.latex}
+ % \input{section1.latex}
  % \input{Chaplin.latex}
 \include{bibitem}
 

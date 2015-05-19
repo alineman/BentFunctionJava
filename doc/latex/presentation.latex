@@ -6,7 +6,6 @@
 \usepackage{amssymb}
 \usepackage{amsfonts}
 \usepackage{mathrsfs}
-
 % \usepackage [T2A] {fontenc}
 % Стиль презентации
 \usetheme{Madrid}
@@ -42,14 +41,16 @@
 рецензент:\hfill Дмитриева Оксана Михайловна.}}
 \end{frame}
 
+\section{Введение}
 \begin{frame}
 \begin{flushleft}
  \frametitle{Введение}
  \begin{itemize}
-\item $F_2$ --- конечное поле из двух элементов $(0,1)$
-\item $V_n$ --- $n$-мерное векторное пространство над полем $F_2$: $V_n=(F_2)^n$
-\item $\mathcal{B}_n$ --- множество булевых функций от $n$ переменных, отображение $V_n \to F_2$
+ \item $F_2$ --- конечное поле из двух элементов $(0,1)$;
+\item $V_n$ --- $n$-мерное векторное пространство над полем $F_2$: $V_n=(F_2)^n$;
+\item $\mathcal{B}_n$ --- множество булевых функций от $n$ переменных, отображение $V_n \to F_2$.
 \end{itemize}
+\bigskip
 Нормальность была введена Доббертином в 1994г. Он ввел это понятие для булевых функций от чётного числа переменных.
 П. Шарпин в 2004 г. обобщила определение нормальности на случай произвольного числа переменных и ввела понятие $k$-нормальности.
 В работе~\cite{Mihaljevc} было продемонстрировано, что нормальность булевой функции облегчает алгебраическую атаку на шифр, использующий эту функцию.
@@ -58,6 +59,7 @@
 \end{frame}
 
 \begin{frame}
+\frametitle{Введение}
  \begin{flushleft}
   % Криптографические критерии препятствуют взлому секретных ключей шифра.\\
   С точки зрения криптографического анализа существуют разные критерии, препятствующие взлому секретного ключа.
@@ -88,52 +90,117 @@
 
 
 
-\section{Определения и обозначения}
+\section{Принятая терминология и обозначения}
 \begin{frame}
-\frametitle{Определения и обозначения}
+\frametitle{Принятая терминология и обозначения}
  \begin{itemize}
-\item $\oplus$ сложение по модулю $2$
+\item $\oplus$ сложение по модулю $2$;
 % \item {\slshape Линейным подпространством $V_n$} называется непустое множество $L \subseteq V_n$, если для любых $a, b\in L$ верно, что $a\oplus b \in L$
-\item $s\oplus D,$ где $ s \in V_n, D \subseteq V_n$ --- {\slshape сдвиг} множества $D$, а именно $s\oplus D = \{s\oplus x| x\in D \}$
+\item $s\oplus D,$ где $ s \in V_n, D \subseteq V_n$ --- {\slshape сдвиг} множества $D$, а именно $s\oplus D = \{s\oplus x| x\in D \}$;
 % \item {\slshape Плоскостью(flat) $a+L$ } (или просто {\slshape подпространством}) называется сдвиг линейного подпространства $L$ пространства $V_n$. Линейное пространство также является аффинным подпространством
 \item {\slshape Плоскость(flat) $a+L$ } --- любой сдвиг линейного подпространства $L \subseteq V_n$ на вектор $a$, то есть аффинное подпространство пространства $V_n$;
-\item $L^\bot = \{u\in V_n | \quad\langle u,x\rangle = 0\quad \forall x\in L \}$ --- {\slshape ортогональное (сопряженное)} подпространство к подпространству $L$.
+\item $L^\bot = \{u\in V_n | \quad\langle u,x\rangle = 0\quad \forall x\in L \}$ --- {\slshape ортогональное (сопряженное)} подпространство к подпространству $L$;
+\item $\mathcal{N}_f$, нелинейность --- минимальное расстояние от булевой функции до множества всех афинных функци;
+\item $W_f(u) = \sum\limits_{v \in V_n}(-1)^{\langle u,v\rangle\oplus f(u)}, u\in V_n$ --- преобразование Уолша-Адамара.
 \end{itemize}
 \end{frame}
 
-% \begin{frame}
-% \frametitle{Определения и обозначения}
-%  \begin{itemize}
-% \end{itemize}
-% \end{frame}
-
 \section{Понятие нормальности}
+% \begin{frame}[allowframebreaks]
 \begin{frame}
 \frametitle{Понятие нормальности}
  \begin{flushleft}
-  Булева функция $f$ от $n$ переменных называется {\slshape нормальной (слабо нормальной)}, если существует $\lceil n/2\rceil$-мерная плоскость  в пространстве $V_n$, такая что $f$ на нем является константой (аффинной функцией)~\footnote{Известно, что $\forall f \in \mathcal{B}_n$ представима в виде многочлена от $n$ переменных. Если это многочлен первой степени, то функция аффинная.}. В противном случае функция называется {\slshape анормальной (слабо анормальной)}.
-
+  Булева функция $f$ от $n$ переменных называется {\slshape нормальной (слабо нормальной)}, если существует $\lceil n/2\rceil$-мерная плоскость  в пространстве $V_n$, такая что $f$ на нем является константой (аффинной функцией)~\footnote{\normalsize Известно, что $\forall f \in \mathcal{B}_n$ представима в виде многочлена от $n$ переменных.
+  Если это многочлен первой степени, то функция аффинная.}. В противном случае функция называется {\slshape анормальной (слабо анормальной)}.\\
 Функция $f \in \mathcal{B}_n$ называется $k${\slshape-нормальной,} $k\leqslant n$, если существует {\slshape $k$-мерная} плоскость, на которой $f$ --- константа.
 {\slshape Слабо $k$-нормальная} --- если $f$ имеет степень 1.
-\newtheorem{proposition}{}
-\begin{proposition}
-При  $n \leqslant 7$ любая булева функция от $n$ переменных является $\lfloor n/2 \rfloor$-нормальной
-\end{proposition}
-
-\begin{proposition}
-Любая булева функция от $n$ переменных при $n \geqslant 4$ является $2$-нормальной, а при $n \geqslant 6$ является $3$-нормальной.
-\end{proposition}
-
  \end{flushleft}
 \end{frame}
+
+\section{Пример}
+\frame{
+	\frametitle{Пример}
+	Пусть $f\in\mathcal{B}_{10}$:
+	$f(x) = x_1x_2x_3x_4x_5\oplus x_6x_7x_8x_9x_{10}\oplus x_1x_2\oplus x_3x_4\oplus x_6x_7 \oplus x_8x_9 \oplus x_{10}$
+	\begin{itemize}
+		\item $f|_L = f(0,x_2,0,x_4,0,x_6,0,x_8,0,x_{10}) = x_{10}$ --- функция аффинна на этой плоскости;
+		\item $f|_L = f(x_1,0,x_3,0, x_5, x_6,0,0,x_9,0) = 0,\forall x\in V_n$ --- функция постоянна на этой плоскости.
+	\end{itemize}
+	
+	Далеко не всегда можно легко подобрать плоскость, на которой функция является аффинной, или константой.
+
+}
+
+\section{Бент-функции}
+\frame{
+	\frametitle{Бент-функции}
+	Булевы функции от четного числа переменных с максимальным значением нелинейности, равным $\mathcal{N}_f = 2^{n - 1} - 2^{n/2 - 1}$ называются {\slshape бент-функциями}. Для бент-функций все коэффициенты преобразования Уолша-Адамара равны $\pm 2^{n/2}$.
+	
+	Десять лет построить бент-функции, не являющиеся нормальными и слабо нормальными, не удавалось. В 2005 году авторам~\cite{Canteaut} это удалось.
+	В 2006 г. А. Канто, М. Даума, Х. Доббертина и Г. Леандра привели примеры анормальной бент-функции от 10 переменных.
+}
+
+\section{Некоторые известные результаты}
+\frame{
+	\frametitle{Некоторые известные результаты}
+\newtheorem{proposition}{}
+\begin{proposition}
+При  $n \leqslant 7$ любая булева функция от $n$ переменных является $\lfloor n/2 \rfloor$-нормальной~\cite{Charpin}
+\end{proposition}
+
+\begin{proposition}
+Любая булева функция от $n$ переменных при $n \geqslant 4$ является $2$-нормальной, а при $n \geqslant 6$ является $3$-нормальной~\cite{Charpin}.
+\end{proposition}
+
+\begin{proposition}
+Существуют бент функции от $n$ переменных, не являющиеся нормальными для всех четных $n\geqslant 10$ и не являющиеся слабо-нормальными для всех четных $n\geqslant 14$~\cite{Canteaut}
+\end{proposition}
+\begin{block}{}
+Пусть $f$ является слабо $k$-нормальной функцией на $V_n$. Тогда
+$$
+\mathcal{N}(f) \leqslant 2^{n - 1} - 2^{k - 1}.
+$$
+\end{block}
+}
+
+
 \frame{
 	Криптографически важно, чтобы булева функция не была нормальной.
-	Анализ произвольной функции на анормальность (слабую анормальность) сложен из-за того, что необходимо перебрать все плоскости размерности $k$, которых достаточно много: примерно $2^{(n-k)(k+1) +1}$.
+	Анализ произвольной функции на анормальность (слабую анормальность) сложен из-за того, что необходимо перебрать все плоскости размерности $k$, которых достаточно много: $\approx 2^{(n-k)(k+1) +1}$.\\
 	Однако существуют алгоритмы, которые позволяют уменьшить количество перебираемых плоскостей.\\
 	Помимо алгоритмов, которые производят анализ произвольной функции на анормальность, существуют способы конструирования новых функций из уже известных анормальных.\\
 }
 
-\section{Алгоритм проверки булевых функций на нормальность}
+\frame{
+	\frametitle{Дополнительные обозначения}
+	\begin{itemize}
+	\item $\nu(u) = \max \{i\in\{1\cdots n + 1 \}| \, u_j = 0\, \forall j: 1\leqslant j \leqslant i\}$ --- функция, показывающую самый левый индекс $1$ в значениях вектора;
+	\item $u_1,\dots,u_k \in V_n$ --- упорядоченный набор векторов называется базисом Гаусса-Жордана, если $u_1>\cdots>u_k$ и $(u_j)_{\nu(u_i)} = 0 \,\, \forall i\neq j $.;\
+	\item $\Upsilon(L) = \{\nu(u)|\, u\in L\backslash\{0\} \}$, где $L \subseteq V_n$ --- набор индексов ведущих единиц для заданного пространства $L$;
+	\item $\overline{L} = \{a \in V_n |\, a_i = 0\,\, \forall i\in\Upsilon(L) \}$ --- сопряженное простраснтво;
+	\item Булева функция $f$ называется {\slshape уравновешенной,} или {\slshape сбалансированной}, если  в векторе ее значений количесвто $0$ и $1$ совпадает.
+	\end{itemize}
+}
+
+\frame{
+	\frametitle{Пример к базису Гаусса-Жордана}
+	
+\begin{tabular}{lcccccc}
+\hspace{0.25in} &$x_1$  &  $\nu_{u_1} = 2$  &   $x_3$ &  $\nu_{u_2}=4$  & $\nu_{u_3}=5$  & $x_6$   \\  \hline
+$u_1$ & 0 & 1 & 1 & 0 & 0 & 1\\
+$u_2$ & 0 & 0 & 0 & 1 & 0 & 0\\
+$u_3$ & 0 & 0 & 0 & 0 & 1 & 1\\
+\\
+\end{tabular}
+\\Для данного набора векторов имеем следующие значения:
+\begin{itemize}
+\item $\langle u_1,u_2,u_3\rangle$ --- базис Гаусса-Жордана;
+\item $\Upsilon(L) = \{2,4,5\}$;
+\item $\overline{L} = \{ a\in V_n | a_2=a_4=a_5=0\}$.
+\end{itemize}
+}
+
+\section{Алгоритмы проверки булевых функций на нормальность}
 \begin{frame}[label=algorithm2]
 \frametitle{Алгоритм проверки булевых функций на нормальность}
  \begin{flushleft}
@@ -164,18 +231,19 @@
 \hspace*{1.5cm} {\bf Combine}$(\mathscr{C}_0^{u_1,\dots,u_{k + 1}}, \mathscr{C}_1^{u_1,\dots,u_{k + 1}}, (u_1,\dots,u_{k + 1}), k + 1)$\\
 {\bf Иначе}\\
 \hspace*{0.5cm} {\bf Для всех} $a, b \in \mathscr{C}_0 \cup \mathscr{C}_1 : a < b$ {\bf Делать:}\\
-\hspace*{1cm}{\bf Вывести } "$f$ is affine on $a + \langle u_1,\dots,u_k, a + b\rangle$"\\
+\hspace*{1cm}{\bf Вывести } "$f$ аффинна на $a + \langle u_1,\dots,u_k, a + b\rangle$"\\
  \end{flushleft}
 \end{frame}
 
 \begin{frame}[label=ChinaAlgorithm]
 \frametitle{Алгоритм проверки бент-функций на нормальность}
  \begin{flushleft}
- $\mathfrak{S}$ --- набор всех подпространств размерности $\lceil n/2 \rceil$, определяется $\mathfrak{S} = \{L | L \in V_n,\, dim(L) = \lceil n/2 \rceil \}$.\\
+ % , определяется $\mathfrak{S} = \{L | L \in V_n,\, dim(L) = \lceil n/2 \rceil \}$.\\
 В работе~\cite{Zhang} был представлен упрощенный алгоритм для проверки на нормальность бент-функций. Используется следующее утверждение:
 \begin{proposition}
 Пусть $f: V_n \to F_2$ --- бент функция, $L \subset V_n, dim(L) = n/2$. Если $f$ не является сбалансированной ни на одном сдвиге $L$, значит $f$ не является константой на любом сдвиге $L$.
 \end{proposition}
+ $\mathfrak{S}$ --- набор всех подпространств размерности $n/2$.\\
 {\bf Входные данные: } бент-функция $f: V_n \to F_2$\\
 {\bf Результат: } 1, если $f$ является нормальной\\
 {\bf Для всех } $L \in \mathfrak{S}\, ${\bf делать}\\
@@ -186,36 +254,41 @@
  \end{flushleft}
 \end{frame}
 
+\section{О конструировании анормальных функций}
 \frame{
 	\frametitle{Конструирование анормальных функций}
-В своей работе Canteaut~\cite{Cantenaut6} вывел следующую формулу, позволяющую получать анормальную (слабо анормальную) функцию из имеющейся анормальной (слабо анормальной)
+В своей работе Канто~\cite{Cantenaut6} вывел следующую формулу, позволяющую получать анормальную (слабо анормальную) функцию из имеющейся анормальной (слабо анормальной)
 $$
 g(x,y,z) = f(x)\oplus yz.
 $$
-В работе ~\cite{Gangopadhyay} была представлена формула, с помощью которой, имея 2 слабо $k$-анормальных булевых функции от $n$ переменных, можно сконструировать слабо $k + 1$-анормальную булеву функцию от $(n + 2)$ переменных:
+В работе~\cite{Gangopadhyay} была представлена формула, с помощью которой, имея 2 слабо $k$-анормальных булевых функции от $n$ переменных, можно сконструировать слабо $k + 1$-анормальную булеву функцию от $(n + 2)$ переменных:
 $$
 g(x,y,z) = f_1(x)\oplus yz\oplus (y\oplus z)(f_1(x) \oplus f_2(x)).
 $$
 }
+\section{Программная реализация алгоритмов}
 \frame{
 	\frametitle{Программная реализация алгоритмов}
 	В процессе написания дипломной работы:
 	\begin{itemize}
-	\item написана программа, реализующая алгоритм Canteaut описанный на странице~\ref{algorithm2};
-	\item предполагается написать программу, реализующую алгоритм описанный на странице~\ref{ChinaAlgorithm};
+	\item написана программа, реализующая алгоритм Canteaut, описанный на слайде~\ref{algorithm2};
+	\item предполагается написать программу, реализующую алгоритм описанный на слайде~\ref{ChinaAlgorithm};
 	\item ввиду большой вычислительной сложности предполагается проверка на $k$-анормальность при небольших значениях $k$ и $n$.
 
 	\end{itemize}
 }
+
+\section{Основная используемая литература}
 \begin{frame}[shrink=21]
 \frametitle{Основная используемая литература}
 \begin{flushleft}
  \begin{thebibliography}{10}
  \setbeamertemplate{bibliography item}{\insertbiblabel}
-\bibitem{Gangopadhyay} {\it Gangopadhyay S., Sharma D.}. On construction of non-normal Boolean functions. Australasian journal of combinatorics //Combinatorial Mathematics Society of Australasia), Vol. 38, pp. 267 - 272, 2007.
 \bibitem{Canteaut} {\it Canteaut A., Daum M., Dobbertin H., Leander G.} Finding nonnormal bent functions // Discrete Appl. Math. 2006. V. 154, N 2. pp. 202–218.
 \bibitem{Cantenaut6}{\it Canteaut A., Daum M., Leander G., Dobbertin H.}. Normal and non normal bent functions // Proceedings of the 2003 International Workshop on Coding and Cryptography (WCC 2003), Versailles, France, March 2003, pp. 91–100.
 \bibitem{CarletError} {\it Carlet C.}. Boolean Functions for Cryptography and Error Correcting Codes // Cambridge University Press, 2010
+\bibitem{Charpin} {\it Charpin P.} Normal Boolean functions // Journal of Complexity, Volume 20, Issues 2–3, April–June 2004, pp. 245–265
+\bibitem{Gangopadhyay} {\it Gangopadhyay S., Sharma D.}. On construction of non-normal Boolean functions. Australasian journal of combinatorics //Combinatorial Mathematics Society of Australasia), Vol. 38, pp. 267 - 272, 2007.
 \bibitem{Mihaljevc} {\it Mihaljevic M., Gangopadhyay S. , Goutam P. and Hideki I}. Generic cryptographic weakness of k-normal boolean functions in certain stream ciphres and cryptoanalysis of GRAIN-128 // Periodica Mathematica Hungarica Vol. 65 (2), 2012, pp. 205–227
 \bibitem{Zhang} {\it Zhang W. and Xiao G.}. Checking normality of bent functions // ISN Laboratory, Xidian University, Xi’an 710071, China
 
