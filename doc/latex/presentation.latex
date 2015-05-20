@@ -167,7 +167,7 @@ $$
 \frame{
 	\frametitle{Дополнительные обозначения}
 	\begin{itemize}
-	\item $\nu(u) = \max \{i\in\{1\cdots n + 1 \}| \, u_j = 0\, \forall j: 1\leqslant j < i\}$ --- функция, показывающую самый левый индекс $1$ в значениях вектора;
+	\item $\nu(u) = \max \{i\in\{1\cdots n + 1 \}| \, u_j = 0\, \forall j: 1\leqslant j < i\}$ --- функция, показывающая самый левый индекс $1$ в значениях вектора;
 	\item $u_1,\dots,u_k \in V_n$ --- упорядоченный набор векторов называется базисом Гаусса-Жордана, если $u_1>\cdots>u_k$ и $(u_j)_{\nu(u_i)} = 0 \,\, \forall i\neq j $;\
 	\item $\Upsilon(L) = \{\nu(u)|\, u\in L\backslash\{0\} \}, \,\, L \subseteq V_n$ --- набор индексов ведущих единиц для заданного пространства $L$;
 	\item $\overline{L} = \{a \in V_n |\, a_i = 0\,\, \forall i\in\Upsilon(L) \}$ --- дополнение пространства $L$;
