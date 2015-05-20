@@ -1,5 +1,5 @@
 \documentclass[a4paper, 12pt]{article}
-\usepackage [utf8x] {inputenc}
+\usepackage [utf8] {inputenc}
 \usepackage [T2A] {fontenc}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -12,7 +12,7 @@
 \usepackage[english,russian]{babel}
 \usepackage[utf8]{inputenc}
 % \usepackage{datetime}
-\renewcommand \appendixname{Приложение}
+\renewcommand\appendixname{Приложение}
 \makeatletter
 % \usepackage{amsthm}
 % \theoremstyle{plain}
@@ -37,5 +37,5 @@
  % \input{Chaplin.latex}
 \include{bibitem}
 
-
+\tableofcontents
 \end{document}
