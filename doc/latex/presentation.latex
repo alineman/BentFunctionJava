@@ -92,7 +92,7 @@
  \begin{itemize}
 \item $\oplus$ сложение по модулю $2$;
 \item $s\oplus D,$ где $ s \in V_n, D \subseteq V_n$ --- {\slshape сдвиг} множества $D$, а именно $s\oplus D = \{s\oplus x| x\in D \}$;
-\item {\slshape Плоскость(flat) $a\oplus L$ } --- любой сдвиг линейного подпространства $L \subseteq V_n$ на вектор $a$, то есть аффинное подпространство пространства $V_n$;
+\item {\slshape Плоскость (flat) $a\oplus L$ } --- любой сдвиг линейного подпространства $L \subseteq V_n$ на вектор $a$, то есть аффинное подпространство пространства $V_n$;
 \item $L^\bot = \{u\in V_n | \quad\langle u,x\rangle = 0\quad \forall x\in L \}$ --- {\slshape ортогональное (сопряженное)} пространство к пространству $L$;
 \item $\mathcal{N}_f$, нелинейность --- минимальное расстояние от булевой функции до множества всех аффинных функций;
 \item $W_f(u) = \sum\limits_{v \in V_n}(-1)^{\langle u,v\rangle\oplus f(u)}, u\in V_n$ --- преобразование Уолша-Адамара.
