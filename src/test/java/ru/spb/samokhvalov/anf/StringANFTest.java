@@ -4,6 +4,9 @@ import lombok.extern.log4j.Log4j;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * User: isamokhvalov
  * Date: 11.05.15
@@ -91,6 +94,15 @@ public class StringANFTest {
         StringANF anf = new StringANF("6996");
         for (int i = 1; i <= 16; i++)
             System.out.print(anf.getValue(i));
+    }
+
+    @Test
+    public void testANFConstructor() {
+        List<Long> anf = Arrays.asList(12l, 3l);
+        StringANF temp = new StringANF(anf, 4l);
+        log.info(temp.getFunction());
+
+
     }
 
 }

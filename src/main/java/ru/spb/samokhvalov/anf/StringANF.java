@@ -2,6 +2,9 @@ package ru.spb.samokhvalov.anf;
 
 import lombok.extern.log4j.Log4j;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * User: isamokhvalov
  * Date: 11.05.15
@@ -11,6 +14,36 @@ import lombok.extern.log4j.Log4j;
 public class StringANF {
     private String function;
     private long dimension;
+    List<Long> anf;
+
+    public StringANF(List<Long> anf, long n){
+        dimension = n;
+        long max = 1 << n ;
+        List<Integer> tempFunction = new ArrayList<>();
+        for(long i = 0; i< max; i++){
+            long res = 0;
+            for ( long k : anf)
+                if ((i & k) == k)
+                    res = res ^ 1;
+            final int i1 = res != 0 ? 1 : 0;
+            tempFunction.add(i1);
+            log.debug((Long.toBinaryString(i) + " " + i1));
+        }
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int number = 0; number < max/4; number++) {
+//            long result = tempFunction.get(number*4) +
+//                    (tempFunction.get(number*4 + 1) << 1) +
+//                    (tempFunction.get(number*4 + 2) << 2) +
+//                    (tempFunction.get(number*4 + 3) << 3);
+            long result = (tempFunction.get(number*4) << 3) +
+                    (tempFunction.get(number*4 + 1) << 2) +
+                    (tempFunction.get(number*4 + 2) << 1) +
+                    (tempFunction.get(number*4 + 3));
+//            log.info(Long.toHexString(result));
+            stringBuilder.append(Long.toHexString(result));
+        }
+        function = stringBuilder.toString();
+    }
 
     public StringANF(String function) {
         this.function = function;
@@ -78,4 +111,7 @@ public class StringANF {
         return response;
     }
 
+    public String getFunction() {
+        return function;
+    }
 }
