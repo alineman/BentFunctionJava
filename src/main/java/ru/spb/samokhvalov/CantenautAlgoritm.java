@@ -15,14 +15,14 @@ import java.util.List;
  */
 @Log4j
 public class CantenautAlgoritm {
-        final static String function = "6996";
+//        final static String function = "6996";
 //    final static String function = "030356ca";
-//    final static String function = "03035fca030356ca";
+    final static String function = "111e111e111eeee0111e111e111eeee0111e111e111eeee0111e111e111eeee0";
 
     public static void main(String... args) {
-        final int n = 4;
-        final int m = 2;
-        final int t0 = 1;
+        final int n = 8;
+        final int m = 4;
+        final int t0 = 3;
 //    final String function = "6996";
 //        final String function = "030356c9";
 //                "faff" +
@@ -31,7 +31,6 @@ public class CantenautAlgoritm {
 //                "900f8fff1f0ff2df4f0fffff1f0fa2dfad43";
         List<List<Long>> gjb = Canteaut.generateGJB(n, t0);
 
-        log.info(gjb.size());
 
         for (List<Long> currentGJB : gjb) {
             long ut0 = currentGJB.get(t0 - 1);
@@ -45,6 +44,7 @@ public class CantenautAlgoritm {
 
         }
 
+        log.info(gjb.size());
 
     }
 

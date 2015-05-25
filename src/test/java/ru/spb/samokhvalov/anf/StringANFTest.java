@@ -98,8 +98,8 @@ public class StringANFTest {
 
     @Test
     public void testANFConstructor() {
-        List<Long> anf = Arrays.asList(12l, 3l);
-        StringANF temp = new StringANF(anf, 4l);
+        List<Long> anf = Arrays.asList(63l, 48l, 12l, 3l);
+        StringANF temp = new StringANF(anf, 8l);
         log.info(temp.getFunction());
 
 
