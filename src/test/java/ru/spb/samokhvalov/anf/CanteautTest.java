@@ -96,4 +96,67 @@ public class CanteautTest {
         for (long i = 0; i < (1 << 5); i++)
             log.info(StringUtils.leftPad(Long.toBinaryString(i), 5, '0'));
     }
+
+    @Test
+    public void testFillVariable() {
+        List<Long> example = Arrays.asList(4l, 5l, 6l);
+        Assert.assertArrayEquals(Arrays.asList(0l, 4l, 2l, 6l, 1l, 5l, 3l, 7l).toArray(), Canteaut.fillVariable(example, 6).toArray());
+        example = Arrays.asList(3l, 2l, 1l);
+        log.info(Canteaut.getBinary(Canteaut.fillVariable(example, 3), 3));
+        Assert.assertArrayEquals(Arrays.asList(0l, 1l, 2l, 3l, 4l, 5l, 6l, 7l).toArray(), Canteaut.fillVariable(example, 3).toArray());
+
+    }
+
+    @Test
+    public void testSummaryVectors() {
+        List<Long> example = Arrays.asList(4l, 5l, 6l);
+        log.info(Canteaut.summaryVectors(example, 7, 3));
+
+    }
+
+    @Test
+    public void testCombineVectors() {
+        List<Long> example = Arrays.asList(2l, 3l);
+        Assert.assertEquals(0, Canteaut.combineVectors(example, 0, 3));
+        Assert.assertEquals(2, Canteaut.combineVectors(example, 1, 3));
+        Assert.assertEquals(1, Canteaut.combineVectors(example, 2, 3));
+        Assert.assertEquals(3, Canteaut.combineVectors(example, 3, 3));
+    }
+
+    @Test
+    public void testMakeAdditionalSpace() {
+        List<Long> example = Arrays.asList(2l, 1l);
+        Assert.assertArrayEquals(Arrays.asList(0l, 4l).toArray(), Canteaut.makeAdditionalSpace(example, 3).toArray());
+
+        example = Arrays.asList(22l, 10l, 1l);
+
+        Assert.assertArrayEquals(Arrays.asList(0l, 4l, 2l, 6l).toArray(), Canteaut.makeAdditionalSpace(example, 5).toArray());
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testBadAdditionalSpace() {
+        List<Long> example = Arrays.asList(3l, 1l);
+        Canteaut.makeAdditionalSpace(example, 3);
+    }
+
+    @Test
+    public void testGetElementOfSpace() {
+        List<Long> example = Arrays.asList(2l, 1l);
+        Assert.assertEquals(0, Canteaut.getElementOfSpace(example, 0));
+        Assert.assertEquals(2, Canteaut.getElementOfSpace(example, 1));
+        Assert.assertEquals(1, Canteaut.getElementOfSpace(example, 2));
+        Assert.assertEquals(3, Canteaut.getElementOfSpace(example, 3));
+
+    }
+
+
+    @Test
+    public void testUnionVectors() {
+        Assert.assertEquals(3l, Canteaut.unionVectors(Arrays.asList(2l, 1l)));
+        Assert.assertEquals(3l, Canteaut.unionVectors(Arrays.asList(3l, 3l)));
+        Assert.assertEquals(11l, Canteaut.unionVectors(Arrays.asList(2l, 1l, 10l, 3l)));
+        Assert.assertEquals(127l, Canteaut.unionVectors(Arrays.asList(64l, 1l, 2l, 4l, 8l, 16l, 32l)));
+
+    }
+
 }

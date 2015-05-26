@@ -98,6 +98,24 @@ public class Canteaut {
         return result;
     }
 
+    public static List<Long> fillVariable(final List<Long> variables, long dimension) {
+        List<Long> result = new ArrayList<>();
+
+        long total = 1 << variables.size();
+        for (long i = 0; i < total; i++)
+            result.add(combineVectors(variables, i, dimension));
+
+        return result;
+    }
+
+    public static long combineVectors(final List<Long> basis, long number, long dimension) {
+        long result = 0;
+        for (int i = 0; i < basis.size(); i++)
+            if ((number & (1 << i)) != 0)
+                result = result | (1 << (dimension - basis.get(i)));
+        return result;
+    }
+
     public static long summaryVectors(final List<Long> vectors, final long index, long n) {
         long result = 0;
         for (int i = 0; i < n; i++)
@@ -117,13 +135,40 @@ public class Canteaut {
     }
 
 
+    public static List<Long> makeAdditionalSpace(List<Long> gjBasis, int dimension) {
+        if (!Canteaut.validateGJB(gjBasis, dimension))
+            throw new RuntimeException("Error basis");
+        List<Long> tempBasis = new ArrayList<>();
+
+        for (long k : gjBasis)
+            tempBasis.add(Canteaut.nu(k, dimension));
+
+        return Canteaut.fillVariable(Canteaut.makeOBasis(tempBasis, dimension), dimension);
+    }
+
     public static long getRight(long number, long dimension) {
         long result = 0;
         for (long j = 1; j <= dimension; j++) {
             int temp = 1 << (dimension - j);
-            if (((temp & number) != 0) && (j >result))
+            if (((temp & number) != 0) && (j > result))
                 result = j;
         }
+        return result;
+    }
+
+    public static long getElementOfSpace(final List<Long> basis, long number){
+        long result = 0;
+        for (int i = 0; i<= basis.size(); i++)
+            if (((1 << i) & number) != 0)
+                result = result ^ basis.get(i);
+
+            return result;
+    }
+
+    public static long unionVectors(List<Long> vectors){
+        long result = 0;
+        for (long k : vectors)
+            result = result | k;
         return result;
     }
 
