@@ -11,6 +11,7 @@
 \usepackage[pdftex]{graphicx}
 \usepackage[english,russian]{babel}
 \usepackage[utf8]{inputenc}
+\usepackage{amsthm}
 % \usepackage{datetime}
 \renewcommand\appendixname{Приложение}
 \makeatletter
@@ -28,11 +29,20 @@
 \makeatother
 \title{\bf Бент-функции, их представления и конструирование}
 \date{\vspace{-5ex}}
+
 \begin{document}
 
-% \input{titlepage.latex}
+% \newtheorem{theorem}{Теорема}[section]
+\newtheorem*{theorem}{Теорема}
+\newtheorem*{Def}{Определение}
+\newtheorem*{lemma}{Лемма}
+\newtheorem{proposition}{Утверждение}[section]
+% \newtheorem*{proof}{Доказательство}
+
+
+\input{titlepage.latex}
 % \input{common.latex}
- \input{plan.latex}
+ % \input{plan.latex}
  \input{sectionClear.latex}
  % \input{section1.latex}
  % \input{Chaplin.latex}
