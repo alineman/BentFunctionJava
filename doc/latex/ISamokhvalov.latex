@@ -36,11 +36,12 @@
 \newtheorem*{theorem}{Теорема}
 \newtheorem*{Def}{Определение}
 \newtheorem*{lemma}{Лемма}
-\newtheorem{proposition}{Утверждение}[section]
+\newtheorem{proposition}{Утверждение}[subsection]
 % \newtheorem*{proof}{Доказательство}
 
 
 \input{titlepage.latex}
+\input{abstarct.latex}
 % \input{common.latex}
  % \input{plan.latex}
  \input{sectionClear.latex}
