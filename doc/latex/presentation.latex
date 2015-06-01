@@ -176,7 +176,7 @@ $$
 }
 
 \frame{
-	\frametitle{Пример к базису Гаусса-Жордана}
+	\frametitle{Пример к базису Гаусса-Жордана (GJB)}
 	
 \begin{tabular}{lcccccc}
 \hspace{0.25in} &$x_1$  &  $\nu(u_1) = 2$  &   $x_3$ &  $\nu(u_2)=4$  & $\nu(u_3)=5$  & $x_6$   \\  \hline
