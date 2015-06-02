@@ -366,10 +366,9 @@ $$
 \item $u_1>\cdots>u_k$;
 \item $(u_j)_{\nu(u_i)} = 0 \,\, \forall i\neq j $.\\
 \end{itemize}
-Пусть $f: V_n\to F_2,\, u_1\dots,u_k\in V_n,\, c\in\{0,1\}$.
-Если $(u_1\dots,u_k)$ являются базисом Гаусса-Жордана $L$ тогда:\\
-$\mathscr{C}_c^{u1,\dots,u_k}(f):= \{a\in L'\, |\, f|_{a + L} = c \}$\\
-И $\mathscr{C}_c^{u1,\dots,u_k}(f):=\varnothing$ во всех других случаях.\\
+Пусть $f \in \mathcal{B}_n,\, c\in\{0,1\}.$ И $u_1\dots,u_k$ --- являются базисом Гаусса-Жордана пространства $L$. Введем обозначение:\\
+$\mathscr{C}_c^{u1,\dots,u_k}(f):= \{a\in L'\, |\, f|_{a + L} = c \}$.\\
+% ,и $\mathscr{C}_c^{u1,\dots,u_k}(f):=\varnothing$ во всех других случаях.\\
 
 
 \subsubsection*{Пример}
