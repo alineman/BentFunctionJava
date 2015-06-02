@@ -17,12 +17,14 @@ import java.util.List;
 public class CantenautAlgoritm {
 //        final static String function = "6996";
 //    final static String function = "030356ca";
-    final static String function = "111e111e111eeee0111e111e111eeee0111e111e111eeee0111e111e111eeee0";
+//    final static String function = "111e111e111eeee0111e111e111eeee0111e111e111eeee0111e111e111eeee0";
+    final static String function = "4576457654675467ba89ba89ab98ab98454540bf545451aeba45bfbfab54aeae4576457654675467ba89ba89ab98ab98bababf40abaaae5045ba404055ab5051";
 
     public static void main(String... args) {
-        final int n = 8;
-        final int m = 4;
+        final int n = 9;
+        final int m = 5;
         final int t0 = 3;
+        long start = System.currentTimeMillis();
 //    final String function = "6996";
 //        final String function = "030356c9";
 //                "faff" +
@@ -30,21 +32,27 @@ public class CantenautAlgoritm {
 //                "4f0fffff1f0f42df" +
 //                "900f8fff1f0ff2df4f0fffff1f0fa2dfad43";
         List<List<Long>> gjb = Canteaut.generateGJB(n, t0);
-
-
+        long total = gjb.size();
+        double k =0;
+        log.info(gjb.size());
         for (List<Long> currentGJB : gjb) {
             long ut0 = currentGJB.get(t0 - 1);
             long vt0 = Canteaut.nu(ut0, n);
+            k = k+1;
             if ((getJ(currentGJB, n) > vt0) && ((getJ(currentGJB, n) - vt0) <= m - vt0 + 1 + t0)) {
 //                log.info(currentGJB);
                 ScrClass zero = new ScrClass(currentGJB, function, 0, n);
                 ScrClass one = new ScrClass(currentGJB, function, 1, n);
+                log.info("Complete: " + (k / total)*100);
                 combine(zero, one, currentGJB, t0, m, n);
             }
 
         }
 
         log.info(gjb.size());
+        final long l = (System.currentTimeMillis() - start)/1000;
+        log.info("Total time: " + l + " sec");
+        log.info("Total time: " + (l/60) + " min");
 
     }
 
@@ -123,7 +131,10 @@ public class CantenautAlgoritm {
 //                        List<Long> testsss = new ArrayList<>();
 //                        for (int i =0; i < vectors.size(); i++)
 //                            testsss.add(sorted[i]);
+                        if (Canteaut.validateGJB(example, 9)){
                         log.info("f is affine on " + Canteaut.getBinary(Arrays.asList((long) a), (int) n) + " + " + Canteaut.getBinary(example, (int) n));
+                        log.info("f is affine on " + a + " + " + example);
+                        throw new RuntimeException();         }
 //                        StringANF func =  new StringANF(function);
 //                        for (long i : vectors){
 //                            System.out.print(func.getValue(i ^ a));

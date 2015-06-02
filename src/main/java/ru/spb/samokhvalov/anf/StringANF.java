@@ -16,13 +16,14 @@ public class StringANF {
     private long dimension;
     List<Long> anf;
 
-    public StringANF(List<Long> anf, long n){
+    public StringANF(List<Long> anf, long n) {
         dimension = n;
-        long max = 1 << n ;
+        this.anf = anf;
+        long max = 1 << n;
         List<Integer> tempFunction = new ArrayList<>();
-        for(long i = 0; i< max; i++){
+        for (long i = 0; i < max; i++) {
             long res = 0;
-            for ( long k : anf)
+            for (long k : anf)
                 if ((i & k) == k)
                     res = res ^ 1;
             final int i1 = res != 0 ? 1 : 0;
@@ -30,15 +31,15 @@ public class StringANF {
             log.debug((Long.toBinaryString(i) + " " + i1));
         }
         StringBuilder stringBuilder = new StringBuilder();
-        for (int number = 0; number < max/4; number++) {
+        for (int number = 0; number < max / 4; number++) {
 //            long result = tempFunction.get(number*4) +
 //                    (tempFunction.get(number*4 + 1) << 1) +
 //                    (tempFunction.get(number*4 + 2) << 2) +
 //                    (tempFunction.get(number*4 + 3) << 3);
-            long result = (tempFunction.get(number*4) << 3) +
-                    (tempFunction.get(number*4 + 1) << 2) +
-                    (tempFunction.get(number*4 + 2) << 1) +
-                    (tempFunction.get(number*4 + 3));
+            long result = (tempFunction.get(number * 4) << 3) +
+                    (tempFunction.get(number * 4 + 1) << 2) +
+                    (tempFunction.get(number * 4 + 2) << 1) +
+                    (tempFunction.get(number * 4 + 3));
 //            log.info(Long.toHexString(result));
             stringBuilder.append(Long.toHexString(result));
         }
@@ -114,4 +115,29 @@ public class StringANF {
     public String getFunction() {
         return function;
     }
+
+    public List<String> getTeXAnf() {
+        List<String> result = new ArrayList<>();
+        for (long l : anf) {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (long k = dimension - 1; k >= 0; k--) {
+                if (((1 << k) & l) != 0)
+                    stringBuilder.append("x_{" + (dimension - k) + "}");
+            }
+            result.add(stringBuilder.toString());
+        }
+
+        return result;
+    }
+
+    public String getAllAnf() {
+        StringBuilder result = new StringBuilder();
+
+        for (String element : getTeXAnf()) {
+            result.append(element);
+            result.append(" \\oplus ");
+        }
+        return result.toString();
+    }
+
 }
