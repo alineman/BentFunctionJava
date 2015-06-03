@@ -4,7 +4,9 @@ import lombok.extern.log4j.Log4j;
 import ru.spb.samokhvalov.anf.Canteaut;
 import ru.spb.samokhvalov.anf.StringANF;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * User: isamokhvalov
@@ -78,9 +80,28 @@ public class Algorithm {
             }
             long u = Canteaut.unionVectors(basis);
 
+            Map<Long, List<Long>> mapZero = new HashMap<>();
+            Map<Long, List<Long>> mapOne = new HashMap<>();
+
 
         }
     }
+
+    public static void fillUpperDimension(SimpleScr set, Map<Long, List<Long>> longListMap, long u, long c, long n){
+        long u_k = set.getLastU();
+        for (long a : set.getValue())
+            for (long b: set.getValue())
+                if ( a < b) {
+                    final long value = a ^ b;
+                    if (( u & (1 << (n - Canteaut.nu(value, n)))) == 0 && (value < u_k)) {
+                        Canteaut.addELement(longListMap,value,a);
+                    }
+
+                }
+
+
+    }
+
 
     public static long getJ(List<Long> basis, long n) {
         long result = 1;

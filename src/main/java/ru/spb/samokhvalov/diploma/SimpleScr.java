@@ -18,6 +18,10 @@ public class SimpleScr {
     int dimension;
 
 
+    public List<Long> getuBasis() {
+        return uBasis;
+    }
+
     List<Long> uBasis;
     List<Long> value;
     List<Long> oBasisVariable;
@@ -45,6 +49,8 @@ public class SimpleScr {
     }
 
     public List<Long> getValue() {
+        if (value == null)
+            value = new ArrayList<>();
         return value;
     }
 
@@ -58,5 +64,9 @@ public class SimpleScr {
 
     public boolean isEmpty(){
         return getCapacity() == 0;
+    }
+
+    public long getLastU(){
+        return uBasis.get(uBasis.size() - 1);
     }
 }

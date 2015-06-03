@@ -7,7 +7,9 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * User: isamokhvalov
@@ -159,4 +161,17 @@ public class CanteautTest {
 
     }
 
+    @Test
+    public void testAddELement() {
+        Map<Long, List<Long>> mapZero = new HashMap<>();
+        Canteaut.addELement(mapZero, 1l, 10l);
+        Assert.assertEquals(1, mapZero.size());
+
+        Canteaut.addELement(mapZero, 1l, 11l);
+        Assert.assertEquals(1, mapZero.size());
+
+        Canteaut.addELement(mapZero, 2l, 11l);
+        Assert.assertEquals(2, mapZero.size());
+
+    }
 }

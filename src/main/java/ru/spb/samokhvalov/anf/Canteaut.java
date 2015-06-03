@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * User: isamokhvalov
@@ -170,6 +171,12 @@ public class Canteaut {
         for (long k : vectors)
             result = result | k;
         return result;
+    }
+
+    public static void addELement(Map<Long, List<Long>> longListMap, long key, long value){
+        if (!longListMap.containsKey(key))
+            longListMap.put(key, new ArrayList<Long>());
+        longListMap.get(key).add(value);
     }
 
 }

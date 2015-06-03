@@ -5,7 +5,6 @@ import ru.spb.samokhvalov.anf.Canteaut;
 import ru.spb.samokhvalov.anf.ScrClass;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -18,13 +17,12 @@ public class CantenautAlgoritm {
 //        final static String function = "6996";
 //    final static String function = "030356ca";
 //    final static String function = "111e111e111eeee0111e111e111eeee0111e111e111eeee0111e111e111eeee0";
-    final static String function = "4576457654675467ba89ba89ab98ab98454540bf545451aeba45bfbfab54aeae4576457654675467ba89ba89ab98ab98bababf40abaaae5045ba404055ab5051";
+    final static String function = "4576457654675467ba89ba89ab98ab98454540bf545451aeba45bfbfab54aeae4576457654675467ba89ba89ab98ab98bababf40abaaae5045ba404055ab50514576457654675467ba89ba89ab98ab98454540bf545451aeba45bfbfab54aeae4576457654675467ba89ba89ab98ab98bababf40abaaae5045ba404055ab5051";
 
     public static void main(String... args) {
-        final int n = 9;
+        final int n = 10;
         final int m = 5;
         final int t0 = 3;
-        long start = System.currentTimeMillis();
 //    final String function = "6996";
 //        final String function = "030356c9";
 //                "faff" +
@@ -34,6 +32,7 @@ public class CantenautAlgoritm {
         List<List<Long>> gjb = Canteaut.generateGJB(n, t0);
         long total = gjb.size();
         double k =0;
+        long start = System.currentTimeMillis();
         log.info(gjb.size());
         for (List<Long> currentGJB : gjb) {
             long ut0 = currentGJB.get(t0 - 1);
@@ -131,10 +130,10 @@ public class CantenautAlgoritm {
 //                        List<Long> testsss = new ArrayList<>();
 //                        for (int i =0; i < vectors.size(); i++)
 //                            testsss.add(sorted[i]);
-                        if (Canteaut.validateGJB(example, 9)){
-                        log.info("f is affine on " + Canteaut.getBinary(Arrays.asList((long) a), (int) n) + " + " + Canteaut.getBinary(example, (int) n));
+//                        if (Canteaut.validateGJB(example, 9)){
+//                        log.info("f is affine on " + Canteaut.getBinary(Arrays.asList((long) a), (int) n) + " + " + Canteaut.getBinary(example, (int) n));
                         log.info("f is affine on " + a + " + " + example);
-                        throw new RuntimeException();         }
+//                        throw new RuntimeException();         }
 //                        StringANF func =  new StringANF(function);
 //                        for (long i : vectors){
 //                            System.out.print(func.getValue(i ^ a));
