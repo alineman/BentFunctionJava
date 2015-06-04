@@ -19,11 +19,11 @@ public class CantenautAlgoritm {
 //    final static String function = "030356ca";
 //    final static String function = "111e111e111eeee0111e111e111eeee0111e111e111eeee0111e111e111eeee0";
 //    final static String function = "4576457654675467ba89ba89ab98ab98454540bf545451aeba45bfbfab54aeae4576457654675467ba89ba89ab98ab98bababf40abaaae5045ba404055ab50514576457654675467ba89ba89ab98ab98454540bf545451aeba45bfbfab54aeae4576457654675467ba89ba89ab98ab98bababf40abaaae5045ba404055ab5051";
-    final static String function = "4576457654675467ba89ba89ab98ab98454540bf545451aeba45bfbfab54aeae4576457654675467ba89ba89ab98ab98bababf40abaaae5045ba404055ab5051";
+    final static String function = "bc366c66699c06e23d736d222f8fbf116679299366871044663d29e021848ad53c2769726982cf24f29d94ddeb6fd46bcc9dd776c3a92d4a02e8191c4165276a";
 //Total time: 93 sec
     public static void main(String... args) {
         final int n = 9;
-        final int m = 6;
+        final int m = 4;
         final int t0 = 2;
 //    final String function = "6996";
 //        final String function = "030356c9";

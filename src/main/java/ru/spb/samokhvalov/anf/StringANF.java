@@ -140,4 +140,8 @@ public class StringANF {
         return result.toString();
     }
 
+
+    public List<Long> getAnf() {
+        return anf;
+    }
 }

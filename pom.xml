@@ -8,7 +8,7 @@
     <artifactId>third</artifactId>
     <version>1.0-SNAPSHOT</version>
     <properties>
-        <main.class>ru.spb.samokhvalov.diploma.Algorithm</main.class>
+        <main.class>ru.spb.samokhvalov.diploma.FindANoraml</main.class>
 
     </properties>
     <build>
