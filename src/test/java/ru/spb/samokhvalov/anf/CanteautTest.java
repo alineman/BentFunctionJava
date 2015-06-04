@@ -25,7 +25,7 @@ public class CanteautTest {
         Assert.assertEquals(2, Canteaut.nu(4, 4));
         Assert.assertEquals(1, Canteaut.nu(4, 3));
         Assert.assertEquals(1, Canteaut.nu(31, 5));
-        Assert.assertEquals(0, Canteaut.nu(0, 5));
+        Assert.assertEquals(6, Canteaut.nu(0, 5));
     }
 
     @Test

@@ -108,6 +108,12 @@ public class StringANFTest {
         log.info(temp.getAllAnf());
         for (long l : anf)
             log.info(Long.toBinaryString(l));
+
+        anf = Arrays.asList(1l, 2l, 4l, 8l, 16l, 32l, 64l);
+        temp = new StringANF(anf, 7l);
+        log.info(temp.getFunction());
+        log.info(temp.getAllAnf());
+
     }
 
     @Test
@@ -120,50 +126,53 @@ public class StringANFTest {
 
     @Test
     public void forResults() {
-        List<Long> anf = Arrays.asList(100l, 487l, 152l, 138l, 384l, 10l, 149l, 1l, 7l, 35l, 100l, 200l, 3l, 64l, 431l);
-        StringANF temp = new StringANF(anf, 9l);
+        List<Long> anf = Arrays.asList(1l, 2l, 4l, 8l, 16l, 32l, 64l);
+//        StringANF temp = new StringANF(anf, 7l);
+        StringANF temp = new StringANF("45764576aff02457ba89ba89ab98ab98454540bf545451aeba45bfbfab54aeae4576457654675467ba89ba89ab98ab98bababf40abaaae5045ba404055ab50514576457654675467ba89ba89ab98ab98454540bf545451aeba45bfbfab54aeae4576457654675467ba89ba89ab98ab98bababf40abaaae5045ba404055ab5051");
 //        List<Long> combine = Arrays.asList(498l, 10l, 4l, 1l, 32l);
-//        List<Long> combine = Arrays.asList(468l, 36l, 12l, 2l, 1l);
-//        List<Long> combine = Arrays.asList(388l, 116l, 92l, 82l, 81l);
-        List<Long> combine = Arrays.asList(0l,
-                3l,
-                13l,
-                14l,
-                37l,
-                38l,
-                40l,
-                43l,
-                81l,
-                82l,
-                92l,
-                95l,
-                116l,
-                119l,
-                121l,
-                122l,
-                388l,
-                391l,
-                393l,
-                394l,
-                417l,
-                418l,
-                428l,
-                431l,
-                469l,
-                470l,
-                472l,
-                475l,
-                496l,
-                499l,
-                509l,
-                510l
-        );
+        List<Long> combine = Arrays.asList(264l, 88l, 32l, 4l, 2l);
+//        List<Long> combine = Arrays.asList(66l, 34l, 18l, 10l, 6l);
+//        List<Long> combine = Arrays.asList(0l,
+//                3l,
+//                13l,
+//                14l,
+//                37l,
+//                38l,
+//                40l,
+//                43l,
+//                81l,
+//                82l,
+//                92l,
+//                95l,
+//                116l,
+//                119l,
+//                121l,
+//                122l,
+//                388l,
+//                391l,
+//                393l,
+//                394l,
+//                417l,
+//                418l,
+//                428l,
+//                431l,
+//                469l,
+//                470l,
+//                472l,
+//                475l,
+//                496l,
+//                499l,
+//                509l,
+//                510l
+//        );
 
 //        for (long k : combine)
 //        log.info( k ^ 80l);
         for (int i = 0; i < 32; i++) {
-            System.out.print(temp.getValue(combine.get(i)));
-//            log.info(Canteaut.getElementOfSpace(combine, i) );
+//            System.out.print(temp.getValue(combine.get(i)));
+            System.out.print(temp.getValue(
+                   657 ^ Canteaut.getElementOfSpace(combine, i)
+            ));
 //            log.info(temp.getValue(Canteaut.getElementOfSpace(combine, (i ^ 82l))) + " " + temp.getValue(Canteaut.getElementOfSpace(combine, i)));
         }
 
