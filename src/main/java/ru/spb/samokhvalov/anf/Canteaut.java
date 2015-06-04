@@ -2,6 +2,7 @@ package ru.spb.samokhvalov.anf;
 
 import lombok.extern.log4j.Log4j;
 import org.apache.commons.lang3.StringUtils;
+import ru.spb.samokhvalov.diploma.SimpleScr;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ public class Canteaut {
         for (long i = (dimension - 1); i >= 0; i--)
             if ((value & (1 << i)) != 0)
                 return dimension - i;
-        return 0;
+        return dimension + 1;
     }
 
     public static boolean validateGJB(List<Long> vectors, long dimension) {
@@ -177,6 +178,21 @@ public class Canteaut {
         if (!longListMap.containsKey(key))
             longListMap.put(key, new ArrayList<Long>());
         longListMap.get(key).add(value);
+    }
+
+    public static void fillUpperDimension(SimpleScr set, Map<Long, List<Long>> longListMap, long u, long n) {
+        long u_k = set.getLastU();
+        for (long a : set.getValue())
+            for (long b : set.getValue())
+                if (a < b) {
+                    final long value = a ^ b;
+                    if ((value < u_k) && ((u & (1 << (n - Canteaut.nu(value, n)))) == 0)) {
+                        Canteaut.addELement(longListMap, value, a);
+                    }
+
+                }
+
+
     }
 
 }

@@ -26,22 +26,26 @@ public class SimpleScr {
     List<Long> value;
     List<Long> oBasisVariable;
 
+    boolean isNull;
+
     public SimpleScr(List<Long> uBasis, String function, int dimension) {
-        if (!Canteaut.validateGJB(uBasis, dimension))
-            throw new RuntimeException("Error basis");
+        if (Canteaut.validateGJB(uBasis, dimension)) {
+            isNull = false;
+            this.function = function;
+            this.dimension = dimension;
+            this.uBasis = uBasis;
+            List<Long> tempBasis = new ArrayList<>();
 
-        this.function = function;
-        this.dimension = dimension;
-        this.uBasis = uBasis;
-        List<Long> tempBasis = new ArrayList<>();
-
-        for (long k: uBasis)
-            tempBasis.add(Canteaut.nu(k, dimension));
-        oBasisVariable = Canteaut.fillVariable(Canteaut.makeOBasis(tempBasis,dimension), dimension);
+            for (long k : uBasis)
+                tempBasis.add(Canteaut.nu(k, dimension));
+            oBasisVariable = Canteaut.fillVariable(Canteaut.makeOBasis(tempBasis, dimension), dimension);
 //        for (int i = 0; i < tempBasis.size(); i++)
 //            tempOBasis.add((long) (1 << (dimension - tempBasis.get(i))));
 
 //        log.info("");
+        } else
+            isNull = true;
+
     }
 
     public List<Long> getOBasisVariable() {
@@ -54,19 +58,23 @@ public class SimpleScr {
         return value;
     }
 
-    public void clear(){
+    public void clear() {
+        isNull = true;
         value = new ArrayList<>();
     }
 
-    public int getCapacity(){
-        return value.size();
+    public int getCapacity() {
+        if (isNull)
+            return 0;
+        return getValue().size();
     }
 
-    public boolean isEmpty(){
-        return getCapacity() == 0;
+    public boolean isEmpty() {
+//        return getCapacity() == 0;
+        return isNull;
     }
 
-    public long getLastU(){
+    public long getLastU() {
         return uBasis.get(uBasis.size() - 1);
     }
 }

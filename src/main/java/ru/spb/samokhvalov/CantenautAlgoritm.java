@@ -5,6 +5,7 @@ import ru.spb.samokhvalov.anf.Canteaut;
 import ru.spb.samokhvalov.anf.ScrClass;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -17,12 +18,13 @@ public class CantenautAlgoritm {
 //        final static String function = "6996";
 //    final static String function = "030356ca";
 //    final static String function = "111e111e111eeee0111e111e111eeee0111e111e111eeee0111e111e111eeee0";
-    final static String function = "4576457654675467ba89ba89ab98ab98454540bf545451aeba45bfbfab54aeae4576457654675467ba89ba89ab98ab98bababf40abaaae5045ba404055ab50514576457654675467ba89ba89ab98ab98454540bf545451aeba45bfbfab54aeae4576457654675467ba89ba89ab98ab98bababf40abaaae5045ba404055ab5051";
-
+//    final static String function = "4576457654675467ba89ba89ab98ab98454540bf545451aeba45bfbfab54aeae4576457654675467ba89ba89ab98ab98bababf40abaaae5045ba404055ab50514576457654675467ba89ba89ab98ab98454540bf545451aeba45bfbfab54aeae4576457654675467ba89ba89ab98ab98bababf40abaaae5045ba404055ab5051";
+    final static String function = "4576457654675467ba89ba89ab98ab98454540bf545451aeba45bfbfab54aeae4576457654675467ba89ba89ab98ab98bababf40abaaae5045ba404055ab5051";
+//Total time: 93 sec
     public static void main(String... args) {
-        final int n = 10;
-        final int m = 5;
-        final int t0 = 3;
+        final int n = 9;
+        final int m = 6;
+        final int t0 = 2;
 //    final String function = "6996";
 //        final String function = "030356c9";
 //                "faff" +
@@ -49,7 +51,7 @@ public class CantenautAlgoritm {
         }
 
         log.info(gjb.size());
-        final long l = (System.currentTimeMillis() - start)/1000;
+        final double l = (System.currentTimeMillis() - start)/1000;
         log.info("Total time: " + l + " sec");
         log.info("Total time: " + (l/60) + " min");
 
@@ -66,7 +68,8 @@ public class CantenautAlgoritm {
 
     public static void combine(ScrClass zero, ScrClass one, List<Long> basis, long k, long m, long n) {
 //        log.info("call combine");
-        if (k < m - 1) {
+//        if (k < m - 1) {
+        if (k < m ) {
             if (
                     (zero.getCapacity() < (1 << (m - k - 1)))
                             || ((zero.getCapacity() < (1 << (m - k))) && (one.getCapacity() < (1 << (m - k - 1))))
@@ -80,7 +83,7 @@ public class CantenautAlgoritm {
                 one.clear();
             }
             boolean exit = false;
-            if (zero.isEmpty() || one.isEmpty()) {
+            if (zero.isEmpty() && one.isEmpty()) {
                 exit = true;
                 log.info("Break");
 
@@ -131,8 +134,8 @@ public class CantenautAlgoritm {
 //                        for (int i =0; i < vectors.size(); i++)
 //                            testsss.add(sorted[i]);
 //                        if (Canteaut.validateGJB(example, 9)){
-//                        log.info("f is affine on " + Canteaut.getBinary(Arrays.asList((long) a), (int) n) + " + " + Canteaut.getBinary(example, (int) n));
-                        log.info("f is affine on " + a + " + " + example);
+                        log.info("f is affine on " + Canteaut.getBinary(Arrays.asList((long) a), (int) n) + " + " + Canteaut.getBinary(example, (int) n));
+//                        log.info("f is affine on " + a + " + " + example);
 //                        throw new RuntimeException();         }
 //                        StringANF func =  new StringANF(function);
 //                        for (long i : vectors){
