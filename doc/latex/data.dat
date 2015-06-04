@@ -53,3 +53,12 @@ f is affine on 80 + [468, 36, 12, 2, 1]
 
 
 00010101100001101110100100001000
+
+
+152
+
+[0] = {java.lang.Long@784}"422"
+[1] = {java.lang.Long@789}"98"
+[2] = {java.lang.Long@790}"22"
+[3] = {java.lang.Long@791}"14"
+[4] = {java.lang.Long@792}"1"
