@@ -20,6 +20,7 @@ public class Canteaut {
             if ((value & (1 << i)) != 0)
                 return dimension - i;
         return dimension + 1;
+//        return 0;
     }
 
     public static boolean validateGJB(List<Long> vectors, long dimension) {

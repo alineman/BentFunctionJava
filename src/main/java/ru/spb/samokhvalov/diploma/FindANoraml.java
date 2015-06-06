@@ -21,8 +21,8 @@ public class FindANoraml {
         final int n = 8;
         final int m = 4;
         final int t0 = 2;
-        final int maxCount = 2;
-        log.info("Start");
+        final int maxCount = 10;
+        log.info("Start: n = " + n + ", m = " + m + ", t0 = " + t0);
         List<List<Long>> gjb = Canteaut.generateGJB(n, t0);
         log.info("Calculate start gjb");
         List<List<Long>> gjbValidate = Canteaut.generateGJB(n, m);
@@ -82,7 +82,7 @@ public class FindANoraml {
                 for (List<Long> currentGJBToValidate : gjbValidate) {
                     long test = functionANF.getValue(currentGJBToValidate.get(0));
                     boolean exit = false;
-                    for (long i = 1; i < (1 << m); i++)
+                    for (long i = 0; i < (1 << m); i++)
                         if (test != functionANF.getValue(Canteaut.getElementOfSpace(currentGJBToValidate, i))) {
                             exit = true;
                             break;
