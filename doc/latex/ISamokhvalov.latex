@@ -34,15 +34,16 @@
 \begin{document}
 
 % \newtheorem{theorem}{Теорема}[section]
-\newtheorem*{theorem}{Теорема}
-\newtheorem*{Def}{Определение}
-\newtheorem*{lemma}{Лемма}
-\newtheorem{proposition}{Утверждение}[subsection]
+\newtheorem{theorem}{Теорема}[section]
+\newtheorem{Def}{Определение}[section]
+\newtheorem{lemma}{Лемма}[section]
+\newtheorem{proposition}{Утверждение}[section]
 % \newtheorem*{proof}{Доказательство}
 
 
 \input{titlepage.latex}
 \input{abstarct.latex}
+\input{introduction.latex}
 % \input{common.latex}
  % \input{plan.latex}
  \input{sectionClear.latex}
