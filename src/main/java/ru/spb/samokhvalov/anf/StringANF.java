@@ -104,9 +104,9 @@ public class StringANF {
     }
 
     public int getValue(long position) {
-        Long highPosition = (position - 1) / 4;
+        Long highPosition = (position) / 4;
         Long longAt = Long.parseLong(String.valueOf(function.charAt(highPosition.intValue())), 16);
-        long lowPosition = (position - 1) % 4;
+        long lowPosition = (position) % 4;
         int response = (longAt & (1 << (3 - lowPosition))) != 0 ? 1 : 0;
         log.debug("symbol: " + longAt + " position: " + position + " value: " + response);
         return response;

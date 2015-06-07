@@ -126,11 +126,13 @@ public class StringANFTest {
 
     @Test
     public void forResults() {
-        List<Long> anf = Arrays.asList(1l, 2l, 4l, 8l, 16l, 32l, 64l);
-//        StringANF temp = new StringANF(anf, 7l);
-        StringANF temp = new StringANF("45764576aff02457ba89ba89ab98ab98454540bf545451aeba45bfbfab54aeae4576457654675467ba89ba89ab98ab98bababf40abaaae5045ba404055ab50514576457654675467ba89ba89ab98ab98454540bf545451aeba45bfbfab54aeae4576457654675467ba89ba89ab98ab98bababf40abaaae5045ba404055ab5051");
+        List<Long> anf = Arrays.asList(48l, 213l, 215l, 151l, 120l, 98l, 135l, 150l, 199l, 16l, 5l, 186l, 95l, 172l, 72l, 77l, 41l, 36l, 56l, 78l, 96l, 243l, 118l, 86l, 114l, 79l, 74l, 231l, 67l, 225l, 177l, 249l, 92l, 45l, 180l, 9l, 202l, 17l, 189l, 224l, 57l, 76l, 54l, 19l, 83l, 193l, 222l, 4l, 104l, 132l, 1l, 27l, 70l, 59l, 87l, 187l, 183l, 107l, 6l, 53l, 55l, 200l, 206l, 49l, 170l, 129l, 123l, 147l, 146l, 138l, 102l, 209l, 81l, 84l, 108l, 99l, 244l, 164l, 62l, 116l, 252l, 233l, 24l, 161l, 35l, 223l, 232l, 66l, 148l, 115l, 251l, 124l, 216l, 220l, 106l, 174l, 248l, 192l, 155l, 188l, 137l, 37l, 43l, 30l, 246l, 154l, 125l, 111l, 13l, 237l, 178l, 33l, 32l, 119l, 93l, 153l, 195l, 103l, 238l, 130l, 219l, 113l, 134l, 85l, 176l, 14l, 179l, 31l, 90l, 80l, 68l, 26l, 141l, 152l, 185l, 60l, 173l, 47l, 97l, 75l, 182l, 194l, 165l, 203l, 158l, 7l, 100l, 168l, 175l, 139l, 227l, 126l, 234l, 71l);
+        StringANF temp = new StringANF(anf, 8l);
+//        StringANF temp = new StringANF("d6127431580720835209752f5a6d2eb0");
 //        List<Long> combine = Arrays.asList(498l, 10l, 4l, 1l, 32l);
-        List<Long> combine = Arrays.asList(264l, 88l, 32l, 4l, 2l);
+        List<Long> combine = Arrays.asList(42l, 17l, 5l);
+        List<Long> altCombine = Canteaut.makeAdditionalSpace(combine, 6);
+        log.info(temp.getFunction());
 //        List<Long> combine = Arrays.asList(66l, 34l, 18l, 10l, 6l);
 //        List<Long> combine = Arrays.asList(0l,
 //                3l,
@@ -168,14 +170,34 @@ public class StringANFTest {
 
 //        for (long k : combine)
 //        log.info( k ^ 80l);
-        for (int i = 0; i < 32; i++) {
+        for (long a : altCombine) {
+            for (int i = 0; i < 8; i++) {
 //            System.out.print(temp.getValue(combine.get(i)));
-            System.out.print(temp.getValue(
-                   657 ^ Canteaut.getElementOfSpace(combine, i)
-            ));
+                final long elementOfSpace = Canteaut.getElementOfSpace(combine, i);
+                System.out.print(temp.getValue(
+                        elementOfSpace ^ a
+                ));
 //            log.info(temp.getValue(Canteaut.getElementOfSpace(combine, (i ^ 82l))) + " " + temp.getValue(Canteaut.getElementOfSpace(combine, i)));
+            }
+            System.out.println();
         }
+        log.info(Canteaut.getBinary(altCombine, 6));
 
     }
 
+
+    @Test
+    public void findStepen() {
+        List<Long> anf = Arrays.asList(48l, 213l, 215l, 151l, 120l, 98l, 135l, 150l, 199l, 16l, 5l, 186l, 95l, 172l, 72l, 77l, 41l, 36l, 56l, 78l, 96l, 243l, 118l, 86l, 114l, 79l, 74l, 231l, 67l, 225l, 177l, 249l, 92l, 45l, 180l, 9l, 202l, 17l, 189l, 224l, 57l, 76l, 54l, 19l, 83l, 193l, 222l, 4l, 104l, 132l, 1l, 27l, 70l, 59l, 87l, 187l, 183l, 107l, 6l, 53l, 55l, 200l, 206l, 49l, 170l, 129l, 123l, 147l, 146l, 138l, 102l, 209l, 81l, 84l, 108l, 99l, 244l, 164l, 62l, 116l, 252l, 233l, 24l, 161l, 35l, 223l, 232l, 66l, 148l, 115l, 251l, 124l, 216l, 220l, 106l, 174l, 248l, 192l, 155l, 188l, 137l, 37l, 43l, 30l, 246l, 154l, 125l, 111l, 13l, 237l, 178l, 33l, 32l, 119l, 93l, 153l, 195l, 103l, 238l, 130l, 219l, 113l, 134l, 85l, 176l, 14l, 179l, 31l, 90l, 80l, 68l, 26l, 141l, 152l, 185l, 60l, 173l, 47l, 97l, 75l, 182l, 194l, 165l, 203l, 158l, 7l, 100l, 168l, 175l, 139l, 227l, 126l, 234l, 71l);
+//        StringANF temp = new StringANF(anf, 8l);
+        for (Long l : anf)
+            log.info(wt(l));
+        log.info("sad");
+
+    }
+
+    private static int wt(long l) {
+        String binaryString = Long.toBinaryString(l);
+        return binaryString.replace("0", "").length();
+    }
 }
