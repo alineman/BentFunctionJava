@@ -35,13 +35,15 @@
 
 % \newtheorem{theorem}{Теорема}[section]
 \newtheorem{theorem}{Теорема}[section]
-\newtheorem*{Def}{Определение}[section]
+\newtheorem*{Def}{Определение}
 \newtheorem{lemma}{Лемма}[section]
 \newtheorem{proposition}{Утверждение}[section]
 % \newtheorem*{proof}{Доказательство}
 
 
-\input{titlepage.latex}
+% \input{titlepage.latex}
+\input{newTitlepage.latex}
+\input{newTitlepageENG.latex}
 \tableofcontents
 \clearpage
 \input{abstarct.latex}
