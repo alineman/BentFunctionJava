@@ -18,8 +18,8 @@ public class FindANoraml {
     //112047
     public static void main(String[] args) {
 //        final String function = "45764576aff02457ba89ba89ab98ab98454540bf545451aeba45bfbfab54aeae4576457654675467ba89ba89ab98ab98bababf40abaaae5045ba404055ab50514576457654675467ba89ba89ab98ab98454540bf545451aeba45bfbfab54aeae4576457654675467ba89ba89ab98ab98bababf40abaaae5045ba404055ab5051";
-        final int n = 8;
-        final int m = 4;
+        final int n = 9;
+        final int m = 5;
         final int t0 = 2;
         final int maxCount = 2;
         log.info("Start: n = " + n + ", m = " + m + ", t0 = " + t0);
@@ -80,16 +80,35 @@ public class FindANoraml {
 //                }
 //                succes = true;
                 for (List<Long> currentGJBToValidate : gjbValidate) {
+//                    long test = functionANF.getValue(currentGJBToValidate.get(0));
+//                    boolean exit = false;
+//                    for (long i = 0; i < (1 << m); i++)
+//                        if (test != functionANF.getValue(Canteaut.getElementOfSpace(currentGJBToValidate, i))) {
+//                            exit = true;
+//                            break;
+//                        }
+//                    if (!exit)
+////                        log.info("\n" + currentGJBToValidate);
+//                        throw new RuntimeException(currentGJBToValidate.toString());
+                    List<Long> addditionalSpace = Canteaut.makeAdditionalSpace(currentGJBToValidate, n);
                     long test = functionANF.getValue(currentGJBToValidate.get(0));
+//            log.info(currentGJBToValidate);
                     boolean exit = false;
-                    for (long i = 0; i < (1 << m); i++)
-                        if (test != functionANF.getValue(Canteaut.getElementOfSpace(currentGJBToValidate, i))) {
-                            exit = true;
-                            break;
+//            for (long a = 0; a < (1 << n); a++) {
+                    for (long a : addditionalSpace) {
+                        for (long i = 0; i < (1 << m); i++) {
+                            final long elementOfSpace = Canteaut.getElementOfSpace(currentGJBToValidate, i) ^ a;
+                            total++;
+                            if (test != functionANF.getValue(elementOfSpace)) {
+                                exit = true;
+                                break;
+                            }
                         }
-                    if (!exit)
-//                        log.info("\n" + currentGJBToValidate);
-                        throw new RuntimeException(currentGJBToValidate.toString());
+                        if (!exit) {
+                            log.info("FAIL " + currentGJBToValidate + ", a = " + a);
+                            throw new RuntimeException(currentGJBToValidate.toString());
+                        }
+                    }
 
                 }
 

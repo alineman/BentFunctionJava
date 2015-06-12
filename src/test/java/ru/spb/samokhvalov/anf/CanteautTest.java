@@ -82,6 +82,7 @@ public class CanteautTest {
         Assert.assertEquals(11811, Canteaut.countGJB(7, 4));
         Assert.assertEquals(1395, Canteaut.countGJB(6, 3));
         Assert.assertEquals(155, Canteaut.countGJB(5, 3));
+        Assert.assertEquals(200787, Canteaut.countGJB(8, 4));
         log.info(Canteaut.countGJB(9, 5));
     }
 
@@ -192,42 +193,49 @@ public class CanteautTest {
 
     @Test
     public void validateNormalFunction1() {
-        int n = 10;
-        int m = 7;
+        int n = 8;
+        int m = 4;
         long total = 0;
-        List<Long> anf = Arrays.asList(512l+256+128+64+32, 16l+8+4+2+1, 512l+256, 128l+64, 16l+8, 4l+2, 1l);
+        long beforeGenerate = System.currentTimeMillis();
+
+//        List<Long> anf = Arrays.asList(512l+256+128+64+32, 16l+8+4+2+1, 512l+256, 128l+64, 16l+8, 4l+2, 1l);
 
 //        List<Long> anf = new ArrayList<>();
 //        for (long k : anf1){
 //            anf.add((Long) k << 2);
 //        }
 //        anf.add(3l);
-        StringANF functionANF = new StringANF(anf, n);
-//        StringANF functionANF = new StringANF("8000000000000000000f333c051b36280000000055555555000f333c504e637c");
+//        StringANF functionANF = new StringANF(anf, n);
+        StringANF functionANF = new StringANF("5d0ee66aecfffa8172f47a1b4653993b3617a2d7d87d645f90bae64341a3788c");
         log.info(functionANF.getFunction());
-        log.info(anf);
+//        log.info(anf);
         List<List<Long>> gjb = Canteaut.generateGJB(n, m);
-        log.info("GJB size: " + gjb.size());
-
+        log.info("GJB size: " + gjb.size() +". Time to generate: " + (System.currentTimeMillis() - beforeGenerate));
         long start = System.currentTimeMillis();
-        for (List<Long> currentGJBToValidate : gjb) {
-            long test = functionANF.getValue(currentGJBToValidate.get(0));
+        try {
+            for (List<Long> currentGJBToValidate : gjb) {
+                List<Long> addditionalSpace = Canteaut.makeAdditionalSpace(currentGJBToValidate, n);
+                long test = functionANF.getValue(currentGJBToValidate.get(0));
 //            log.info(currentGJBToValidate);
-            boolean exit = false;
-            for (long a = 0; a < (1 << n); a++) {
-                for (long i = 0; i < (1 << m); i++) {
-                    final long elementOfSpace = Canteaut.getElementOfSpace(currentGJBToValidate, i) ^ a;
-                    total++;
-                    if (test != functionANF.getValue(elementOfSpace)) {
-                        exit = true;
-                        break;
+                boolean exit = false;
+//            for (long a = 0; a < (1 << n); a++) {
+                for (long a : addditionalSpace) {
+                    for (long i = 0; i < (1 << m); i++) {
+                        final long elementOfSpace = Canteaut.getElementOfSpace(currentGJBToValidate, i) ^ a;
+                        total++;
+                        if (test != functionANF.getValue(elementOfSpace)) {
+                            exit = true;
+                            break;
+                        }
+                    }
+                    if (!exit) {
+                        log.info("FAIL " + currentGJBToValidate + ", a = " + a);
+                        throw new RuntimeException(currentGJBToValidate.toString());
                     }
                 }
-                if (!exit) {
-                    log.info("FAIL " + currentGJBToValidate + ", a = " + a);
-                    throw new RuntimeException(currentGJBToValidate.toString());
-                }
             }
+        } catch (Exception ignored){
+//            log.warn(ignored);
         }
         log.info("Total: " + total);
         double time = System.currentTimeMillis() - start;
