@@ -7,6 +7,7 @@ import ru.spb.samokhvalov.diploma.SimpleScr;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * User: isamokhvalov
@@ -196,4 +197,27 @@ public class Canteaut {
 
     }
 
+    public static long calculateWalsh(long a, List<Long> basis, StringANF function){
+        long result = 0;
+        for ( long i = 0; i< (1<<basis.size()); i++)
+            result += (function.getValue(getElementOfSpace(basis, i)) == 0) ? 1 : -1;
+
+        return result;
+    }
+
+
+    public static StringANF generateRandomStringANF(int n, Random random) {
+        long anfLong = random.nextInt((1 << n) - 1);
+        List<Long> anfList = new ArrayList<>();
+        while (anfList.size() < anfLong) {
+            long anfElement = random.nextInt((1 << n) - 1);
+            if (!anfList.contains(anfElement))
+                anfList.add(anfElement);
+        }
+        return new StringANF(anfList, n);
+    }
+
+    private static long invertNumber(Long l){
+
+    }
 }

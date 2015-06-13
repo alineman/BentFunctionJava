@@ -46,6 +46,7 @@ public class StringANF {
         function = stringBuilder.toString();
     }
 
+
     public StringANF(String function) {
         this.function = function;
         switch (function.length() * 4) {
@@ -143,5 +144,9 @@ public class StringANF {
 
     public List<Long> getAnf() {
         return anf;
+    }
+
+    public long getDimension() {
+        return dimension;
     }
 }

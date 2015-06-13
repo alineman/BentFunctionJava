@@ -31,20 +31,10 @@ public class FindANoraml {
         Random random = new Random(start);
 
         int count = 0;
+        long total =0;
         while (count <= maxCount) {
-            long anfLong = random.nextInt((1 << n) - 1);
-            List<Long> anfList = new ArrayList<>();
-            while (anfList.size() < anfLong) {
-//            while (anfList.size() < 10) {
-                long anfElement = random.nextInt((1 << n) - 1);
-                if (!anfList.contains(anfElement))
-                    anfList.add(anfElement);
-
-            }
-            log.info("Start: " + System.currentTimeMillis() + ". AnfList.size() = " + anfList.size());
-            long total = gjb.size();
-            double k = 0;
-            StringANF functionANF = new StringANF(anfList, n);
+            StringANF functionANF = Canteaut.generateRandomStringANF(n, random);
+            log.info("Start: " + System.currentTimeMillis() + ". AnfList.size() = " + functionANF.getAnf().size());
 
             try {
 //                for (List<Long> currentGJB : gjb) {
@@ -91,11 +81,11 @@ public class FindANoraml {
 ////                        log.info("\n" + currentGJBToValidate);
 //                        throw new RuntimeException(currentGJBToValidate.toString());
                     List<Long> addditionalSpace = Canteaut.makeAdditionalSpace(currentGJBToValidate, n);
-                    long test = functionANF.getValue(currentGJBToValidate.get(0));
 //            log.info(currentGJBToValidate);
                     boolean exit = false;
 //            for (long a = 0; a < (1 << n); a++) {
                     for (long a : addditionalSpace) {
+                        long test = functionANF.getValue(a);
                         for (long i = 0; i < (1 << m); i++) {
                             final long elementOfSpace = Canteaut.getElementOfSpace(currentGJBToValidate, i) ^ a;
                             total++;
@@ -126,6 +116,7 @@ public class FindANoraml {
         log.info("Total time: " + (l / 60) + " min");
 
     }
+
 
     public static void combine(SimpleScr zero, SimpleScr one, List<Long> basis, long k, long m, long n, String function) {
         if (k < m - 1) {

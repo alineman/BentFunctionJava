@@ -193,8 +193,8 @@ public class CanteautTest {
 
     @Test
     public void validateNormalFunction1() {
-        int n = 8;
-        int m = 4;
+        int n = 6;
+        int m = 3;
         long total = 0;
         long beforeGenerate = System.currentTimeMillis();
 
@@ -206,20 +206,20 @@ public class CanteautTest {
 //        }
 //        anf.add(3l);
 //        StringANF functionANF = new StringANF(anf, n);
-        StringANF functionANF = new StringANF("5d0ee66aecfffa8172f47a1b4653993b3617a2d7d87d645f90bae64341a3788c");
+        StringANF functionANF = new StringANF("555accf06696ff3c");
         log.info(functionANF.getFunction());
 //        log.info(anf);
         List<List<Long>> gjb = Canteaut.generateGJB(n, m);
-        log.info("GJB size: " + gjb.size() +". Time to generate: " + (System.currentTimeMillis() - beforeGenerate));
+        log.info("GJB size: " + gjb.size() + ". Time to generate: " + (System.currentTimeMillis() - beforeGenerate));
         long start = System.currentTimeMillis();
         try {
             for (List<Long> currentGJBToValidate : gjb) {
-                List<Long> addditionalSpace = Canteaut.makeAdditionalSpace(currentGJBToValidate, n);
-                long test = functionANF.getValue(currentGJBToValidate.get(0));
+//                List<Long> addditionalSpace = Canteaut.makeAdditionalSpace(currentGJBToValidate, n);
 //            log.info(currentGJBToValidate);
                 boolean exit = false;
-//            for (long a = 0; a < (1 << n); a++) {
-                for (long a : addditionalSpace) {
+            for (long a = 0; a < (1 << n); a++) {
+//                for (long a : addditionalSpace) {
+                    long test = functionANF.getValue(a);
                     for (long i = 0; i < (1 << m); i++) {
                         final long elementOfSpace = Canteaut.getElementOfSpace(currentGJBToValidate, i) ^ a;
                         total++;
@@ -234,12 +234,19 @@ public class CanteautTest {
                     }
                 }
             }
-        } catch (Exception ignored){
+        } catch (Exception ignored) {
 //            log.warn(ignored);
         }
         log.info("Total: " + total);
         double time = System.currentTimeMillis() - start;
         log.info("Time: " + (time / 1000));
+
+    }
+
+    @Test
+    public void testCalculateWalsh() {
+        StringANF function = new StringANF(Arrays.asList(10l, 5l), 4);
+        Assert.assertEquals(4, Canteaut.calculateWalsh(0, Arrays.asList(1l, 2l, 4l, 8l), function));
 
     }
 }
