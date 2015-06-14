@@ -4,10 +4,7 @@ import lombok.extern.log4j.Log4j;
 import org.apache.commons.lang3.StringUtils;
 import ru.spb.samokhvalov.diploma.SimpleScr;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 /**
  * User: isamokhvalov
@@ -42,6 +39,7 @@ public class Canteaut {
         return true;
     }
 
+    @Deprecated
     public static List<List<Long>> generateGJB(int n, int t0) {
         List<List<Long>> result = new ArrayList<>();
         CombinationGenerator generator = new CombinationGenerator(1 << n, t0);
@@ -61,6 +59,83 @@ public class Canteaut {
         }
         if (result.size() != Canteaut.countGJB(n, t0))
             throw new RuntimeException("Canteaut.countGJB bad");
+        return result;
+    }
+
+    public static List<List<Long>> generateFastGJB(int n, int t0) {
+        CombinationGenerator generator = new CombinationGenerator(n, t0);
+        List<List<Long>> result = new ArrayList<>();
+        while (generator.hasMore()) {
+            int[] var1 = generator.getNext();
+            int[] var = new int[var1.length];
+            for (int f = 0; f < var1.length; f++)
+                var[f] = var1[f] + 1;
+
+            List<Long> basisGJB = makeSimpleBasisGJB(var, n);
+            List<List<Long>> temp = getAdditionalSpaces(var, n);
+            final long dimensionForGJB = getDimensionForGJB(var, n);
+            for (long i = 0; i < (1 << dimensionForGJB); i++) {
+                List<Long> newBasisGJB = new ArrayList<>();
+                int j = 1;
+                int k = 0;
+//                while (j <= dimensionForGJB) {
+                for (List<Long> variables : temp) {
+                    long element = 0;
+                    for (long add : variables) {
+                        if (((1 << (dimensionForGJB - j)) & i) != 0)
+                            element += (1 << (n - add));
+                        j++;
+                    }
+                    newBasisGJB.add(element ^ basisGJB.get(k));
+                    k++;
+                }
+//                }
+                log.debug(Canteaut.getBinary(newBasisGJB, n));
+                if (validateGJB(newBasisGJB, n))
+                    result.add(newBasisGJB);
+                else {
+                    throw new RuntimeException("Founded basis is not GJB");
+                }
+            }
+        }
+        final long needCount = Canteaut.countGJB(n, t0);
+        if (result.size() != needCount)
+            throw new RuntimeException("Canteaut.countGJB bad: need size: " + needCount + ", but actual: " + result.size());
+        return result;
+    }
+
+    public static List<Long> makeSimpleBasisGJB(final int[] nu, long dimension) {
+        List<Long> result = new ArrayList<>();
+        for (int i = 0; i < nu.length; i++)
+            result.add((long) (1 << (dimension - nu[i])));
+        return result;
+    }
+
+    public static long getDimensionForGJB(final int[] nu, long dimension) {
+        long result = 0;
+        final int length = nu.length;
+        for (int i = 0; i < (length - 1); i++)
+            result += (nu[i + 1] - nu[i] - 1) * (i + 1);
+        result += (dimension - nu[length - 1]) * length;
+        return result;
+    }
+
+    public static List<List<Long>> getAdditionalSpaces(final int[] nu, long dimension) {
+        final int length = nu.length;
+        List<Integer> tempNu = new ArrayList<>();
+        for (int i : nu) {
+            tempNu.add(i);
+        }
+        List<List<Long>> result = new ArrayList<>();
+        for (int i = 0; i < length; i++) {
+            List<Long> temp = new ArrayList<>();
+            for (long j = nu[i]; j <= dimension; j++) {
+                if (!tempNu.contains((int) j))
+                    temp.add(j);
+            }
+            result.add(temp);
+        }
+
         return result;
     }
 
@@ -160,23 +235,23 @@ public class Canteaut {
         return result;
     }
 
-    public static long getElementOfSpace(final List<Long> basis, long number){
+    public static long getElementOfSpace(final List<Long> basis, long number) {
         long result = 0;
-        for (int i = 0; i<= basis.size(); i++)
+        for (int i = 0; i <= basis.size(); i++)
             if (((1 << i) & number) != 0)
                 result = result ^ basis.get(i);
 
-            return result;
+        return result;
     }
 
-    public static long unionVectors(List<Long> vectors){
+    public static long unionVectors(List<Long> vectors) {
         long result = 0;
         for (long k : vectors)
             result = result | k;
         return result;
     }
 
-    public static void addELement(Map<Long, List<Long>> longListMap, long key, long value){
+    public static void addELement(Map<Long, List<Long>> longListMap, long key, long value) {
         if (!longListMap.containsKey(key))
             longListMap.put(key, new ArrayList<Long>());
         longListMap.get(key).add(value);
@@ -197,10 +272,10 @@ public class Canteaut {
 
     }
 
-    public static long calculateWalsh(long a, List<Long> basis, StringANF function){
+    public static long calculateWalsh(long a, List<Long> basis, StringANF function) {
         long result = 0;
-        for ( long i = 0; i< (1<<basis.size()); i++)
-            result += (function.getValue(getElementOfSpace(basis, i)) == 0) ? 1 : -1;
+        for (long i = 0; i < (1 << basis.size()); i++)
+            result += (function.getValue(getElementOfSpace(basis, i) ^ a) == 0) ? 1 : -1;
 
         return result;
     }
@@ -217,7 +292,25 @@ public class Canteaut {
         return new StringANF(anfList, n);
     }
 
-    private static long invertNumber(Long l){
+//    private static long invertNumber(Long l){
+//
+//    }
 
+    public static boolean validateConstant(List<Long> basis, long a, StringANF function) {
+        boolean result = true;
+        final int n = basis.size();
+        final long test = function.getValue(a);
+        for (int i = 0; i < (1 << n); i++)
+            if (function.getValue(Canteaut.getElementOfSpace(basis, i) ^ a) != test)
+                return false;
+        return true;
+    }
+
+    public static String formatTime(long millis){
+        long second = (millis / 1000) % 60;
+        long minute = (millis / (1000 * 60)) % 60;
+        long hour = (millis / (1000 * 60 * 60)) % 24;
+
+        return String.format("%02d:%02d:%02d:%d", hour, minute, second, millis);
     }
 }

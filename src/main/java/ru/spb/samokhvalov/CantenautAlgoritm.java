@@ -31,7 +31,7 @@ public class CantenautAlgoritm {
 //                "1f0f";f2df" +
 //                "4f0fffff1f0f42df" +
 //                "900f8fff1f0ff2df4f0fffff1f0fa2dfad43";
-        List<List<Long>> gjb = Canteaut.generateGJB(n, t0);
+        List<List<Long>> gjb = Canteaut.generateFastGJB(n, t0);
         long total = gjb.size();
         double k =0;
         long start = System.currentTimeMillis();

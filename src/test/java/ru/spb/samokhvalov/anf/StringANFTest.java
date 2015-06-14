@@ -117,11 +117,41 @@ public class StringANFTest {
     }
 
     @Test
+    public void testAnotherConsrtuction() {
+        List<String> functions = Arrays.asList(
+                "8000",
+                "4000",
+                "2000",
+                "1000",
+                "0800",
+                "0400",
+                "0200",
+                "0100",
+                "0080",
+                "0040",
+                "0020",
+                "0010",
+                "0008",
+                "0004",
+                "0002",
+                "0001"
+        );
+        for (String function: functions){
+            StringANF  func = new StringANF(function);
+            for (int i =0; i < 16; i++)
+                System.out.print(func.getValue(i));
+            System.out.println();
+        }
+
+    }
+
+    @Test
     public void testGetTexAnf() {
         List<Long> anf = Arrays.asList(1l, 3l, 4l, 8l);
         StringANF temp = new StringANF(anf, 4l);
         log.info(temp.getTeXAnf());
         log.info(temp.getAllAnf());
+        log.info(temp.getFunction());
     }
 
     @Test
@@ -199,5 +229,16 @@ public class StringANFTest {
     private static int wt(long l) {
         String binaryString = Long.toBinaryString(l);
         return binaryString.replace("0", "").length();
+    }
+
+    @Test
+    public void testMake() {
+        List<Long> anf = Arrays.asList(8l);
+        StringANF temp = new StringANF(anf, 4l);
+        log.info(temp.getTeXAnf());
+        log.info(temp.getAllAnf());
+        log.info(temp.getFunction());
+
+
     }
 }

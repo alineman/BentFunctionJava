@@ -24,7 +24,7 @@ public class Algorithm {
         final int t0 = 2;
         List<Long> anf = Arrays.asList(250l, 23l, 42l, 61l, 213l, 237l, 135l, 114l, 53l, 142l, 74l, 19l, 97l, 96l, 9l, 145l, 37l, 254l, 171l, 244l, 27l, 49l, 51l, 8l, 214l, 215l, 91l, 133l, 168l, 128l, 87l, 184l, 10l, 131l, 235l, 7l, 228l, 161l, 232l, 99l, 88l, 89l, 236l, 40l, 255l, 67l, 162l, 98l, 32l, 66l, 113l, 198l, 82l, 167l, 65l, 14l, 6l, 201l, 192l, 124l, 147l, 109l, 249l, 137l, 231l, 119l, 204l, 129l, 69l, 164l, 84l, 194l, 1l, 252l, 16l, 2l, 0l, 71l, 166l, 17l, 199l, 207l, 55l, 120l, 29l, 83l, 122l, 188l, 202l, 241l, 56l, 154l, 141l, 233l, 174l, 223l, 177l, 210l, 179l, 180l, 224l, 159l, 243l, 73l, 108l, 112l, 47l, 50l, 217l, 234l, 38l, 191l, 155l, 178l, 150l, 153l, 26l, 222l, 251l, 227l, 36l, 111l, 68l, 79l, 132l, 220l, 117l, 11l, 62l, 127l, 33l, 34l, 247l, 106l, 181l);
         final StringANF functionANF = new StringANF(anf, 8l);
-        List<List<Long>> gjb = Canteaut.generateGJB(n, t0);
+        List<List<Long>> gjb = Canteaut.generateFastGJB(n, t0);
 
         log.info("Start");
         long start = System.currentTimeMillis();
@@ -123,10 +123,11 @@ public class Algorithm {
                     if (a < b) {
                         List<Long> toPrint = new ArrayList<>(basis);
                         toPrint.add(a ^ b);
-//                        if (Canteaut.validateGJB(toPrint, n))
-                        log.info(basis);
-                        log.info(zero.getValue());
+                        if (Canteaut.validateGJB(toPrint, n)) {
+                            log.info(basis);
+                            log.info(zero.getValue());
 //                            log.info("f is affine on " + Canteaut.getBinary(Arrays.asList((long) a), (int) n) + " + " + Canteaut.getBinary(toPrint, (int) n));
+                        }
                     }
         }
     }
