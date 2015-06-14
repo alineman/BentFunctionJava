@@ -1,0 +1,67 @@
+\begin{titlepage} 
+\begin{center}
+% Upper part of the page
+
+{\large SAINT-PETERSBURG STATE UNIVERSITY} \\ [0.2cm]
+% {\large Математико-механический факультет} \\[0.2cm]
+{\large The Department of Operations Research}\\[1cm]
+
+{\large Ivan Samokhvalov} 
+
+\bigskip
+ 
+% \begin{flushright}
+% \rule{0.5\textwidth}{0.5pt}
+% \rightline{(подпись)}\\
+% \end{flushright}
+\bigskip
+
+% Title
+\textbf{\LARGE Normal Boolean functions with high non-linearity}\\[1.0cm]
+{\Large Graduation Thesis} \\[0.2cm]
+\bigskip
+\bigskip
+\bigskip
+%supervisor
+\hfill\parbox{0.5\textwidth}{
+
+\begin{flushright}
+Admitted for defence.\\
+Head of the department:\\
+Professor J.V. Romanovsky
+\bigskip
+\bigskip
+\bigskip
+% \end{flushright}
+% \hrule
+% \rightline{(подпись)}
+
+% \begin{flushright}
+Scientific supervisor:\\
+% к.ф.-м.н., 
+Associate Professor I.V. Agafonova
+% \end{flushright}
+\bigskip
+\bigskip
+\bigskip
+% \hrule
+% \rightline{(подпись)}
+
+% \begin{flushright}
+Reviewer:\\
+% к.ф.-м.н., 
+Associate Professor O.M. Dmitrieva 
+% \end{flushright}
+% \hrule
+% \rightline{(подпись)}
+\end{flushright}
+}
+
+\vfill 
+\hfill 
+% Bottom of the page
+
+{\large {Saint-Petersburg}} \par
+{\large {2015}}
+\end{center} 
+\end{titlepage}

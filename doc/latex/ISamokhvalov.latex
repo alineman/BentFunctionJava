@@ -42,17 +42,19 @@
 
 
 % \input{titlepage.latex}
-\input{newTitlepage.latex}
-\input{newTitlepageENG.latex}
+% \input{newTitlepage.latex}
+% \input{newTitlepageENG.latex}
+% \input{newTitlepageENG1.latex}
 \tableofcontents
 \clearpage
 \input{abstarct.latex}
 \input{introduction.latex}
+\input{sectionClear.latex}
+\include{bibitem}
+
 % \input{common.latex}
  % \input{plan.latex}
- \input{sectionClear.latex}
  % \input{section1.latex}
  % \input{Chaplin.latex}
-\include{bibitem}
 
 \end{document}
