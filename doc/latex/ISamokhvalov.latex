@@ -35,9 +35,12 @@
 
 % \newtheorem{theorem}{Теорема}[section]
 \newtheorem{theorem}{Теорема}[section]
+\newtheorem{subtheorem}{Теорема}[subsection]
 \newtheorem*{Def}{Определение}
 \newtheorem{lemma}{Лемма}[section]
 \newtheorem{proposition}{Утверждение}[section]
+\newtheorem{subproposition}{Утверждение}[subsection]
+
 % \newtheorem*{proof}{Доказательство}
 
 
