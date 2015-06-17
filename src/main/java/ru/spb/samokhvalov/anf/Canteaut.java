@@ -313,4 +313,8 @@ public class Canteaut {
 
         return String.format("%02d:%02d:%02d:%d", hour, minute, second, millis);
     }
+
+    public static String makeOutput(List<Long> basis, long a, long dimension){
+        return " U = " + getBinary(basis, (int) dimension).toString() + " + a = " + StringUtils.leftPad(Long.toBinaryString(a), (int) dimension, '0');
+    }
 }

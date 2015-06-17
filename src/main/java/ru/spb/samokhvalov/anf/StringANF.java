@@ -143,10 +143,50 @@ public class StringANF {
 
 
     public List<Long> getAnf() {
+        if (anf == null)
+            anf = new ArrayList<>();
         return anf;
     }
 
     public long getDimension() {
         return dimension;
     }
+
+    public void invertFunction(){
+        StringBuilder builder = new StringBuilder();
+        final int length = function.length();
+        for (int i =0; i< length; i++) {
+            final char c = function.charAt(length - i - 1);
+            char newC = 'q';
+            switch (c){
+                case '0' : newC = '0'; break;
+                case '1' : newC = '8'; break;
+                case '2' : newC = '4'; break;
+                case '3' : newC = 'C'; break;
+                case '4' : newC = '2'; break;
+                case '5' : newC = 'A'; break;
+                case '6' : newC = '6'; break;
+                case '7' : newC = 'E'; break;
+                case '8' : newC = '1'; break;
+                case '9' : newC = '9'; break;
+                case 'a' :
+                case 'A' : newC = '5'; break;
+                case 'b' :
+                case 'B' : newC = 'D'; break;
+                case 'c' :
+                case 'C' : newC = '3'; break;
+                case 'd' :
+                case 'D' : newC = 'B'; break;
+                case 'e' :
+                case 'E' : newC = '7'; break;
+                case 'f' :
+                case 'F' : newC = 'F'; break;
+                default:
+                    throw new IllegalArgumentException("bad symbols");
+            }
+            builder.append(newC);
+        }
+        this.function = builder.toString();
+    }
+
 }
