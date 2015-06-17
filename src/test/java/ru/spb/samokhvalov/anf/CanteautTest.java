@@ -332,4 +332,11 @@ public class CanteautTest {
 
     }
 
+
+    @Test
+    public void testMakeOutput() {
+        log.info(Canteaut.makeOutput(Arrays.asList(8l, 2l, 5l), 10l, 4));
+
+    }
+
 }
