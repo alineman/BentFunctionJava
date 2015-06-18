@@ -3,10 +3,7 @@ package ru.spb.samokhvalov.anf;
 import org.apache.commons.lang3.StringUtils;
 import ru.spb.samokhvalov.diploma.SimpleScr;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -111,11 +108,18 @@ public class Canteaut {
 
     public static void generateFastGJB(int n, int t0, String fileName) {
         CombinationGenerator generator = new CombinationGenerator(n, t0);
-        FileOutputStream fout = null;
+        File file = new File(fileName);
+        if (file.exists())
+            throw new RuntimeException("File '" + fileName + "' already exist!");
+        Writer fileWriter = null;
+        BufferedWriter bufferedWriter = null;
+
         final long needCount = Canteaut.countGJB(n, t0);
         try {
-            fout = new FileOutputStream(fileName);
-            ObjectOutputStream oos = new ObjectOutputStream(fout);
+            fileWriter = new FileWriter(file);
+            bufferedWriter = new BufferedWriter(fileWriter);
+
+
             long result = 0;
             List<Long> basisGJB;
             List<List<Long>> temp;
@@ -144,10 +148,11 @@ public class Canteaut {
                         k++;
                     }
                     if (validateGJB(newBasisGJB, n)) {
-                        oos.writeObject(newBasisGJB);
+                        bufferedWriter.write(convertListToString(newBasisGJB));
+                        bufferedWriter.write(System.getProperty("line.separator"));
                         result++;
-                        if (result % 10000 == 0)
-                            System.out.println(" Complete: " + (((float) result) / needCount * 100) + "%");
+                        if (result % 100000 == 0)
+                            System.out.println("Complete: " + (((float) result) / needCount * 100) + "%");
                     } else {
                         throw new RuntimeException("Founded basis is not GJB");
                     }
@@ -161,9 +166,10 @@ public class Canteaut {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            if (fout != null)
+            if (bufferedWriter != null && fileWriter != null)
                 try {
-                    fout.close();
+                    bufferedWriter.close();
+                    fileWriter.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

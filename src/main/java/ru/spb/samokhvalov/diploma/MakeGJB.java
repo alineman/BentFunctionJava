@@ -13,8 +13,8 @@ public class MakeGJB {
         final int k = Integer.parseInt(args[1]);
         System.out.println("Create GJB: n = " + n + ", k = " + k);
         long start = System.currentTimeMillis();
-        String fileName = "/home/isamokhvalov/gjb.test." + n + "." + k;
+        String fileName = "gjb.string." + n + "." + k;
         Canteaut.generateFastGJB(n, k, fileName);
-        System.out.println("Finish. Total time: " + Canteaut.formatTime(System.currentTimeMillis() - start));
+        System.out.println("Finish. Total time: " + Canteaut.formatTime(System.currentTimeMillis() - start) + " FileName: '" + fileName + "'");
     }
 }

@@ -6,8 +6,8 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
+import java.io.*;
+import java.nio.file.Files;
 import java.util.*;
 
 /**
@@ -88,7 +88,7 @@ public class CanteautTest {
         Assert.assertEquals(3309747, Canteaut.countGJB(9, 4)); //20s
         Assert.assertEquals(3309747, Canteaut.countGJB(9, 5)); //20s
         Assert.assertEquals(53743987, Canteaut.countGJB(10, 4));
-        Assert.assertEquals(109221651, Canteaut.countGJB(10, 5)); //104Mb*5 = 512Mb
+        Assert.assertEquals(109221651, Canteaut.countGJB(10, 5)); //104Mb*5 = 512Mb ==1.8Gb
         log.info(Canteaut.countGJB(9, 5));
     }
 
@@ -184,6 +184,7 @@ public class CanteautTest {
 
 
     @Test
+    @Ignore
     public void validateNormalFunction() {
         List<List<Long>> gjb = Canteaut.generateGJB(8, 4);
         log.info("GJB size: " + gjb.size());
@@ -198,6 +199,7 @@ public class CanteautTest {
     }
 
     @Test
+    @Ignore
     public void validateNormalFunction1() {
         int n = 9;
         int m = 5;
@@ -346,13 +348,54 @@ public class CanteautTest {
     @Test
     public void testSaveToFile() {
         long start = System.currentTimeMillis();
-        final int n = 8;
-        final int t0 = 4;
-        Canteaut.generateFastGJB(n, t0, "/home/isamokhvalov/gjb");
+        final int n = 9;
+        final int t0 = 5;
+
+        String fileName = "/tmp/gjb.test." + n + "." + t0;
+        Canteaut.generateFastGJB(n, t0, fileName);
         long end1 = System.currentTimeMillis();
         Canteaut.generateFastGJB(n, t0);
         long end2 = System.currentTimeMillis();
         log.info("Save to file: " + Canteaut.formatTime(end1 - start) + ". Simple generate: " + Canteaut.formatTime(end2 - end1));
+
+        File file = new File(fileName);
+        Reader fileReader = null;
+        BufferedReader bufferedReader = null;
+        List<List<Long>> result = new ArrayList<>();
+        long startRead = System.currentTimeMillis();
+        try {
+            fileReader = new FileReader(file);
+            bufferedReader = new BufferedReader(fileReader);
+            String input;
+            while ((input = bufferedReader.readLine()) != null){
+                List<Long> temp = Canteaut.convertStringToList(input);
+                if (!Canteaut.validateGJB(temp, n))
+                    throw new RuntimeException("error read");
+                result.add(temp);
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            if (bufferedReader != null && fileReader != null)
+                try {
+                    bufferedReader.close();
+                    fileReader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+        }
+
+        Assert.assertEquals(Canteaut.countGJB(n, t0), result.size());
+        log.info("Time to read from file: " + Canteaut.formatTime(System.currentTimeMillis() - startRead));
+        File deleted = new File(fileName);
+        if (deleted.exists())
+            try {
+                Files.delete(deleted.toPath());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
     }
 
     @Test
@@ -365,7 +408,7 @@ public class CanteautTest {
 
         FileInputStream fis = null;
         try {
-            fis = new FileInputStream("/home/isamokhvalov/gjb");
+            fis = new FileInputStream("/home/isamokhvalov/gjb.test");
             ObjectInputStream ois = null;
             ois = new ObjectInputStream(fis);
 //            for (int i = 0; i < 200787; i++) {
