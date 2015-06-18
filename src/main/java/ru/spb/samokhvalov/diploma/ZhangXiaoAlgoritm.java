@@ -6,12 +6,8 @@ import ru.spb.samokhvalov.anf.CalculateWalsh;
 import ru.spb.samokhvalov.anf.Canteaut;
 import ru.spb.samokhvalov.anf.StringANF;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 /**
  * User: isamokhvalov
@@ -21,61 +17,79 @@ import java.util.Scanner;
 @Log4j
 public class ZhangXiaoAlgoritm {
     public static void main(String[] args) {
-        final int n = 8;
+        final int n = 6;
         final int k = (n >> 1);
-        final int maxCount = 1;
         long zero = System.currentTimeMillis();
-        log.info("Start: n = " + n + ", k = " + k + ", maxCount = " + maxCount);
-//        List<List<Long>> gjb = Canteaut.generateFastGJB(n, k);
-        List<List<Long>> gjb = new ArrayList<>();
+        log.info("Start: n = " + n + ", k = " + k);
 
         int count = 0;
-        long start = System.currentTimeMillis();
-        log.info("Time to generate GJB: " + Canteaut.formatTime(start - zero) + ". Size = " + gjb.size());
-//        Random random = new Random(start);
-//        File functions = new File("~/function.txt");
-//        functions.
-//        InputStream f = new FileInputStream("~/function.txt");
-        Scanner in = null;
-        long total = 0;
+        long total = Canteaut.countGJB(n,k);
         long totalBent = 0;
+        long start = System.currentTimeMillis();
+
+        Scanner in = null;
+        List<StringANF> rawFunctions = new ArrayList<>();
         try {
-            in = new Scanner(new File("/home/isamokhvalov/function.txt"));
-
+            in = new Scanner(new File("/home/isamokhvalov/2.log"));
+            StringANF tempFunction;
             while (in.hasNextLine()) {
-//        while (count < maxCount) {
-//        for (String f:Functions.functions){
-                try {
-//                StringANF function = Canteaut.generateRandomStringANF(n, random);
-//                log.debug("Start: " + new Date(System.currentTimeMillis()) + ". AnfList.size() = " + function.getAnf().size() + ". Finding bent: " + totalBent);
-                    String f = in.nextLine();
-                    StringANF function = new StringANF(f.length() < 256 ? StringUtils.leftPad(f, 256, '0') : f);
-                    function.invertFunction();
-                    total++;
-                    log.info("Start: " + new Date(System.currentTimeMillis()) + ". Total validate: " + total + ". Finding bent: " + totalBent + ". Finding nonnormal: " + count);
-                    CalculateWalsh walsh = new CalculateWalsh(function);
-                    if (walsh.isBent()) {
-                        totalBent++;
-                        validateNormal(function, gjb);
-                        log.info("Normal: " + function.getFunction() + ". From file: " + f);
-//                        log.info(function.getAllAnf());
-//                        log.info(function.getAnf());
-                        count++;
-                    }
-                } catch (Exception ignored) {
-
-                }
+                final String stringFromFile = in.nextLine();
+                tempFunction = new StringANF(stringFromFile.length() < 256 ? StringUtils.leftPad(stringFromFile, 256, '0') : stringFromFile);
+                tempFunction.invertFunction();
+                CalculateWalsh walsh = new CalculateWalsh(tempFunction);
+                if (walsh.isBent())
+                    rawFunctions.add(tempFunction);
+                else
+                    log.warn("Fount not bent: " + tempFunction.getFunction());
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            throw new RuntimeException("Error when reading file with list of functions");
         } finally {
             if (in != null)
                 in.close();
+        }
+        log.info("Time to load functions: " + Canteaut.formatTime(start - zero) + ". Size = " + rawFunctions.size());
 
+        long start0 = System.currentTimeMillis();
+
+        File file = new File("/home/isamokhvalov/gjb10-5");
+//        File file = new File("/home/isamokhvalov/gjb.string.8.4");
+        Reader fileReader = null;
+        BufferedReader bufferedReader = null;
+        try {
+            fileReader = new FileReader(file);
+            bufferedReader = new BufferedReader(fileReader);
+            String input;
+            while ((input = bufferedReader.readLine()) != null) {
+                List<Long> currentGJB = Canteaut.convertStringToList(input);
+                if (!Canteaut.validateGJB(currentGJB, n))
+                    throw new RuntimeException("error read");
+                validateONormal(rawFunctions, currentGJB, n);
+                count++;
+                if (count % 10000 == 0)
+                    log.info(" Complete: " + (((float) count) / total * 100) + "%");
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (bufferedReader != null && fileReader != null)
+                try {
+                    bufferedReader.close();
+                    fileReader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
         }
 
-
-        log.info("Total time: " + Canteaut.formatTime(System.currentTimeMillis() - start) + ". All verify function: " + total + ". Bent function: " + totalBent + ". Find non-normal: " + count);
+        for (StringANF stringANF:rawFunctions){
+            StringANF beta = new StringANF(stringANF.getFunction());
+            beta.invertFunction();
+            log.info(stringANF.getFunction() + " # " + beta.getFunction());
+        }
+        log.info("Total time: " + Canteaut.formatTime(System.currentTimeMillis() - start0) + ". Remain of function: " + rawFunctions.size());
     }
 
     private static void validateNormal(StringANF function, List<List<Long>> gjb) {
@@ -93,6 +107,29 @@ public class ZhangXiaoAlgoritm {
                     break;
 
 
+            }
+        }
+    }
+
+    private static void validateONormal(List<StringANF> functions, List<Long> currentGJBToValidate, int dimension) {
+        final int k = dimension >> 1;
+        Iterator<StringANF> itr = functions.iterator();
+        List<Long> addditionalSpace = Canteaut.makeAdditionalSpace(currentGJBToValidate, dimension);
+        while (itr.hasNext()) {
+            StringANF function = itr.next();
+            try {
+                for (long a : addditionalSpace) {
+                    long walsh = Canteaut.calculateWalsh(a, currentGJBToValidate, function);
+                    if ((walsh == (1 << k)) || (walsh == -(1 << k))) {
+//                    log.info("Function is constant on " + Canteaut.makeOutput(currentGJBToValidate, a, dimension));
+//                    throw new RuntimeException("FAIL " + currentGJBToValidate + ", a = " + a);
+                        itr.remove();
+                        throw new IllegalArgumentException("Is normal! ");
+                    } else if (walsh != 0)
+                        break;
+                }
+            } catch (IllegalArgumentException e) {
+                log.info("Reduction of function: " + functions.size());
             }
         }
     }
