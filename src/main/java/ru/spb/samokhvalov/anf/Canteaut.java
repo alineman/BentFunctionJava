@@ -1,17 +1,22 @@
 package ru.spb.samokhvalov.anf;
 
-import lombok.extern.log4j.Log4j;
 import org.apache.commons.lang3.StringUtils;
 import ru.spb.samokhvalov.diploma.SimpleScr;
 
-import java.util.*;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 /**
  * User: isamokhvalov
  * Date: 11.05.15
  * Time: 19:31
  */
-@Log4j
 public class Canteaut {
     public static long nu(long value, long dimension) {
         for (long i = (dimension - 1); i >= 0; i--)
@@ -90,7 +95,7 @@ public class Canteaut {
                     k++;
                 }
 //                }
-                log.debug(Canteaut.getBinary(newBasisGJB, n));
+//                log.debug(Canteaut.getBinary(newBasisGJB, n));
                 if (validateGJB(newBasisGJB, n))
                     result.add(newBasisGJB);
                 else {
@@ -102,6 +107,67 @@ public class Canteaut {
         if (result.size() != needCount)
             throw new RuntimeException("Canteaut.countGJB bad: need size: " + needCount + ", but actual: " + result.size());
         return result;
+    }
+
+    public static void generateFastGJB(int n, int t0, String fileName) {
+        CombinationGenerator generator = new CombinationGenerator(n, t0);
+        FileOutputStream fout = null;
+        final long needCount = Canteaut.countGJB(n, t0);
+        try {
+            fout = new FileOutputStream(fileName);
+            ObjectOutputStream oos = new ObjectOutputStream(fout);
+            long result = 0;
+            List<Long> basisGJB;
+            List<List<Long>> temp;
+            List<Long> newBasisGJB;
+            while (generator.hasMore()) {
+                int[] var1 = generator.getNext();
+                int[] var = new int[var1.length];
+                for (int f = 0; f < var1.length; f++)
+                    var[f] = var1[f] + 1;
+
+                 basisGJB = makeSimpleBasisGJB(var, n);
+                 temp = getAdditionalSpaces(var, n);
+                final long dimensionForGJB = getDimensionForGJB(var, n);
+                for (long i = 0; i < (1 << dimensionForGJB); i++) {
+                    newBasisGJB = new ArrayList<>();
+                    int j = 1;
+                    int k = 0;
+                    for (List<Long> variables : temp) {
+                        long element = 0;
+                        for (long add : variables) {
+                            if (((1 << (dimensionForGJB - j)) & i) != 0)
+                                element += (1 << (n - add));
+                            j++;
+                        }
+                        newBasisGJB.add(element ^ basisGJB.get(k));
+                        k++;
+                    }
+                    if (validateGJB(newBasisGJB, n)) {
+                        oos.writeObject(newBasisGJB);
+                        result++;
+                        if (result % 10000 == 0)
+                            System.out.println(" Complete: " + (((float) result) / needCount * 100) + "%");
+                    } else {
+                        throw new RuntimeException("Founded basis is not GJB");
+                    }
+                }
+            }
+
+            if (result != needCount)
+                throw new RuntimeException("Canteaut.countGJB bad: need size: " + needCount + ", but actual: " + result);
+        } catch (FileNotFoundException ignored) {
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fout != null)
+                try {
+                    fout.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+        }
     }
 
     public static List<Long> makeSimpleBasisGJB(final int[] nu, long dimension) {
@@ -306,7 +372,7 @@ public class Canteaut {
         return true;
     }
 
-    public static String formatTime(long millis){
+    public static String formatTime(long millis) {
         long second = (millis / 1000) % 60;
         long minute = (millis / (1000 * 60)) % 60;
         long hour = (millis / (1000 * 60 * 60)) % 24;
@@ -314,7 +380,23 @@ public class Canteaut {
         return String.format("%02d:%02d:%02d:%d", hour, minute, second, millis);
     }
 
-    public static String makeOutput(List<Long> basis, long a, long dimension){
+    public static String makeOutput(List<Long> basis, long a, long dimension) {
         return " U = " + getBinary(basis, (int) dimension).toString() + " + a = " + StringUtils.leftPad(Long.toBinaryString(a), (int) dimension, '0');
+    }
+    public static String convertListToString(List<Long> input){
+        StringBuilder builder = new StringBuilder();
+        for(long k:input) {
+            builder.append(Long.toHexString(k));
+            builder.append(",");
+        }
+        return builder.toString();
+    }
+
+    public static List<Long> convertStringToList(String input){
+        List<Long> result = new ArrayList<>();
+        for(String str: input.split(",")){
+            result.add(Long.parseLong(str, 16));
+        }
+        return result;
     }
 }

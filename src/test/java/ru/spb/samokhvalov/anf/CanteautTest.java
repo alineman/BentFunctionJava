@@ -6,6 +6,8 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 import java.util.*;
 
 /**
@@ -83,8 +85,10 @@ public class CanteautTest {
         Assert.assertEquals(1395, Canteaut.countGJB(6, 3));
         Assert.assertEquals(155, Canteaut.countGJB(5, 3));
         Assert.assertEquals(200787, Canteaut.countGJB(8, 4)); //0.5s
+        Assert.assertEquals(3309747, Canteaut.countGJB(9, 4)); //20s
         Assert.assertEquals(3309747, Canteaut.countGJB(9, 5)); //20s
-        Assert.assertEquals(109221651, Canteaut.countGJB(10, 5));
+        Assert.assertEquals(53743987, Canteaut.countGJB(10, 4));
+        Assert.assertEquals(109221651, Canteaut.countGJB(10, 5)); //104Mb*5 = 512Mb
         log.info(Canteaut.countGJB(9, 5));
     }
 
@@ -285,25 +289,25 @@ public class CanteautTest {
     @Test
     public void testGetDimensionForGJB() {
         int[] k = {1, 3};
-        Assert.assertEquals(1, Canteaut.getDimensionForGJB(k,3));
+        Assert.assertEquals(1, Canteaut.getDimensionForGJB(k, 3));
 
-        Assert.assertEquals(3, Canteaut.getDimensionForGJB(k,4));
+        Assert.assertEquals(3, Canteaut.getDimensionForGJB(k, 4));
         int[] k1 = {1, 2, 4};
-        Assert.assertEquals(2, Canteaut.getDimensionForGJB(k1,4));
-        Assert.assertEquals(5, Canteaut.getDimensionForGJB(k1,5));
+        Assert.assertEquals(2, Canteaut.getDimensionForGJB(k1, 4));
+        Assert.assertEquals(5, Canteaut.getDimensionForGJB(k1, 5));
         k1[1] = 3;
-        Assert.assertEquals(4, Canteaut.getDimensionForGJB(k1,5));
+        Assert.assertEquals(4, Canteaut.getDimensionForGJB(k1, 5));
 
     }
 
     @Test
     public void testGetAdditionalSpaces() {
         int[] k = {1, 3};
-        Assert.assertEquals("[[2], []]", Canteaut.getAdditionalSpaces(k,3).toString());
+        Assert.assertEquals("[[2], []]", Canteaut.getAdditionalSpaces(k, 3).toString());
 
         Assert.assertEquals("[[2, 4], [4]]", Canteaut.getAdditionalSpaces(k, 4).toString());
         int[] k1 = {1, 2, 4};
-        Assert.assertEquals("[[3], [3], []]", Canteaut.getAdditionalSpaces(k1,4).toString());
+        Assert.assertEquals("[[3], [3], []]", Canteaut.getAdditionalSpaces(k1, 4).toString());
         Assert.assertEquals("[[3, 5], [3, 5], [5]]", Canteaut.getAdditionalSpaces(k1, 5).toString());
         k1[1] = 3;
         Assert.assertEquals("[[2, 5], [5], [5]]", Canteaut.getAdditionalSpaces(k1, 5).toString());
@@ -313,15 +317,15 @@ public class CanteautTest {
     public void testGnerateFastGJB() {
         log.info(Canteaut.generateFastGJB(4, 2));
         log.info(Canteaut.generateFastGJB(6, 2));
-        for (int k = 2; k<=4; k++){
+        for (int k = 2; k <= 4; k++) {
             long startOld = System.currentTimeMillis();
 //            List<List<Long>> old = Canteaut.generateGJB(2*k, k);
-            long totalold =System.currentTimeMillis() - startOld;
+            long totalold = System.currentTimeMillis() - startOld;
 //            old.remove(0);
             long startNew = System.currentTimeMillis();
-            List<List<Long>> updated = Canteaut.generateFastGJB(2*k, k);
-            long totalNew =System.currentTimeMillis() - startNew;
-            log.info("Dimension: " + (2*k) + ". Count: " + Canteaut.countGJB(2*k, k) + ". Old: " + totalold + ", new: " + totalNew);
+            List<List<Long>> updated = Canteaut.generateFastGJB(2 * k, k);
+            long totalNew = System.currentTimeMillis() - startNew;
+            log.info("Dimension: " + (2 * k) + ". Count: " + Canteaut.countGJB(2 * k, k) + ". Old: " + totalold + ", new: " + totalNew);
 //            for (List<Long> element : updated)
 //                if (!old.contains(element))
 //                    throw new RuntimeException("Not contains in old");
@@ -336,6 +340,56 @@ public class CanteautTest {
     @Test
     public void testMakeOutput() {
         log.info(Canteaut.makeOutput(Arrays.asList(8l, 2l, 5l), 10l, 4));
+
+    }
+
+    @Test
+    public void testSaveToFile() {
+        long start = System.currentTimeMillis();
+        final int n = 8;
+        final int t0 = 4;
+        Canteaut.generateFastGJB(n, t0, "/home/isamokhvalov/gjb");
+        long end1 = System.currentTimeMillis();
+        Canteaut.generateFastGJB(n, t0);
+        long end2 = System.currentTimeMillis();
+        log.info("Save to file: " + Canteaut.formatTime(end1 - start) + ". Simple generate: " + Canteaut.formatTime(end2 - end1));
+    }
+
+    @Test
+    public void testSerializeArray() {
+        List<Long> temp = new ArrayList<>();
+        for (long i = 0; i < 25; i++)
+            temp.add(i);
+        temp.toArray();
+        List<List<Long>> result = new ArrayList<>();
+
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream("/home/isamokhvalov/gjb");
+            ObjectInputStream ois = null;
+            ois = new ObjectInputStream(fis);
+//            for (int i = 0; i < 200787; i++) {
+            while (fis.available() > 0) {
+                ArrayList<Long> clubs = (ArrayList<Long>) ois.readObject();
+                if (!Canteaut.validateGJB(clubs, 8))
+                    throw new RuntimeException("error read");
+                result.add(clubs);
+            }
+            ois.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        log.info(result.size());
+    }
+
+    @Test
+    public void testConvertToString() {
+        List<Long> test = Arrays.asList(1023l,11l,15l,65l);
+        final String message = Canteaut.convertListToString(test);
+        Assert.assertEquals("3ff,b,f,41,", message);
+        log.info(message);
+        Assert.assertArrayEquals(test.toArray(), Canteaut.convertStringToList(message).toArray());
 
     }
 
