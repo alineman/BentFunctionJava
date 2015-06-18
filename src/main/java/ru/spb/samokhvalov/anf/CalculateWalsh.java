@@ -1,13 +1,10 @@
 package ru.spb.samokhvalov.anf;
 
-import lombok.extern.log4j.Log4j;
-
 /**
  * User: isamokhvalov
  * Date: 13.06.15
  * Time: 18:33
  */
-@Log4j
 public class CalculateWalsh {
     private int[] walshW;
     private long variables;
