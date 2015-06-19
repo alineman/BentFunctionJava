@@ -30,7 +30,8 @@
 \makeatother
 \title{\bf Бент-функции, их представления и конструирование}
 \date{\vspace{-5ex}}
-
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\wt}{wt}
 \begin{document}
 
 % \newtheorem{theorem}{Теорема}[section]
@@ -53,6 +54,7 @@
 \input{abstarct.latex}
 \input{introduction.latex}
 \input{sectionClear.latex}
+\input{conclusion.latex}
 \include{bibitem}
 
 % \input{common.latex}
