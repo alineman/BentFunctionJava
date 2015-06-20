@@ -11,64 +11,63 @@ import java.util.*;
  * Date: 04.06.15
  * Time: 22:47
  */
-@Log4j
 public class FindANoraml {
 
     public static void main(String[] args) {
-        final int n = 9;
-        final int m = 5;
+        final int n = 7;
+        final int m = 4;
         final int t0 = 2;
         final int maxCount = 2;
-        log.info("Start: n = " + n + ", m = " + m + ", t0 = " + t0);
+        System.out.println("Start: n = " + n + ", m = " + m + ", t0 = " + t0);
         List<List<Long>> gjb = Canteaut.generateFastGJB(n, t0);
-        log.info("Calculate start gjb");
+        System.out.println("Calculate start gjb");
         long zeroTime = System.currentTimeMillis();
         List<List<Long>> gjbValidate = Canteaut.generateFastGJB(n, m);
         final long start = System.currentTimeMillis();
-        log.info("Calculate verify gjb : " + Canteaut.formatTime(start - zeroTime));
+        System.out.println("Calculate verify gjb : " + Canteaut.formatTime(start - zeroTime));
         Random random = new Random(start);
 
         int count = 0;
         long total = 0;
         while (count < maxCount) {
             StringANF functionANF = Canteaut.generateRandomStringANF(n, random);
-            log.info("Start: " + new Date(System.currentTimeMillis()) + ". AnfList.size() = " + functionANF.getAnf().size());
+            System.out.println("Start: " + new Date(System.currentTimeMillis()) + ". AnfList.size() = " + functionANF.getAnf().size());
             total++;
             try {
-                for (List<Long> currentGJB : gjb) {
-                    long ut0 = currentGJB.get(t0 - 1);
-                    long vt0 = Canteaut.nu(ut0, n);
-                    if ((getJ(currentGJB, n) > vt0) && ((getJ(currentGJB, n) - vt0) <= m - vt0 + 1 + t0)) {
-                        List<Long> additionalSpace = Canteaut.makeAdditionalSpace(currentGJB, n);
-                        SimpleScr zeroC = new SimpleScr(currentGJB, functionANF.getFunction(), n);
-                        SimpleScr oneC = new SimpleScr(currentGJB, functionANF.getFunction(), n);
-                        for (long a : additionalSpace) {
-                            long lambda = 1 << t0;
-                            boolean zero = true;
-                            boolean one = true;
-                            for (long i = 0; i < lambda; i++) {
-                                long l = a ^ Canteaut.getElementOfSpace(currentGJB, i);
-                                if (functionANF.getValue(l) == 1)
-                                    zero = false;
-                                else
-                                    one = false;
-                            }
-                            if (zero)
-                                zeroC.getValue().add(a);
-                            if (one)
-                                oneC.getValue().add(a);
-                        }
-                        combine(zeroC, oneC, currentGJB, t0, m, n, functionANF.getFunction());
-                    }
-
-                }
+//                for (List<Long> currentGJB : gjb) {
+//                    long ut0 = currentGJB.get(t0 - 1);
+//                    long vt0 = Canteaut.nu(ut0, n);
+//                    if ((getJ(currentGJB, n) > vt0) && ((getJ(currentGJB, n) - vt0) <= m - vt0 + 1 + t0)) {
+//                        List<Long> additionalSpace = Canteaut.makeAdditionalSpace(currentGJB, n);
+//                        SimpleScr zeroC = new SimpleScr(currentGJB, functionANF.getFunction(), n);
+//                        SimpleScr oneC = new SimpleScr(currentGJB, functionANF.getFunction(), n);
+//                        for (long a : additionalSpace) {
+//                            long lambda = 1 << t0;
+//                            boolean zero = true;
+//                            boolean one = true;
+//                            for (long i = 0; i < lambda; i++) {
+//                                long l = a ^ Canteaut.getElementOfSpace(currentGJB, i);
+//                                if (functionANF.getValue(l) == 1)
+//                                    zero = false;
+//                                else
+//                                    one = false;
+//                            }
+//                            if (zero)
+//                                zeroC.getValue().add(a);
+//                            if (one)
+//                                oneC.getValue().add(a);
+//                        }
+//                        combine(zeroC, oneC, currentGJB, t0, m, n, functionANF.getFunction());
+//                    }
+//
+//                }
                 for (List<Long> currentGJBToValidate : gjbValidate) {
                     List<Long> addditionalSpace = Canteaut.makeAdditionalSpace(currentGJBToValidate, n);
 //            for (long a = 0; a < (1 << n); a++) {
                     for (long a : addditionalSpace) {
 
                         if (Canteaut.validateConstant(currentGJBToValidate, a, functionANF)) {
-                            log.debug("FAIL " + Canteaut.makeOutput(currentGJBToValidate, a, n));
+//                            System.out.println("FAIL " + Canteaut.makeOutput(currentGJBToValidate, a, n));
                             throw new RuntimeException(currentGJBToValidate.toString());
                         }
 
@@ -77,20 +76,20 @@ public class FindANoraml {
                 }
 
                 count++;
-                log.info(functionANF.getFunction().toUpperCase());
-                log.info(functionANF.getAnf());
-                log.info("Found " + count + " of " + maxCount);
+                System.out.println(functionANF.getFunction().toUpperCase());
+                System.out.println(functionANF.getAnf());
+                System.out.println("Found " + count + " of " + maxCount);
             } catch (RuntimeException e) {
-//                log.info(e);
+//                System.out.println(e);
             }
         }
-//        log.info("Максимально возможное: " + Canteaut.countGJB(n, m));
+//        System.out.println("Максимально возможное: " + Canteaut.countGJB(n, m));
 //        final double l = (System.currentTimeMillis() - start) / (double) 1000;
         final long millis = (System.currentTimeMillis() - start);
 
-        log.info("Total time: " + Canteaut.formatTime(millis));
-        log.info("Total validate functions: " + total);
-//        log.info("Total time: " + (l / 60) + " min");
+        System.out.println("Total time: " + Canteaut.formatTime(millis));
+        System.out.println("Total validate functions: " + total);
+//        System.out.println("Total time: " + (l / 60) + " min");
 
     }
 
@@ -149,10 +148,10 @@ public class FindANoraml {
                         List<Long> toPrint = new ArrayList<>(basis);
                         toPrint.add(a ^ b);
 //                        if (Canteaut.validateGJB(toPrint, n))
-//                        log.info(basis);
-//                        log.info(zero.getValue());
+//                        System.out.println(basis);
+//                        System.out.println(zero.getValue());
                         throw new RuntimeException("Is affine");
-//                            log.info("f is affine on " + Canteaut.getBinary(Arrays.asList((long) a), (int) n) + " + " + Canteaut.getBinary(toPrint, (int) n));
+//                            System.out.println("f is affine on " + Canteaut.getBinary(Arrays.asList((long) a), (int) n) + " + " + Canteaut.getBinary(toPrint, (int) n));
                     }
         }
     }
