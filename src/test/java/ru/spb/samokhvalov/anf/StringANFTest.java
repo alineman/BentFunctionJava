@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 /**
  * User: isamokhvalov
@@ -25,66 +26,86 @@ public class StringANFTest {
         StringANF example = new StringANF("FFFF");
 //        log.info(example.getValue(10l));
         example = new StringANF("FA84");
-        Assert.assertEquals(1, example.getValue(0));
-        Assert.assertEquals(1, example.getValue(1));
-        Assert.assertEquals(1, example.getValue(2));
-        Assert.assertEquals(1, example.getValue(3));
+        Assert.assertEquals(1, example.getOldValue(0));
+        Assert.assertEquals(1, example.getOldValue(1));
+        Assert.assertEquals(1, example.getOldValue(2));
+        Assert.assertEquals(1, example.getOldValue(3));
 
-        Assert.assertEquals(1, example.getValue(4));
-        Assert.assertEquals(0, example.getValue(5));
-        Assert.assertEquals(1, example.getValue(6));
-        Assert.assertEquals(0, example.getValue(7));
+        Assert.assertEquals(1, example.getOldValue(4));
+        Assert.assertEquals(0, example.getOldValue(5));
+        Assert.assertEquals(1, example.getOldValue(6));
+        Assert.assertEquals(0, example.getOldValue(7));
 
-        Assert.assertEquals(1, example.getValue(8));
-        Assert.assertEquals(0, example.getValue(9));
-        Assert.assertEquals(0, example.getValue(10));
-        Assert.assertEquals(0, example.getValue(11));
+        Assert.assertEquals(1, example.getOldValue(8));
+        Assert.assertEquals(0, example.getOldValue(9));
+        Assert.assertEquals(0, example.getOldValue(10));
+        Assert.assertEquals(0, example.getOldValue(11));
 
-        Assert.assertEquals(0, example.getValue(12));
-        Assert.assertEquals(1, example.getValue(13));
-        Assert.assertEquals(0, example.getValue(14));
-        Assert.assertEquals(0, example.getValue(15));
+        Assert.assertEquals(0, example.getOldValue(12));
+        Assert.assertEquals(1, example.getOldValue(13));
+        Assert.assertEquals(0, example.getOldValue(14));
+        Assert.assertEquals(0, example.getOldValue(15));
+
+        Assert.assertEquals(1, example.getFastValue(0));
+        Assert.assertEquals(1, example.getFastValue(1));
+        Assert.assertEquals(1, example.getFastValue(2));
+        Assert.assertEquals(1, example.getFastValue(3));
+
+        Assert.assertEquals(1, example.getFastValue(4));
+        Assert.assertEquals(0, example.getFastValue(5));
+        Assert.assertEquals(1, example.getFastValue(6));
+        Assert.assertEquals(0, example.getFastValue(7));
+
+        Assert.assertEquals(1, example.getFastValue(8));
+        Assert.assertEquals(0, example.getFastValue(9));
+        Assert.assertEquals(0, example.getFastValue(10));
+        Assert.assertEquals(0, example.getFastValue(11));
+
+        Assert.assertEquals(0, example.getFastValue(12));
+        Assert.assertEquals(1, example.getFastValue(13));
+        Assert.assertEquals(0, example.getFastValue(14));
+        Assert.assertEquals(0, example.getFastValue(15));
 
         example = new StringANF("ad02e643");
-        Assert.assertEquals(1, example.getValue(1));
-        Assert.assertEquals(0, example.getValue(2));
-        Assert.assertEquals(1, example.getValue(3));
-        Assert.assertEquals(0, example.getValue(4));
+        Assert.assertEquals(1, example.getValue(0));
+        Assert.assertEquals(0, example.getValue(1));
+        Assert.assertEquals(1, example.getValue(2));
+        Assert.assertEquals(0, example.getValue(3));
 
+        Assert.assertEquals(1, example.getValue(4));
         Assert.assertEquals(1, example.getValue(5));
-        Assert.assertEquals(1, example.getValue(6));
-        Assert.assertEquals(0, example.getValue(7));
-        Assert.assertEquals(1, example.getValue(8));
+        Assert.assertEquals(0, example.getValue(6));
+        Assert.assertEquals(1, example.getValue(7));
 
+        Assert.assertEquals(0, example.getValue(8));
         Assert.assertEquals(0, example.getValue(9));
         Assert.assertEquals(0, example.getValue(10));
         Assert.assertEquals(0, example.getValue(11));
+
         Assert.assertEquals(0, example.getValue(12));
-
         Assert.assertEquals(0, example.getValue(13));
-        Assert.assertEquals(0, example.getValue(14));
-        Assert.assertEquals(1, example.getValue(15));
-        Assert.assertEquals(0, example.getValue(16));
+        Assert.assertEquals(1, example.getValue(14));
+        Assert.assertEquals(0, example.getValue(15));
 
+        Assert.assertEquals(1, example.getValue(16));
         Assert.assertEquals(1, example.getValue(17));
         Assert.assertEquals(1, example.getValue(18));
-        Assert.assertEquals(1, example.getValue(19));
+        Assert.assertEquals(0, example.getValue(19));
+
         Assert.assertEquals(0, example.getValue(20));
-
-        Assert.assertEquals(0, example.getValue(21));
+        Assert.assertEquals(1, example.getValue(21));
         Assert.assertEquals(1, example.getValue(22));
-        Assert.assertEquals(1, example.getValue(23));
+        Assert.assertEquals(0, example.getValue(23));
+
         Assert.assertEquals(0, example.getValue(24));
-
-        Assert.assertEquals(0, example.getValue(25));
-        Assert.assertEquals(1, example.getValue(26));
+        Assert.assertEquals(1, example.getValue(25));
+        Assert.assertEquals(0, example.getValue(26));
         Assert.assertEquals(0, example.getValue(27));
-        Assert.assertEquals(0, example.getValue(28));
 
+        Assert.assertEquals(0, example.getValue(28));
         Assert.assertEquals(0, example.getValue(29));
-        Assert.assertEquals(0, example.getValue(30));
+        Assert.assertEquals(1, example.getValue(30));
         Assert.assertEquals(1, example.getValue(31));
-        Assert.assertEquals(1, example.getValue(32));
 
     }
 
@@ -92,7 +113,7 @@ public class StringANFTest {
     @Test
     public void countLinear() {
         StringANF anf = new StringANF("6996");
-        for (int i = 1; i <= 16; i++)
+        for (int i = 0; i < 16; i++)
             System.out.print(anf.getValue(i));
     }
 
@@ -136,9 +157,9 @@ public class StringANFTest {
                 "0002",
                 "0001"
         );
-        for (String function: functions){
-            StringANF  func = new StringANF(function);
-            for (int i =0; i < 16; i++)
+        for (String function : functions) {
+            StringANF func = new StringANF(function);
+            for (int i = 0; i < 16; i++)
                 System.out.print(func.getValue(i));
             System.out.println();
         }
@@ -248,6 +269,43 @@ public class StringANFTest {
         StringANF test = new StringANF("FA84");
         test.invertFunction();
         Assert.assertEquals("215F", test.getFunction());
+        test.invertFunction();
+        Assert.assertEquals("FA84", test.getFunction());
 
     }
+
+    @Test
+    public void testNewValue() {
+        for (int i = 4; i < 10; i++) {
+            for (int k = 0; k < 10; k++) {
+                StringANF function = Canteaut.generateRandomStringANF(i, new Random());
+                for (int position = 0; position < (1 << i); position++)
+                    Assert.assertEquals(function.getOldValue(position), function.getFastValue(position));
+            }
+        }
+    }
+
+    @Test
+    public void testTimeComparationGetValue() {
+        long getOld = 0;
+        long getNew = 0;
+        for (int i = 10; i < 15; i++) {
+                StringANF function = Canteaut.generateRandomStringANF(i, new Random());
+            for (int k = 0; k < 10; k++) {
+                long start = System.currentTimeMillis();
+                for (int position = 0; position < (1 << i); position++) {
+                    function.getOldValue(position);
+                }
+                getOld += (System.currentTimeMillis() - start);
+                start = System.currentTimeMillis();
+                for (int position = 0; position < (1 << i); position++) {
+                    function.getFastValue(position);
+                }
+                getNew += (System.currentTimeMillis() - start);
+            }
+        }
+
+        log.info("Old time: " + Canteaut.formatTime(getOld) + ". New time: " + Canteaut.formatTime(getNew));
+    }
+
 }
