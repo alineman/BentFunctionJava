@@ -87,7 +87,7 @@ public class StringANF {
             case 8192:
                 this.dimension = 13;
                 break;
-            case 16382:
+            case 16384:
                 this.dimension = 14;
                 break;
             case 32768:
