@@ -45,6 +45,11 @@
 рецензент:\hfill Дмитриева Оксана Михайловна}}
 \end{frame}
 
+% Автоматическая генерация содержания
+\frame{\frametitle{Содержание}
+ \tableofcontents} 
+
+
 \section{Введение}
 \begin{frame}
 \begin{flushleft}
@@ -82,11 +87,11 @@
 % \item алгебраическая толщина;
 % \item алгебраическая иммунность;
 \item нормальность;
-\item сбалансированность;
-\item и другие...
+\item сбалансированность.
+%\item и другие...
 
 \end{itemize}
-Часто  критерии взаимосвязаны, иногда носят взаимоисключающий характер и приходится искать компромис между ними.
+Часто  критерии взаимосвязаны, иногда носят взаимоисключающий характер и приходится искать компромисс между ними.
 \end{flushleft}
 
 \end{frame}
@@ -124,20 +129,25 @@
 	Пусть $f\in\mathcal{B}_{10}$:
 	$f(x) = x_1x_2x_3x_4x_5\oplus x_6x_7x_8x_9x_{10}\oplus x_1x_2\oplus x_3x_4\oplus x_6x_7 \oplus x_8x_9 \oplus x_{10}$
 	\begin{itemize}
-		\item $f|_L = f(0,x_2,0,x_4,0,x_6,0,x_8,0,x_{10}) = x_{10}$ --- функция, аффинная на этой плоскости;
-		\item $f|_L = f(x_1,0,x_3,0, x_5, x_6,0,0,x_9,0) = 0,\forall x\in V_n$ --- функция, постоянная на этой плоскости.
+		%\item $f|_L = f(0,x_2,0,x_4,0,x_6,0,x_8,0,x_{10}) = x_{10}$ --- функция, аффинная на этой плоскости;
+		%\item $f|_L = f(x_1,0,x_3,0, x_5, x_6,0,0,x_9,0) = 0,\forall x\in V_n$ --- функция, постоянная на этой плоскости.
+		\item  $L = (x_1,1,1,1,0, 0,0,0,0,x_{10}),\quad \dim(L) = 2, \,\, f|_L  = 1 \oplus x_1 \oplus x_{10}$ --- слабо $2$-нормальная;
+\item $L = (0,x_2,0,x_4,0,x_6,0,x_8,0,x_{10}), \quad \dim(L) = 5,\,\, f|_L  = x_{10}$ --- слабо $5$-нормальная;
+\item $L = (x_1,0,x_3,0, x_5, x_6,1,0,x_9,0),\quad \dim(L) = 5,\,\, f|_L  \equiv 0$ --- нормальная функция;
+\item $L = (x_1,0,x_3,0, x_5, x_6,1,0,x_9,x_{10}),\quad \dim(L) = 6,\,\, f|_L  = x_6 \oplus x_{10}$ --- слабо $6$-нормальная.
+
 	\end{itemize}
 	
-	Далеко не всегда можно легко выбрать плоскость, на которой функция является аффинной, или константой.
+	Далеко не всегда можно легко выбрать плоскость, на которой функция является аффинной или константой.
 }
 
 \section{Бент-функции}
 \frame{
 	\frametitle{Бент-функции}
-	Булевы функции от четного числа переменных с максимальным значением нелинейности, равным $\mathcal{N}_f = 2^{n - 1} - 2^{n/2 - 1}$ называются {\slshape бент-функциями}. Для бент-функций все коэффициенты преобразования Уолша-Адамара равны $\pm 2^{n/2}$.
+	Булевы функции от четного числа переменных с максимальным значением нелинейности, равным $\mathcal{N}_f = 2^{n - 1} - 2^{n/2 - 1}$, называются {\slshape бент-функциями}. Для бент-функций все коэффициенты преобразования Уолша-Адамара равны $\pm 2^{n/2}$.
 	
-	Десять лет построить бент-функции, не являющиеся нормальными и слабо нормальными, не удавалось. В 2005 году авторам~\cite{Canteaut} это удалось.
-	В 2006 г. А. Канто, М. Даума, Х. Доббертин и Г. Леандра привели примеры анормальной бент-функции от 10 переменных.
+	Десять лет построить бент-функции, не являющиеся нормальными и слабо нормальными, не удавалось. 
+	В 2006 г. А. Канто, М. Даума, Х. Доббертин и Г. Леандра привели примеры анормальной бент-функции от 10 переменных и слабо анормальной от 14 переменных.
 }
 
 \section{Некоторые известные результаты}
@@ -155,12 +165,15 @@
 \begin{proposition}
 Существуют бент-функции от $n$ переменных, не являющиеся нормальными для всех четных $n\geqslant 10$ и не являющиеся слабо-нормальными для всех четных $n\geqslant 14$~\cite{Canteaut}.
 \end{proposition}
-\begin{block}{}
-Пусть $f$ является слабо $k$-нормальной функцией на $V_n$. Тогда
-$$
-\mathcal{N}(f) \leqslant 2^{n - 1} - 2^{k - 1}.
-$$
-\end{block}
+\begin{proposition}
+В работе~\cite{CarletIncreaseN} доказывается, что асимптотически, с увеличением $n$, почти все булевы функции являются анормальными.
+\end{proposition}
+%\begin{block}{}
+%Пусть $f$ является слабо $k$-нормальной функцией на $V_n$. Тогда
+%$$
+%\mathcal{N}(f) \leqslant 2^{n - 1} - 2^{k - 1}.
+%$$
+%\end{block}
 }
 
 
@@ -175,10 +188,10 @@ $$
 	\frametitle{Дополнительные обозначения}
 	\begin{itemize}
 	\item $\nu(u) = \max \{i\in\{1\cdots n + 1 \}| \, u_j = 0\, \forall j: 1\leqslant j < i\}$ --- функция, показывающая самый левый индекс $1$ в значениях вектора;
-	\item $u_1,\dots,u_k \in V_n$ --- упорядоченный набор векторов называется базисом Гаусса-Жордана, если $u_1>\cdots>u_k$ и $(u_j)_{\nu(u_i)} = 0 \,\, \forall i\neq j $;\
+	\item $u_1,\dots,u_k \in V_n$ --- базис Гаусса-Жордана. Упорядоченный набор векторов, если $u_1>\cdots>u_k$ и $(u_j)_{\nu(u_i)} = 0 \,\, \forall i\neq j $;\
 	\item $\Upsilon(L) = \{\nu(u)|\, u\in L\backslash\{0\} \}, \,\, L \subseteq V_n$ --- набор индексов ведущих единиц для заданного пространства $L$;
 	\item $\overline{L} = \{a \in V_n |\, a_i = 0\,\, \forall i\in\Upsilon(L) \}$ --- дополнение пространства $L$;
-	\item Булева функция $f$ называется {\slshape уравновешенной,} или {\slshape сбалансированной}, если  в векторе ее значений количество $0$ и $1$ совпадает.
+	%\item Булева функция $f$ называется {\slshape уравновешенной,} или {\slshape сбалансированной}, если  в векторе ее значений количество $0$ и $1$ совпадает.
 	\end{itemize}
 }
 
@@ -307,7 +320,7 @@ f(x) = \tr(\alpha x^d),
 Отдельный интерес представляют функции {\slshape Касами:}
 
 \begin{proposition}
-Все функции вида~(\ref{Kasami}) называются бент-функциями Касами, при
+Функции вида~(\ref{Kasami}) называются бент-функциями Касами при
 $$
 d = 2^{2k} - 2^k + 1\, ,\, \text{НОД}~(k,n) = 1.
 $$
@@ -355,10 +368,10 @@ $$
 \frame{
 	\frametitle{Результаты}
 	\begin{itemize}
-	\item получены анормальная функция 7 переменных, например: $f(x) =$ {\ttfamily 26949BA40382FB68409AF1B97AF8C6EF};
-	\item получены слабо-анормальная функция 9 переменных;
-	\item получены анормальная бент-функция 10 переменных;
-	\item проведен численный эксперимент:
+	\item получены анормальные функции 7 переменных, например: $f(x) =$ {\ttfamily 26949BA40382FB68409AF1B97AF8C6EF};
+	\item получены слабо-анормальные функции 9 переменных;
+	\item получены анормальные бент-функции 10 переменных;
+	\item проведен численный эксперимент на предмет $k$-анормальности:
 	\begin{center}
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
@@ -384,6 +397,7 @@ $n=9$ & нет & 1442 & 1136 & 1059& 1010 \\
 \bibitem{Cantenaut6}{\it Canteaut A., Daum M., Leander G., Dobbertin H.}. Normal and non normal bent functions // Proceedings of the 2003 International Workshop on Coding and Cryptography (WCC 2003), Versailles, France, March 2003, pp. 91–100.
 \bibitem{CarletError} {\it Carlet C.}. Boolean Functions for Cryptography and Error Correcting Codes // Cambridge University Press, 2010
 \bibitem{Charpin} {\it Charpin P.} Normal Boolean functions // Journal of Complexity, Volume 20, Issues 2–3, April–June 2004, pp. 245–265
+\bibitem{CarletIncreaseN} {\it Carlet C.} On cryptographic complexity of boolean functions. // In Finite Fields with Applications to Coding Theory,Cryptography and Related Areas (Proceedings of Fq6), 2002.
 \bibitem{Gangopadhyay} {\it Gangopadhyay S., Sharma D.}. On construction of non-normal Boolean functions. Australasian journal of combinatorics //Combinatorial Mathematics Society of Australasia), Vol. 38, pp. 267 - 272, 2007.
 \bibitem{Mihaljevc} {\it Mihaljevic M., Gangopadhyay S., Goutam P. and Hideki I}. Generic cryptographic weakness of k-normal boolean functions in certain stream ciphres and cryptoanalysis of GRAIN-128 // Periodica Mathematica Hungarica Vol. 65 (2), 2012, pp. 205–227
 \bibitem{Zhang} {\it Zhang W. and Xiao G.}. Checking normality of bent functions // ISN Laboratory, Xidian University, Xi’an 710071, China
@@ -391,10 +405,6 @@ $n=9$ & нет & 1442 & 1136 & 1059& 1010 \\
  \end{thebibliography}
  \end{flushleft}
 \end{frame}
-
-% Автоматическая генерация содержания
-\frame{\frametitle{Содержание}
- \tableofcontents} 
 
 \begin{frame}
 \begin{center}
