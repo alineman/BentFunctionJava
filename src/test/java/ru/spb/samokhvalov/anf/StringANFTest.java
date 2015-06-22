@@ -308,4 +308,15 @@ public class StringANFTest {
         log.info("Old time: " + Canteaut.formatTime(getOld) + ". New time: " + Canteaut.formatTime(getNew));
     }
 
+    @Test
+    public void compareANF() {
+        String func = "21A20A79D6FA135903C41746680F6DF5BB76D146854232C660255CDA98277993056BE4E36803F19AB16B90BA83532593367F55DFF41DDC608B45BED5B32DCD9F1C3AF2DBAF7C0ABF9B5C7627D2108B4976771ABEA6F7B2D0AD7E544422AEA38597C57FBB4EBC84761053FB48F0E3C64C688B3EE1B452F340437D7FE4FCC8D1D6";
+        StringANF k = new StringANF(func);
+        k.fillANFTable();
+        List<Long> anf = k.getAnf();
+        StringANF temp = new StringANF(anf, 10l);
+        Assert.assertEquals(func, temp.getFunction().toUpperCase());
+
+
+    }
 }

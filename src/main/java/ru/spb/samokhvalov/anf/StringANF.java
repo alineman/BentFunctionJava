@@ -14,6 +14,9 @@ public class StringANF {
     List<Long> anf;
     int[] values;
 
+    private List<TableOfTrue> tableOfTrue;
+
+
     public StringANF(List<Long> anf, long n) {
         dimension = n;
         this.anf = anf;
@@ -219,7 +222,7 @@ public class StringANF {
             final int arraySize = 1 << (dimension - 3);
             values = new int[arraySize];
             for (int i = 0; i < arraySize; i++)
-                values[i] = (Integer.parseInt(String.valueOf(function.charAt(2*i)), 16) << 4) + Integer.parseInt(String.valueOf(function.charAt(2*i + 1)), 16);
+                values[i] = (Integer.parseInt(String.valueOf(function.charAt(2 * i)), 16) << 4) + Integer.parseInt(String.valueOf(function.charAt(2 * i + 1)), 16);
         }
 
     }
@@ -234,7 +237,7 @@ public class StringANF {
         return ((values[high] & (1 << (7 - low))) != 0) ? 1 : 0;
     }
 
-    public int getOldValue(long position){
+    public int getOldValue(long position) {
         Long highPosition = (position) / 4;
         Long longAt = Long.parseLong(String.valueOf(function.charAt(highPosition.intValue())), 16);
         long lowPosition = (position) % 4;
@@ -242,4 +245,46 @@ public class StringANF {
         return response;
 
     }
+
+    public void fillANFTable() {
+
+//        List<TableOfTrue> temp = new ArrayList<>();
+        boolean[] temp = new boolean[1 << dimension];
+        int i = 0;
+        for (int k = 0; k < (1 << dimension); k++)
+            temp[i++] = getValue(k) != 0;
+        boolean[] result = fillAnf(temp);
+        anf = new ArrayList<>();
+        for (i = 0; i < result.length; i++) {
+            if (result[i])
+                anf.add((long) i);
+        }
+    }
+
+    private boolean[] fillAnf(boolean[] booleans) {
+        int size = booleans.length;
+        int half = size >> 1;
+        if (size == 2)
+            return new boolean[]{booleans[0], (booleans[0] ^ booleans[1])};
+
+        boolean[] temp1 = new boolean[half];
+        boolean[] temp2 = new boolean[half];
+
+        for (int i = 0; i < half; i++) {
+            temp1[i] = booleans[i];
+            temp2[i] = booleans[i] ^ booleans[i + half];
+        }
+        temp1 = fillAnf(temp1);
+        temp2 = fillAnf(temp2);
+
+        boolean[] result = new boolean[size];
+
+        for (int j = 0; j < half; j++) {
+            result[j] = temp1[j];
+            result[j + half] = temp2[j];
+        }
+
+        return result;
+    }
+
 }
