@@ -32,6 +32,7 @@
 \date{\vspace{-5ex}}
 \DeclareMathOperator{\tr}{tr}
 \DeclareMathOperator{\wt}{wt}
+\DeclareMathOperator{\GF}{GF}
 \begin{document}
 
 % \newtheorem{theorem}{Теорема}[section]
