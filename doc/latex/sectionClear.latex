@@ -422,7 +422,7 @@ $$
 
 
 % В работе {\it On construction of non-normal Boolean functions}~\cite{Gangopadhyay} была представлена формула, с помощью которой, имея 2 слабо $k$-анормальных булевых функций от $(n)$ переменных можно сконструировать слабо $k + 1$-анормальную булеву функцию от $(n + 2)$ переменных:
-\begin{proposition}\emph{~\cite{Gangopadhyay}}
+\begin{proposition}\emph{~\cite{Gangopadhyay}}\label{ComplexMyfunction}
 Пусть $f_1, f_2 \in \mathcal{B}_n$ --- две слабо $k$-анормальные функции.\\*
 Тогда $g(x, y, z) \in \mathcal{B}_{n + 2}$ будет слабо $(k + 1)$-анормальной:
 $$
