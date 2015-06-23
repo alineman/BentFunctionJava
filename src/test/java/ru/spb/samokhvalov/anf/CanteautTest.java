@@ -433,7 +433,53 @@ public class CanteautTest {
         Assert.assertEquals("3ff,b,f,41,", message);
         log.info(message);
         Assert.assertArrayEquals(test.toArray(), Canteaut.convertStringToList(message).toArray());
-
     }
+
+    @Test
+    public void testMakeConstructor(){
+        String x16 = Canteaut.makeStringAnf(new ArrayList<Long>(), 7);
+        Assert.assertEquals("00000000000000000000000000000000", x16);
+        Assert.assertEquals("0000000000000000", Canteaut.makeStringAnf(new ArrayList<Long>(), 6));
+        Assert.assertEquals("8000000000000000", Canteaut.makeStringAnf(Arrays.asList(0l), 6));
+        Assert.assertEquals("F000000000000000", Canteaut.makeStringAnf(Arrays.asList(0l,1l,2l,3l), 6).toUpperCase());
+        Assert.assertEquals("00F0000000000000", Canteaut.makeStringAnf(Arrays.asList(8l,9l,10l,11l), 6).toUpperCase());
+        Assert.assertEquals("C000000000000000", Canteaut.makeStringAnf(Arrays.asList(0l, 1l), 6).toUpperCase());
+        Assert.assertEquals("C000000000000001", Canteaut.makeStringAnf(Arrays.asList(0l, 1l, 63l), 6).toUpperCase());
+        Assert.assertEquals("C008000000000001", Canteaut.makeStringAnf(Arrays.asList(0l, 1l, 12l, 63l), 6).toUpperCase());
+    }
+
+    @Test
+    public void makeAffine(){
+        List<Long> anf = Arrays.asList(112l, 40l, 9l, 107l, 77l);
+//        List<Long> anf = Arrays.asList(1l,64l,8l);
+        StringANF function = new StringANF(anf, 7);
+        long a = 8;
+        List<Long> subspace = Arrays.asList(33l, 16l, 4l, 3l);
+        List<Long> newValues = new ArrayList<>();
+        for (int i =0; i< (1 << 4); i++){
+            long position = a ^ Canteaut.getElementOfSpace(subspace, i);
+            long tempValue = function.getValue(position);
+            log.info(position + " " + tempValue);
+            if (tempValue == 1)
+                newValues.add(position);
+
+        }
+
+//        StringANF newFunction = new StringANF(Canteaut.makeStringAnf(newValues, 7));
+        StringANF newFunction = new StringANF("0011001100220022");
+        log.info(function.getFunction());
+        log.info(newFunction.getFunction());
+        log.info(function.getAllAnf());
+        log.info(newFunction.getAllAnf());
+
+        StringANF newFunction2 = new StringANF(Canteaut.makeStringAnf(Arrays.asList(1l,3l,5l,7l,9l,11l,13l,15l), 4));
+        log.info(newFunction2.getFunction());
+        log.info(newFunction2.getAllAnf());
+
+//        for (long i =0; i < (1<<6); i++){
+//            log.info(StringUtils.leftPad(Long.toBinaryString(i), 6, '0') + "|" + newFunction.getValue(i));
+//        }
+    }
+
 
 }

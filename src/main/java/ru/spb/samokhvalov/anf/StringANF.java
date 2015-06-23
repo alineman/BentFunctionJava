@@ -14,8 +14,6 @@ public class StringANF {
     List<Long> anf;
     int[] values;
 
-    private List<TableOfTrue> tableOfTrue;
-
 
     public StringANF(List<Long> anf, long n) {
         dimension = n;
@@ -114,6 +112,8 @@ public class StringANF {
     }
 
     public List<String> getTeXAnf() {
+        if (anf == null)
+            fillANFTable();
         List<String> result = new ArrayList<>();
         for (long l : anf) {
             StringBuilder stringBuilder = new StringBuilder();
@@ -140,7 +140,7 @@ public class StringANF {
 
     public List<Long> getAnf() {
         if (anf == null)
-            anf = new ArrayList<>();
+            fillANFTable();
         return anf;
     }
 

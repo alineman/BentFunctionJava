@@ -130,8 +130,8 @@ public class Canteaut {
                 for (int f = 0; f < var1.length; f++)
                     var[f] = var1[f] + 1;
 
-                 basisGJB = makeSimpleBasisGJB(var, n);
-                 temp = getAdditionalSpaces(var, n);
+                basisGJB = makeSimpleBasisGJB(var, n);
+                temp = getAdditionalSpaces(var, n);
                 final long dimensionForGJB = getDimensionForGJB(var, n);
                 for (long i = 0; i < (1 << dimensionForGJB); i++) {
                     newBasisGJB = new ArrayList<>();
@@ -389,20 +389,35 @@ public class Canteaut {
     public static String makeOutput(List<Long> basis, long a, long dimension) {
         return " U = " + getBinary(basis, (int) dimension).toString() + " + a = " + StringUtils.leftPad(Long.toBinaryString(a), (int) dimension, '0');
     }
-    public static String convertListToString(List<Long> input){
+
+    public static String convertListToString(List<Long> input) {
         StringBuilder builder = new StringBuilder();
-        for(long k:input) {
+        for (long k : input) {
             builder.append(Long.toHexString(k));
             builder.append(",");
         }
         return builder.toString();
     }
 
-    public static List<Long> convertStringToList(String input){
+    public static List<Long> convertStringToList(String input) {
         List<Long> result = new ArrayList<>();
-        for(String str: input.split(",")){
+        for (String str : input.split(",")) {
             result.add(Long.parseLong(str, 16));
         }
         return result;
+    }
+
+    public static String makeStringAnf(List<Long> value, int dimension) {
+        StringBuilder result = new StringBuilder (StringUtils.leftPad("", 1 << (dimension - 2), '0'));
+        for (long i : value) {
+            int highPosition = (int) i / 4;
+            int lowPosition = (int)  i % 4;
+            long longAt = Long.parseLong(String.valueOf(result.charAt(highPosition)), 16);
+            long newValue = longAt ^ (1 <<(3 - lowPosition));
+            result.insert(highPosition, Long.toHexString(newValue));
+            result.deleteCharAt(highPosition +1);
+        }
+
+        return result.toString();
     }
 }
