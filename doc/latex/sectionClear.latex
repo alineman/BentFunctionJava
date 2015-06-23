@@ -142,7 +142,7 @@ $f(x) = x_1x_2x_3x_4x_5\oplus x_6x_7x_8x_9x_{10}\oplus x_1x_2\oplus x_3x_4\oplus
 \begin{itemize}
 \item  $L = (x_1,1,1,1,0, 0,0,0,0,x_{10}),\quad \dim(L) = 2, \,\, f|_L  = 1 \oplus x_1 \oplus x_{10}$ --- слабо $2$-нормальная;
 \item $L = (0,x_2,0,x_4,0,x_6,0,x_8,0,x_{10}), \quad \dim(L) = 5,\,\, f|_L  = x_{10}$ --- слабо $5$-нормальная;
-\item $L = (x_1,0,x_3,0, x_5, x_6,1,0,x_9,0),\quad \dim(L) = 5,\,\, f|_L  \equiv 0$ --- нормальная функция;
+\item $L = (x_1,0,x_3,0, x_5, x_6,0,0,x_9,0),\quad \dim(L) = 5,\,\, f|_L  \equiv 0$ --- нормальная функция;
 \item $L = (x_1,0,x_3,0, x_5, x_6,1,0,x_9,x_{10}),\quad \dim(L) = 6,\,\, f|_L  = x_6 \oplus x_{10}$ --- слабо $6$-нормальная.
 \end{itemize}
 Согласно определению, функцию можно считать нормальной, а также --- слабо 6-нормальной.
@@ -485,7 +485,14 @@ $$
 \end{itemize}
 Пусть $f \in \mathcal{B}_n,\, c\in\{0,1\},\quad u_1\dots,u_k$ --- базис Гаусса-Жордана пространства $L$.\\
  Введем обозначение:\\
-$\mathscr{C}_c^{u1,\dots,u_k}(f):= \{a\in \overline{L}\, |\, f|_{a + L} = c \}$.\\
+	$$
+	\mathscr{C}_c^{u_1,\dots,u_k}(f)= 
+	\begin{cases}
+	\{a\in \overline{L}\, |\, f|_{a + L} = c \}, &\text{если } u_1,\dots,u_k \text{--- является GJB} \\
+	\varnothing, & \text{в противном случае.}
+	\end{cases}
+	$$.
+%$\mathscr{C}_c^{u_1,\dots,u_k}(f):= \{a\in \overline{L}\, |\, f|_{a + L} = c \}$.\\
 % ,и $\mathscr{C}_c^{u1,\dots,u_k}(f):=\varnothing$ во всех других случаях.\\
 
 \subsubsection*{Пример}
@@ -508,7 +515,7 @@ $u_3$ & 0 & 0 & 0 & 0 & 1 & 1\\
 {\bf Входные данные: } Булева функция $f : V_n \to F_2$, начальная размерность $t_0$\\
 {\bf Результат: } Список всех плоскостей, на которых $f$ линейна\\
 {\bf Для всех: } $GJ$-базисов $u_1,\dots,u_{t_0}$\\
-\hspace*{0.5cm}{\bf У которых} $| \{ j > \nu_{t_o}\max_{i=1}^{t_0}(u_i)_j = 1 \} |\leqslant m - \nu_{t_0} +1 + t_0  $ {\bf делать}\\
+\hspace*{0.5cm}{\bf У которых} $| \{ j > \nu_{t_o}\,:\,\max_{i=1}^{t_0}(u_i)_j = 1 \} |\leqslant m - \nu_{t_0} +1 + t_0  $ {\bf делать}\\
 \hspace*{1cm} {\bf Для всех} $a \in \overline{\langle  u_1,\dots,u_{t_0} \rangle}$\\
 \hspace*{1cm} {\bf Если} $f (a + \sum \lambda_i\cdot u_i) = c \,\, \forall \lambda \in (F_2)^{t_0}$\\
 \hspace*{1.5cm} {\bf Тогда } добавить $a$ к $\mathscr{C}_c^{u_1,\dots, u_{t_0}}$\\
