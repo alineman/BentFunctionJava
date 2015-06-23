@@ -87,6 +87,8 @@ public class CanteautTest {
         Assert.assertEquals(200787, Canteaut.countGJB(8, 4)); //0.5s
         Assert.assertEquals(3309747, Canteaut.countGJB(9, 4)); //20s
         Assert.assertEquals(3309747, Canteaut.countGJB(9, 5)); //20s
+        Assert.assertEquals(788035, Canteaut.countGJB(9, 6));
+        Assert.assertEquals(43435, Canteaut.countGJB(9, 7));
         Assert.assertEquals(53743987, Canteaut.countGJB(10, 4));
         Assert.assertEquals(109221651, Canteaut.countGJB(10, 5)); //104Mb*5 = 512Mb ==1.8Gb
         log.info(Canteaut.countGJB(9, 5));
