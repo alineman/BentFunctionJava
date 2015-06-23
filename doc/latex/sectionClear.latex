@@ -277,7 +277,7 @@ $x$ & $\mathds{1}_{L_1}$ & $\mathds{1}_{L_2}$ & $\mathds{1}_{L_3}$ & $f(x) = \ma
 \end{tabular}
 \end{center}
 
-Получили бент-функцию $f(x) = $F539$_{16} = 1\oplus x_1x_3 \oplus x_2x_4$, которая является константой на каждом из $L_i$.
+Получили бент-функцию $f(x) = $FAC9$_{16} = 1\oplus x_1x_3 \oplus x_2x_4$, которая является константой на каждом из $L_i$.
 % \subsubsection*{Пример}
 % Согласно способу выбора множеств $L_i$, они имеют один общий элемент --- $0$.
 % При этом, значение функции $f(0) = 0$, либо $f(0) = 1$ --- зависит от того, к какому подклассу она относится $\mathcal{PS}^-$ или $\mathcal{PS}^+$, соответственно
@@ -483,13 +483,13 @@ $$
 \item $u_1>\cdots>u_k$;
 \item $(u_j)_{\nu(u_i)} = 0 \,\, \forall i\neq j $.\\
 \end{itemize}
-Пусть $f \in \mathcal{B}_n,\, c\in\{0,1\},\quad u_1\dots,u_k$ --- базис Гаусса-Жордана пространства $L$.\\
+Пусть $f \in \mathcal{B}_n,\, c\in\{0,1\},\, u_1,\dots,u_k$. --- набор векторов пространства $L$.\\
  Введем обозначение:\\
 	$$
 	\mathscr{C}_c^{u_1,\dots,u_k}(f)= 
 	\begin{cases}
-	\{a\in \overline{L}\, |\, f|_{a + L} = c \}, &\text{если } u_1,\dots,u_k \text{--- является GJB} \\
-	\varnothing, & \text{в противном случае.}
+	\{a\in \overline{L}\, :\, f|_{a + L} = c \}, &\text{если } u_1,\dots,u_k\, \text{ является GJB}\\
+	\varnothing & \text{в противном случае.}
 	\end{cases}
 	$$.
 %$\mathscr{C}_c^{u_1,\dots,u_k}(f):= \{a\in \overline{L}\, |\, f|_{a + L} = c \}$.\\
@@ -507,7 +507,7 @@ $u_3$ & 0 & 0 & 0 & 0 & 1 & 1\\
 \begin{itemize}
 \item $\langle u_1,u_2,u_3\rangle$ --- базис Гаусса-Жордана;
 \item $\Upsilon(L) = \{2,4,5\}$;
-\item $\overline{L} = \{ a\in V_n | a_2=a_4=a_5=0\}$.
+\item $\overline{L} = \{ a\in V_n \,|\, a_2=a_4=a_5=0\}$.
 \end{itemize}
 
 
